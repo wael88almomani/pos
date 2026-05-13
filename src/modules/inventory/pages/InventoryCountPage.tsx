@@ -122,7 +122,7 @@ export function InventoryCountPage() {
           <Can do="inventory.write">
             <button
               onClick={() => setNewCountOpen(true)}
-              className="rounded border-2 border-[#808080] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] px-4 py-2 text-sm font-bold text-black shadow-sm hover:from-[#90c0e8] hover:to-[#2870b4]"
+              className="rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition-all hover:from-blue-600 hover:to-blue-700 hover:shadow-lg active:scale-95"
             >
               جرد جديد
             </button>
@@ -131,19 +131,19 @@ export function InventoryCountPage() {
             <>
               <button
                 onClick={() => setPickerOpen(true)}
-                className="rounded border-2 border-[#808080] bg-gradient-to-b from-[#a5d6a7] to-[#66bb6a] px-4 py-2 text-sm font-bold text-black shadow-sm hover:from-[#90c890] hover:to-[#50a054]"
+                className="rounded-lg bg-gradient-to-br from-green-500 to-green-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition-all hover:from-green-600 hover:to-green-700 hover:shadow-lg active:scale-95"
               >
                 إضافة منتج للجرد
               </button>
               <button
                 onClick={() => void postCount()}
-                className="rounded border-2 border-[#808080] bg-gradient-to-b from-[#fff59d] to-[#fbc02d] px-4 py-2 text-sm font-bold text-black shadow-sm hover:from-[#ffe680] hover:to-[#e0a820]"
+                className="rounded-lg bg-gradient-to-br from-amber-400 to-amber-500 px-4 py-2 text-sm font-semibold text-white shadow-md transition-all hover:from-amber-500 hover:to-amber-600 hover:shadow-lg active:scale-95"
               >
                 ترحيل الجرد
               </button>
               <button
                 onClick={() => setActiveSessionId(null)}
-                className="rounded border-2 border-[#808080] bg-gradient-to-b from-[#e0e0e0] to-[#bdbdbd] px-4 py-2 text-sm font-bold text-black shadow-sm"
+                className="rounded-lg border-2 border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow-md"
               >
                 إلغاء
               </button>
@@ -152,8 +152,8 @@ export function InventoryCountPage() {
         </div>
 
         {activeSessionId && (
-          <div className="rounded border-2 border-[#808080] bg-[#d0d0d0] p-3">
-            <div className="text-sm font-bold text-slate-900">
+          <div className="rounded-xl border border-blue-200 bg-gradient-to-br from-blue-50 to-indigo-50 p-4 shadow-lg">
+            <div className="text-sm font-bold text-blue-700">
               جلسة جرد نشطة: {activeSessionId.slice(0, 8)}...
             </div>
             <div className="mt-2 flex items-center gap-2">
@@ -163,7 +163,7 @@ export function InventoryCountPage() {
                 value={countQty}
                 onChange={(e) => setCountQty(e.target.value)}
                 placeholder="الكمية المجودة"
-                className="w-32 rounded border-2 border-[#808080] px-2 py-1 text-center text-sm font-bold"
+                className="w-32 h-9 rounded-lg border border-gray-300 px-3 py-2 text-center text-sm font-bold shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
               />
               <span className="text-xs text-slate-700">ثم اختر منتج لتسجيل الكمية</span>
             </div>
@@ -171,22 +171,22 @@ export function InventoryCountPage() {
         )}
 
         {/* Sessions table */}
-        <div className="rounded border-2 border-[#808080] bg-white shadow-sm overflow-hidden">
-          <div className="bg-gradient-to-b from-[#e8e8e8] to-[#c0c0c0] border-b-2 border-[#808080] px-3 py-2">
-            <h3 className="text-sm font-bold text-slate-900">جلسات الجرد</h3>
+        <div className="rounded-xl border border-gray-200 bg-white shadow-lg overflow-hidden">
+          <div className="bg-gradient-to-r from-white to-gray-50 border-b border-gray-200 px-4 py-3">
+            <h3 className="text-sm font-bold text-blue-700">جلسات الجرد</h3>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-[#f5f5f5] border-b-2 border-[#808080]">
-                  <th className="border-l border-[#808080] p-2 text-right font-bold">رقم الجلسة</th>
-                  <th className="border-l border-[#808080] p-2 text-right font-bold">الحالة</th>
-                  <th className="border-l border-[#808080] p-2 text-right font-bold">المستخدم</th>
-                  <th className="border-l border-[#808080] p-2 text-right font-bold">عدد الأصناف</th>
-                  <th className="border-l border-[#808080] p-2 text-right font-bold">تاريخ البداية</th>
-                  <th className="border-l border-[#808080] p-2 text-right font-bold">تاريخ الترحيل</th>
-                  <th className="border-l border-[#808080] p-2 text-right font-bold">ملاحظات</th>
-                  <th className="p-2 text-center font-bold">إجراءات</th>
+                <tr className="border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
+                  <th className="border-l border-gray-200 p-3 text-right font-bold text-slate-700">رقم الجلسة</th>
+                  <th className="border-l border-gray-200 p-3 text-right font-bold text-slate-700">الحالة</th>
+                  <th className="border-l border-gray-200 p-3 text-right font-bold text-slate-700">المستخدم</th>
+                  <th className="border-l border-gray-200 p-3 text-right font-bold text-slate-700">عدد الأصناف</th>
+                  <th className="border-l border-gray-200 p-3 text-right font-bold text-slate-700">تاريخ البداية</th>
+                  <th className="border-l border-gray-200 p-3 text-right font-bold text-slate-700">تاريخ الترحيل</th>
+                  <th className="border-l border-gray-200 p-3 text-right font-bold text-slate-700">ملاحظات</th>
+                  <th className="p-3 text-center font-bold text-slate-700">إجراءات</th>
                 </tr>
               </thead>
               <tbody>
@@ -198,34 +198,34 @@ export function InventoryCountPage() {
                   </tr>
                 )}
                 {sessions.map((s) => (
-                  <tr key={s.id} className="border-b border-[#d0d0d0] hover:bg-[#f0f0f0]">
-                    <td className="border-l border-[#d0d0d0] p-2 font-mono text-xs">
+                  <tr key={s.id} className="border-b border-gray-100 hover:bg-blue-50 transition-colors">
+                    <td className="border-l border-gray-100 p-2.5 font-mono text-xs">
                       {s.id.slice(0, 8)}...
                     </td>
-                    <td className="border-l border-[#d0d0d0] p-2">
+                    <td className="border-l border-gray-100 p-2.5">
                       <span
-                        className={`inline-block rounded px-2 py-0.5 text-xs font-bold ${
+                        className={`inline-block rounded-lg px-2 py-1 text-xs font-bold ${
                           s.status === 'posted'
-                            ? 'bg-green-200 text-green-900'
-                            : 'bg-yellow-200 text-yellow-900'
+                            ? 'bg-green-100 text-green-700 border border-green-300'
+                            : 'bg-yellow-100 text-yellow-700 border border-yellow-300'
                         }`}
                       >
                         {s.status === 'posted' ? 'مرحّل' : 'مسودة'}
                       </span>
                     </td>
-                    <td className="border-l border-[#d0d0d0] p-2">{s.userName}</td>
-                    <td className="border-l border-[#d0d0d0] p-2 text-center">{s.linesCount}</td>
-                    <td className="border-l border-[#d0d0d0] p-2 text-xs">
+                    <td className="border-l border-gray-100 p-2.5">{s.userName}</td>
+                    <td className="border-l border-gray-100 p-2.5 text-center">{s.linesCount}</td>
+                    <td className="border-l border-gray-100 p-2.5 text-xs">
                       {format(parseISO(s.startedAt), 'PPp', { locale: arSA })}
                     </td>
-                    <td className="border-l border-[#d0d0d0] p-2 text-xs">
+                    <td className="border-l border-gray-100 p-2.5 text-xs">
                       {s.postedAt ? format(parseISO(s.postedAt), 'PPp', { locale: arSA }) : '—'}
                     </td>
-                    <td className="border-l border-[#d0d0d0] p-2 text-xs">{s.note || '—'}</td>
-                    <td className="p-2 text-center">
+                    <td className="border-l border-gray-100 p-2.5 text-xs">{s.note || '—'}</td>
+                    <td className="p-2.5 text-center">
                       <button
                         onClick={() => void loadDetails(s.id)}
-                        className="rounded border border-[#808080] bg-gradient-to-b from-[#e8e8e8] to-[#c0c0c0] px-3 py-1 text-xs font-bold text-black hover:from-[#d0d0d0] hover:to-[#a8a8a8]"
+                        className="rounded-lg border-2 border-gray-300 bg-white px-3 py-1 text-xs font-semibold text-slate-700 hover:bg-gray-50 hover:shadow-md transition-all"
                       >
                         عرض التفاصيل
                       </button>
@@ -243,9 +243,9 @@ export function InventoryCountPage() {
         <EnterpriseModalFrame title="جرد جديد" onClose={() => setNewCountOpen(false)}>
           <div className="space-y-4">
             <label className="block text-sm">
-              <span className="font-bold">ملاحظات (اختياري)</span>
+              <span className="font-bold text-slate-700">ملاحظات (اختياري)</span>
               <textarea
-                className="mt-1 w-full rounded border-2 border-[#808080] px-2 py-1 text-sm"
+                className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                 rows={3}
                 value={newCountNote}
                 onChange={(e) => setNewCountNote(e.target.value)}
@@ -255,13 +255,13 @@ export function InventoryCountPage() {
             <div className="flex justify-end gap-2">
               <button
                 onClick={() => setNewCountOpen(false)}
-                className="rounded border-2 border-[#808080] bg-gradient-to-b from-[#e0e0e0] to-[#bdbdbd] px-4 py-2 text-sm font-bold text-black"
+                className="rounded-lg border-2 border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm hover:bg-gray-50 hover:shadow-md transition-all"
               >
                 إلغاء
               </button>
               <button
                 onClick={() => void createNewCount()}
-                className="rounded border-2 border-[#808080] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] px-4 py-2 text-sm font-bold text-black"
+                className="rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:shadow-lg hover:from-blue-600 hover:to-blue-700 active:scale-95 transition-all"
               >
                 إنشاء
               </button>
@@ -278,39 +278,39 @@ export function InventoryCountPage() {
           maxWidthClass="max-w-5xl"
         >
           <div className="space-y-3">
-            <div className="grid grid-cols-2 gap-3 rounded border-2 border-[#808080] bg-[#f5f5f5] p-3 text-sm">
+            <div className="grid grid-cols-2 gap-3 rounded-lg border border-gray-200 bg-gradient-to-br from-gray-50 to-gray-100 p-3 text-sm shadow-sm">
               <div>
-                <span className="font-bold">المستخدم:</span> {selectedSession.userName}
+                <span className="font-bold text-slate-700">المستخدم:</span> {selectedSession.userName}
               </div>
               <div>
-                <span className="font-bold">الحالة:</span>{' '}
+                <span className="font-bold text-slate-700">الحالة:</span>{' '}
                 {selectedSession.status === 'posted' ? 'مرحّل' : 'مسودة'}
               </div>
               <div>
-                <span className="font-bold">تاريخ البداية:</span>{' '}
+                <span className="font-bold text-slate-700">تاريخ البداية:</span>{' '}
                 {format(parseISO(selectedSession.startedAt), 'PPp', { locale: arSA })}
               </div>
               {selectedSession.postedAt && (
                 <div>
-                  <span className="font-bold">تاريخ الترحيل:</span>{' '}
+                  <span className="font-bold text-slate-700">تاريخ الترحيل:</span>{' '}
                   {format(parseISO(selectedSession.postedAt), 'PPp', { locale: arSA })}
                 </div>
               )}
               {selectedSession.note && (
                 <div className="col-span-2">
-                  <span className="font-bold">ملاحظات:</span> {selectedSession.note}
+                  <span className="font-bold text-slate-700">ملاحظات:</span> {selectedSession.note}
                 </div>
               )}
             </div>
-            <div className="overflow-x-auto rounded border-2 border-[#808080]">
+            <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-lg">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="bg-gradient-to-b from-[#e8e8e8] to-[#c0c0c0] border-b-2 border-[#808080]">
-                    <th className="border-l border-[#808080] p-2 text-right font-bold">المنتج</th>
-                    <th className="border-l border-[#808080] p-2 text-center font-bold">الباركود</th>
-                    <th className="border-l border-[#808080] p-2 text-center font-bold">الكمية بالنظام</th>
-                    <th className="border-l border-[#808080] p-2 text-center font-bold">الكمية المعدودة</th>
-                    <th className="p-2 text-center font-bold">الفرق</th>
+                  <tr className="border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
+                    <th className="border-l border-gray-200 p-3 text-right font-bold text-slate-700">المنتج</th>
+                    <th className="border-l border-gray-200 p-3 text-center font-bold text-slate-700">الباركود</th>
+                    <th className="border-l border-gray-200 p-3 text-center font-bold text-slate-700">الكمية بالنظام</th>
+                    <th className="border-l border-gray-200 p-3 text-center font-bold text-slate-700">الكمية المعدودة</th>
+                    <th className="p-3 text-center font-bold text-slate-700">الفرق</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -322,25 +322,25 @@ export function InventoryCountPage() {
                     </tr>
                   )}
                   {lines.map((line) => (
-                    <tr key={line.id} className="border-b border-[#d0d0d0]">
-                      <td className="border-l border-[#d0d0d0] p-2">{line.productName}</td>
-                      <td className="border-l border-[#d0d0d0] p-2 text-center font-mono text-xs">
+                    <tr key={line.id} className="border-b border-gray-100 hover:bg-blue-50 transition-colors">
+                      <td className="border-l border-gray-100 p-2.5">{line.productName}</td>
+                      <td className="border-l border-gray-100 p-2.5 text-center font-mono text-xs">
                         {line.productBarcode || '—'}
                       </td>
-                      <td className="border-l border-[#d0d0d0] p-2 text-center font-bold">
+                      <td className="border-l border-gray-100 p-2.5 text-center font-bold">
                         {line.systemQty}
                       </td>
-                      <td className="border-l border-[#d0d0d0] p-2 text-center font-bold">
+                      <td className="border-l border-gray-100 p-2.5 text-center font-bold">
                         {line.countedQty}
                       </td>
-                      <td className="p-2 text-center font-bold">
+                      <td className="p-2.5 text-center font-bold">
                         <span
                           className={
                             line.variance === 0
                               ? 'text-slate-600'
                               : line.variance > 0
-                              ? 'text-green-700'
-                              : 'text-red-700'
+                              ? 'text-green-600'
+                              : 'text-red-600'
                           }
                         >
                           {line.variance > 0 ? '+' : ''}

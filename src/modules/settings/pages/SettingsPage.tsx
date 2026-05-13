@@ -59,19 +59,19 @@ export function SettingsPage() {
   }
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden bg-[#d0d0d0]">
+    <div className="flex h-screen flex-col overflow-hidden bg-gray-50">
       {/* شريط العنوان */}
-      <div className="flex items-center justify-between border-b-2 border-[#555] bg-gradient-to-b from-[#e8e8e8] to-[#c0c0c0] px-3 py-2 shadow">
-        <h1 className="text-lg font-black text-[#1a1a1a]">الإعدادات</h1>
+      <div className="flex items-center justify-between border-b border-gray-200 bg-gradient-to-r from-white to-gray-50 px-4 py-3 shadow-sm">
+        <h1 className="text-xl font-bold text-blue-700">الإعدادات</h1>
         <div className="flex gap-2 text-sm">
           <Link
-            className="border border-[#555] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-3 py-1 font-bold shadow"
+            className="rounded-lg border-2 border-gray-300 bg-white px-3 py-2 font-semibold text-slate-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow-md"
             to="/settings/hardware"
           >
             الأجهزة والطباعة
           </Link>
           <Link
-            className="border border-[#555] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-3 py-1 font-bold shadow"
+            className="rounded-lg border-2 border-gray-300 bg-white px-3 py-2 font-semibold text-slate-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow-md"
             to="/users/roles"
           >
             الأدوار والصلاحيات
@@ -79,42 +79,42 @@ export function SettingsPage() {
         </div>
       </div>
 
-      <div className="flex-1 overflow-auto p-3 space-y-3">
-      <section className="border-2 border-[#808080] bg-white p-4 space-y-3 shadow">
-        <h2 className="font-black">عام</h2>
-        <label className="block space-y-1 text-sm font-bold">
+      <div className="flex-1 space-y-4 overflow-auto p-4">
+      <section className="space-y-3 rounded-xl border border-gray-200 bg-white p-4 shadow-lg">
+        <h2 className="font-bold text-slate-800">عام</h2>
+        <label className="block space-y-1 text-sm font-semibold text-slate-700">
           اسم المتجر
-          <input className="w-full border border-slate-400 bg-white px-2 py-1.5 shadow-inner" value={storeName} onChange={(e) => setStoreName(e.target.value)} />
+          <input className="h-9 w-full rounded-lg border border-gray-300 bg-white px-3 shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500" value={storeName} onChange={(e) => setStoreName(e.target.value)} />
         </label>
-        <label className="block space-y-1 text-sm font-bold">
+        <label className="block space-y-1 text-sm font-semibold text-slate-700">
           مجلد النسخ الاحتياطي
           <input
-            className="w-full border border-slate-400 bg-white px-2 py-1.5 font-mono text-sm shadow-inner"
+            className="h-9 w-full rounded-lg border border-gray-300 bg-white px-3 font-mono text-sm shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
             value={backupPath}
             onChange={(e) => setBackupPath(e.target.value)}
           />
           <span className="text-xs text-slate-600">يُنشأ تلقائيًا إن لم يكن موجودًا (مثال D:/backup)</span>
         </label>
-        <button type="button" className="border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] px-4 py-1.5 text-sm font-black text-black shadow" onClick={() => void saveCore()}>
+        <button type="button" className="rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition-all hover:from-blue-600 hover:to-blue-700 hover:shadow-lg active:scale-95" onClick={() => void saveCore()}>
           حفظ
         </button>
         {msg && <div className="text-sm text-[#1e40af] font-bold">{msg}</div>}
       </section>
 
-      <section className="border-2 border-[#808080] bg-white p-4 space-y-3 shadow">
-        <h2 className="font-black">التشخيص</h2>
+      <section className="space-y-3 rounded-xl border border-gray-200 bg-white p-4 shadow-lg">
+        <h2 className="font-bold text-slate-800">التشخيص</h2>
         <p className="text-sm text-slate-600">فحص قاعدة البيانات، النسخ الاحتياطي، والأجهزة (يتطلب صلاحية الإعدادات).</p>
         <Link
           to="/settings/diagnostics"
-          className="inline-flex border border-[#555] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-3 py-1 text-sm font-bold shadow"
+          className="inline-flex rounded-lg border-2 border-gray-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow-md"
         >
           فتح صفحة التشخيص
         </Link>
       </section>
 
-      <section className="border-2 border-[#808080] bg-white p-4 space-y-3 shadow">
-        <h2 className="font-black">الأصوات والتغذية الراجعة</h2>
-        <label className="flex items-center gap-2 text-sm font-bold">
+      <section className="space-y-3 rounded-xl border border-gray-200 bg-white p-4 shadow-lg">
+        <h2 className="font-bold text-slate-800">الأصوات والتغذية الراجعة</h2>
+        <label className="flex items-center gap-2 text-sm font-semibold text-slate-700">
           <input
             type="checkbox"
             checked={soundOn}
@@ -125,7 +125,7 @@ export function SettingsPage() {
           />
           تفعيل أصوات المسح والنجاح والخطأ
         </label>
-        <label className="block space-y-1 text-sm font-bold">
+        <label className="block space-y-1 text-sm font-semibold text-slate-700">
           مستوى الصوت ({Math.round(soundVol * 100)}%)
           <input
             type="range"
@@ -143,9 +143,9 @@ export function SettingsPage() {
         </label>
       </section>
 
-      <section className="border-2 border-[#808080] bg-white p-4 space-y-3 shadow">
-        <h2 className="font-black">اختصارات لوحة المفاتيح</h2>
-        <div className="text-xs text-slate-600 font-bold">صيغة: Control+n أو F1 — يُحدّث الربط فورًا.</div>
+      <section className="space-y-3 rounded-xl border border-gray-200 bg-white p-4 shadow-lg">
+        <h2 className="font-bold text-slate-800">اختصارات لوحة المفاتيح</h2>
+        <div className="text-xs font-semibold text-slate-600">صيغة: Control+n أو F1 — يُحدّث الربط فورًا.</div>
         <div className="divide-y divide-slate-200">
           {bindings.map((b) => (
             <div key={b.actionId} className="py-2 flex flex-wrap items-center gap-3">
@@ -154,7 +154,7 @@ export function SettingsPage() {
                 <div className="text-[11px] text-slate-500 font-mono">{b.actionId}</div>
               </div>
               <input
-                className="w-40 border border-slate-400 bg-white px-2 py-1 font-mono text-sm shadow-inner"
+                className="h-9 w-40 rounded-lg border border-gray-300 bg-white px-3 font-mono text-sm shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                 defaultValue={b.keys}
                 key={b.keys}
                 onBlur={(e) => {

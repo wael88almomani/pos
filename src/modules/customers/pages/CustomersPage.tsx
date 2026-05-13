@@ -121,15 +121,15 @@ export function CustomersPage() {
   }
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden bg-[#d0d0d0]">
+    <div className="flex h-screen flex-col overflow-hidden bg-gray-50">
       {/* شريط العنوان */}
-      <div className="flex items-center justify-between border-b-2 border-[#555] bg-gradient-to-b from-[#e8e8e8] to-[#c0c0c0] px-3 py-2 shadow">
-        <h1 className="text-lg font-black text-[#1a1a1a]">العملاء</h1>
+      <div className="flex items-center justify-between border-b border-gray-200 bg-gradient-to-r from-white to-gray-50 px-4 py-3 shadow-sm">
+        <h1 className="text-xl font-bold text-blue-700">العملاء</h1>
         <div className="flex items-center gap-2">
           <div className="relative">
-            <Search className="absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
+            <Search className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
             <input
-              className="h-8 w-64 border border-slate-400 bg-white pr-8 pl-2 text-sm shadow-inner"
+              className="h-9 w-64 rounded-lg border border-gray-300 bg-white pr-10 pl-3 text-sm shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
               placeholder="بحث بالاسم أو الهاتف..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -139,7 +139,7 @@ export function CustomersPage() {
             <button
               type="button"
               onClick={openAdd}
-              className="flex items-center gap-1 border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] px-4 py-1.5 text-sm font-black text-black shadow hover:from-[#b8ddf8]"
+              className="flex items-center gap-1.5 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:shadow-lg hover:from-blue-600 hover:to-blue-700 active:scale-95 transition-all"
             >
               <Plus className="h-4 w-4" />
               <span>عميل جديد</span>
@@ -149,17 +149,17 @@ export function CustomersPage() {
       </div>
 
       {/* الجدول */}
-      <div className="flex-1 overflow-auto p-3">
-        <div className="border border-[#808080] bg-white shadow">
+      <div className="flex-1 overflow-auto p-4">
+        <div className="rounded-xl border border-gray-200 bg-white shadow-lg overflow-hidden">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b-2 border-[#808080] bg-gradient-to-b from-[#f0f0f0] to-[#d8d8d8]">
-                <th className="border-l border-[#c0c0c0] px-3 py-2 text-right font-black">#</th>
-                <th className="border-l border-[#c0c0c0] px-3 py-2 text-right font-black">اسم العميل</th>
-                <th className="border-l border-[#c0c0c0] px-3 py-2 text-right font-black">رقم الهاتف</th>
-                <th className="border-l border-[#c0c0c0] px-3 py-2 text-right font-black">الرصيد</th>
-                <th className="border-l border-[#c0c0c0] px-3 py-2 text-right font-black">نقاط الولاء</th>
-                <th className="px-3 py-2 text-center font-black">الإجراءات</th>
+              <tr className="border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
+                <th className="border-l border-gray-200 px-3 py-3 text-right font-bold text-slate-700">#</th>
+                <th className="border-l border-gray-200 px-3 py-3 text-right font-bold text-slate-700">اسم العميل</th>
+                <th className="border-l border-gray-200 px-3 py-3 text-right font-bold text-slate-700">رقم الهاتف</th>
+                <th className="border-l border-gray-200 px-3 py-3 text-right font-bold text-slate-700">الرصيد</th>
+                <th className="border-l border-gray-200 px-3 py-3 text-right font-bold text-slate-700">نقاط الولاء</th>
+                <th className="px-3 py-3 text-center font-bold text-slate-700">الإجراءات</th>
               </tr>
             </thead>
             <tbody>
@@ -171,19 +171,19 @@ export function CustomersPage() {
                 </tr>
               ) : (
                 items.map((c, idx) => (
-                  <tr key={c.id} className="border-b border-[#e0e0e0] hover:bg-[#f5f5f5]">
-                    <td className="border-l border-[#e0e0e0] px-3 py-2 text-center font-mono">{idx + 1}</td>
-                    <td className="border-l border-[#e0e0e0] px-3 py-2 font-semibold">{c.name}</td>
-                    <td className="border-l border-[#e0e0e0] px-3 py-2 font-mono">{c.phone || '—'}</td>
-                    <td className="border-l border-[#e0e0e0] px-3 py-2 font-mono">{c.balance.toFixed(2)}</td>
-                    <td className="border-l border-[#e0e0e0] px-3 py-2 font-mono text-amber-700">{c.loyaltyPoints}</td>
-                    <td className="px-3 py-2">
+                  <tr key={c.id} className="border-b border-gray-100 hover:bg-blue-50 transition-colors">
+                    <td className="border-l border-gray-100 px-3 py-2.5 text-center font-mono">{idx + 1}</td>
+                    <td className="border-l border-gray-100 px-3 py-2.5 font-semibold">{c.name}</td>
+                    <td className="border-l border-gray-100 px-3 py-2.5 font-mono">{c.phone || '—'}</td>
+                    <td className="border-l border-gray-100 px-3 py-2.5 font-mono">{c.balance.toFixed(2)}</td>
+                    <td className="border-l border-gray-100 px-3 py-2.5 font-mono text-amber-600">{c.loyaltyPoints}</td>
+                    <td className="px-3 py-2.5">
                       <div className="flex items-center justify-center gap-1">
                         <Can perm="customer.edit">
                           <button
                             type="button"
                             onClick={() => openEdit(c)}
-                            className="border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] p-1.5 text-black shadow hover:from-[#b8ddf8]"
+                            className="rounded-lg border-2 border-blue-300 bg-gradient-to-br from-blue-500 to-blue-600 p-1.5 text-white shadow-md hover:shadow-lg hover:from-blue-600 hover:to-blue-700 active:scale-95 transition-all"
                             title="تعديل"
                           >
                             <Pencil className="h-4 w-4" />
@@ -193,7 +193,7 @@ export function CustomersPage() {
                           <button
                             type="button"
                             onClick={() => setDeleteId(c.id)}
-                            className="border border-[#b71c1c] bg-gradient-to-b from-[#e53935] to-[#b71c1c] p-1.5 text-white shadow hover:from-[#ef5350]"
+                            className="rounded-lg border-2 border-red-300 bg-gradient-to-br from-red-500 to-red-600 p-1.5 text-white shadow-md hover:shadow-lg hover:from-red-600 hover:to-red-700 active:scale-95 transition-all"
                             title="حذف"
                           >
                             <Trash2 className="h-4 w-4" />
@@ -211,18 +211,18 @@ export function CustomersPage() {
 
       {/* نافذة إضافة/تعديل عميل */}
       {addOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={closeModal}>
-          <div className="w-full max-w-md border-2 border-[#808080] bg-[#d0d0d0] shadow-2xl" onClick={(e) => e.stopPropagation()}>
-            <div className="border-b-2 border-[#555] bg-gradient-to-b from-[#e8e8e8] to-[#c0c0c0] px-3 py-2">
-              <h2 className="text-base font-black text-[#1a1a1a]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4" onClick={closeModal}>
+          <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white shadow-2xl overflow-hidden" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-3">
+              <h2 className="text-lg font-bold text-white">
                 {editingId ? 'تعديل بيانات العميل' : 'إضافة عميل جديد'}
               </h2>
             </div>
             <div className="space-y-3 p-4">
               <div>
-                <label className="mb-1 block text-sm font-bold">اسم العميل</label>
+                <label className="mb-1 block text-sm font-bold text-slate-700">اسم العميل</label>
                 <input
-                  className="w-full border border-slate-400 bg-white px-2 py-1.5 text-sm shadow-inner disabled:opacity-50"
+                  className="w-full h-9 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:opacity-50 transition-all"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   onKeyDown={(e) => {
@@ -234,9 +234,9 @@ export function CustomersPage() {
                 />
               </div>
               <div>
-                <label className="mb-1 block text-sm font-bold">رقم الهاتف</label>
+                <label className="mb-1 block text-sm font-bold text-slate-700">رقم الهاتف</label>
                 <input
-                  className="w-full border border-slate-400 bg-white px-2 py-1.5 text-sm shadow-inner disabled:opacity-50"
+                  className="w-full h-9 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 disabled:opacity-50 transition-all"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   onKeyDown={(e) => {
@@ -246,12 +246,12 @@ export function CustomersPage() {
                   disabled={saving}
                 />
               </div>
-              <div className="flex justify-end gap-2 pt-2">
+              <div className="flex justify-end gap-2 pt-2 border-t border-gray-200">
                 <button
                   type="button"
                   onClick={closeModal}
                   disabled={saving}
-                  className="border border-[#808080] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-4 py-1.5 text-sm font-bold shadow hover:from-[#f5f5f5] disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="rounded-lg border-2 border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm hover:bg-gray-50 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                 >
                   إلغاء
                 </button>
@@ -259,7 +259,7 @@ export function CustomersPage() {
                   type="button"
                   onClick={() => void save()}
                   disabled={saving}
-                  className="border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] px-4 py-1.5 text-sm font-black text-black shadow hover:from-[#b8ddf8] disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 px-4 py-2 text-sm font-bold text-white shadow-md hover:shadow-lg hover:from-blue-600 hover:to-blue-700 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                 >
                   {saving ? 'جاري الحفظ...' : 'حفظ'}
                 </button>
@@ -271,19 +271,19 @@ export function CustomersPage() {
 
       {/* نافذة تأكيد الحذف */}
       {deleteId && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={() => setDeleteId(null)}>
-          <div className="w-full max-w-md border-2 border-[#808080] bg-[#d0d0d0] shadow-2xl" onClick={(e) => e.stopPropagation()}>
-            <div className="border-b-2 border-[#555] bg-gradient-to-b from-[#e8e8e8] to-[#c0c0c0] px-3 py-2">
-              <h2 className="text-base font-black text-[#1a1a1a]">تأكيد الحذف</h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4" onClick={() => setDeleteId(null)}>
+          <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white shadow-2xl overflow-hidden" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between bg-gradient-to-r from-red-500 to-red-600 px-4 py-3">
+              <h2 className="text-lg font-bold text-white">تأكيد الحذف</h2>
             </div>
             <div className="p-4">
-              <p className="mb-4 text-sm">هل أنت متأكد من حذف هذا العميل؟ لا يمكن التراجع عن هذا الإجراء.</p>
-              <div className="flex justify-end gap-2">
+              <p className="mb-4 text-sm text-slate-700">هل أنت متأكد من حذف هذا العميل؟ لا يمكن التراجع عن هذا الإجراء.</p>
+              <div className="flex justify-end gap-2 border-t border-gray-200 pt-3">
                 <button
                   type="button"
                   onClick={() => !deleting && setDeleteId(null)}
                   disabled={deleting}
-                  className="border border-[#808080] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-4 py-1.5 text-sm font-bold shadow hover:from-[#f5f5f5] disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="rounded-lg border-2 border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm hover:bg-gray-50 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                 >
                   إلغاء
                 </button>
@@ -291,7 +291,7 @@ export function CustomersPage() {
                   type="button"
                   onClick={() => void deleteCustomer()}
                   disabled={deleting}
-                  className="border border-[#b71c1c] bg-gradient-to-b from-[#e53935] to-[#b71c1c] px-4 py-1.5 text-sm font-black text-white shadow hover:from-[#ef5350] disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="rounded-lg bg-gradient-to-br from-red-500 to-red-600 px-4 py-2 text-sm font-bold text-white shadow-md hover:shadow-lg hover:from-red-600 hover:to-red-700 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                 >
                   {deleting ? 'جاري الحذف...' : 'حذف'}
                 </button>

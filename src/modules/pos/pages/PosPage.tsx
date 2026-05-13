@@ -13,7 +13,16 @@ import {
   Power,
   DollarSign,
   Package,
-  UserCircle
+  UserCircle,
+  Settings,
+  User,
+  LogOut,
+  Grid2x2,
+  CupSoda,
+  Candy,
+  Apple,
+  SprayCan,
+  MoreHorizontal
 } from 'lucide-react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { format } from 'date-fns'
@@ -61,7 +70,7 @@ type PosDailyStats = {
   topItems: { name: string; qty: number }[]
 }
 
-const COLS = 4
+const COLS = 3
 
 /** هوية العرض — رقم الدعم الثابت */
 const POS_BRAND_PHONE = '0787624300'
@@ -554,7 +563,7 @@ export function PosPage() {
   const rowVirtualizer = useVirtualizer({
     count: rows,
     getScrollElement: () => parentRef.current,
-    estimateSize: () => 58,
+    estimateSize: () => 220,
     overscan: 8
   })
 
@@ -989,11 +998,11 @@ export function PosPage() {
   }, [lines, expiryByProductId])
 
   return (
-    <div className="h-full flex flex-col min-h-0 bg-[#e8e8e8] text-slate-900" dir="rtl">
+    <div className="page-microtype pos-microtype h-full flex flex-col min-h-0 bg-gradient-to-br from-gray-50 to-gray-100 text-slate-900" dir="rtl">
       {/* شريط علوي — بسيط: بحث + قيمة الضريبة + المجموع */}
-      <header className="shrink-0 z-20 border-b-2 border-[#888] bg-[#d0d0d0] px-2 py-1 shadow">
+      <header className="shrink-0 z-20 border-b border-gray-200 bg-white px-2 py-1.5 shadow-sm">
         <div className="mx-auto flex max-w-[1900px] flex-wrap items-center justify-between gap-2">
-          <div className="flex min-w-[20rem] flex-1 items-center gap-2">
+          <div className="flex min-w-0 flex-1 items-center gap-2 sm:min-w-[20rem]">
             <label htmlFor="pos-search" className="shrink-0 text-[13px] font-bold text-slate-900">
               البحث بواسطة رقم المادة / اسم المادة
             </label>
@@ -1007,7 +1016,7 @@ export function PosPage() {
                   ? ` · اختصار: ${formatShortcutKeys(keyboardShortcuts['search.product'])}`
                   : '')
               }
-              className="w-full flex-1 rounded border-2 border-[#757575] bg-[#fffef0] py-2 px-3 text-[16px] shadow-inner outline-none focus:border-[#1565c0]"
+              className="w-full flex-1 rounded-lg border-2 border-gray-300 bg-white py-1.5 px-2 text-sm shadow-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
               placeholder="رقم / اسم / باركود — Enter"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -1056,24 +1065,24 @@ export function PosPage() {
             />
           </div>
           <div className="flex shrink-0 items-center gap-3">
-            <div className="flex items-center gap-1.5 rounded border-2 border-black bg-[#e8f5e9] px-3 py-1.5">
-              <span className="text-[13px] font-black text-slate-900">قيمة الضريبة</span>
+            <div className="flex items-center gap-1.5 rounded-lg bg-green-50 border border-green-200 px-2 py-1 shadow-sm">
+              <span className="text-xs font-semibold text-gray-700">قيمة الضريبة</span>
               <input
-                className="h-9 w-16 rounded border border-[#616161] bg-white text-center font-mono text-[15px] font-bold shadow-inner"
+                className="h-7 w-14 rounded-md border border-gray-300 bg-white text-center font-mono text-xs font-semibold shadow-sm focus:border-green-500 focus:ring-1 focus:ring-green-200 transition-all"
                 value={taxRate}
                 onChange={(e) => setTaxRate(e.target.value)}
               />
-              <span className="text-[13px] font-black">%</span>
-              <div className="rounded border border-black bg-black px-2.5 py-1">
-                <span className="font-mono text-lg font-black tabular-nums text-[#00ff00]">{taxPreview.toFixed(2)}</span>
+              <span className="text-xs font-semibold text-gray-700">%</span>
+              <div className="rounded-md bg-green-600 px-2 py-1 shadow-sm">
+                <span className="font-mono text-sm font-bold tabular-nums text-white">{taxPreview.toFixed(2)}</span>
               </div>
             </div>
             <div
-              className="flex min-w-[10rem] flex-col items-center rounded border-[3px] border-black bg-black px-4 py-1.5 shadow-lg"
+              className="flex min-w-[9rem] flex-col items-center rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 px-3 py-2 shadow-lg"
               title="إجمالي الفاتورة"
             >
-              <span className="text-[12px] font-black tracking-wide text-[#00ff00]">المجموع</span>
-              <span className="font-mono text-[2.2rem] font-black tabular-nums leading-none text-[#00ff00]">
+              <span className="text-[10px] font-semibold tracking-wide text-blue-100">المجموع</span>
+              <span className="font-mono text-3xl font-bold tabular-nums leading-none text-white">
                 {grandTotal.toFixed(2)}
               </span>
             </div>
@@ -1095,6 +1104,32 @@ export function PosPage() {
                   {headerLineCtx.stockLabel}
                 </div>
               </div>
+              <div className="hidden items-center gap-2 lg:flex">
+                <button
+                  type="button"
+                  onClick={() => navi('/settings')}
+                  className="flex h-16 w-16 flex-col items-center justify-center rounded-xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 text-[10px] font-bold text-slate-600 shadow-sm transition-all hover:shadow-md"
+                >
+                  <Settings className="h-5 w-5" />
+                  <span>إعدادات</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => navi('/users')}
+                  className="flex h-16 w-16 flex-col items-center justify-center rounded-xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 text-[10px] font-bold text-slate-600 shadow-sm transition-all hover:shadow-md"
+                >
+                  <User className="h-5 w-5" />
+                  <span>مستخدم</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => void logout()}
+                  className="flex h-16 w-16 flex-col items-center justify-center rounded-xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 text-[10px] font-bold text-slate-600 shadow-sm transition-all hover:shadow-md"
+                >
+                  <LogOut className="h-5 w-5" />
+                  <span>إغلاق</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -1103,7 +1138,7 @@ export function PosPage() {
       {/* الجسم: معلومات يمين | جدول وسط | أزرار مواد يسار */}
       <div className="flex min-h-0 flex-1 gap-1 p-1">
         {/* المعلومات الجانبية - يمين */}
-        <aside className="flex w-[15rem] shrink-0 flex-col border border-[#808080] bg-[#d0d0d0] shadow-sm">
+        <aside className="flex w-[11.5rem] shrink-0 flex-col overflow-hidden rounded-lg bg-white shadow-md lg:w-[13rem]">
           {/* شعار Soft Touch */}
           <div className="relative border-b border-slate-400 bg-gradient-to-b from-[#eceff1] via-[#cfd8dc] to-[#b0bec5] px-2 py-2">
             <div className="flex flex-col items-center gap-1">
@@ -1189,23 +1224,23 @@ export function PosPage() {
             </div>
           </div>
 
-          <div className="border-t border-slate-400 bg-[#9e9e9e] p-0.5">
-            <div className="grid grid-cols-2 gap-0.5">
+          <div className="bg-gray-50 rounded-md p-1.5">
+            <div className="grid grid-cols-2 gap-1.5">
               <button
                 type="button"
                 onClick={() => setShiftCloseOpen(true)}
-                className="flex flex-col items-center justify-center rounded border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] py-2 text-[11px] font-bold text-black shadow hover:from-[#b8ddf8]">
+                className="flex flex-col items-center justify-center rounded-md bg-blue-600 hover:bg-blue-700 active:bg-blue-800 py-2 text-[10px] font-semibold text-white shadow-sm hover:shadow transition-all">
                 <span>اغلاق اليوم</span>
               </button>
             <button
               type="button"
               onClick={() => setPosToolModal('daily')}
-              className="flex flex-col items-center justify-center rounded border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] py-2 text-[11px] font-bold text-black shadow hover:from-[#b8ddf8]"
+              className="flex flex-col items-center justify-center rounded-md bg-blue-600 hover:bg-blue-700 active:bg-blue-800 py-2 text-[10px] font-semibold text-white shadow-sm hover:shadow transition-all"
             >
               <span>جرد الصندوق</span>
             </button>
             {canAny(['purchase.read', 'purchase.write']) && (
-              <NavLink to="/purchases" className="flex flex-col items-center justify-center rounded border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] py-2 text-[11px] font-bold text-black shadow hover:from-[#b8ddf8]">
+              <NavLink to="/purchases" className="flex flex-col items-center justify-center rounded-md bg-blue-600 hover:bg-blue-700 active:bg-blue-800 py-2 text-[10px] font-semibold text-white shadow-sm hover:shadow transition-all">
                 <span>المشتريات</span>
               </NavLink>
             )}
@@ -1213,7 +1248,7 @@ export function PosPage() {
               <button
                 type="button"
                 onClick={() => navi('/inventory-count')}
-                className="flex flex-col items-center justify-center rounded border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] py-2 text-[11px] font-bold text-black shadow hover:from-[#b8ddf8]"
+                className="flex flex-col items-center justify-center rounded-md bg-blue-600 hover:bg-blue-700 active:bg-blue-800 py-2 text-[10px] font-semibold text-white shadow-sm hover:shadow transition-all"
               >
                 <span>جرد الكميات</span>
               </button>
@@ -1221,42 +1256,42 @@ export function PosPage() {
             <button
               type="button"
               onClick={() => navi('/receivables')}
-              className="flex flex-col items-center justify-center rounded border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] py-2 text-[11px] font-bold text-black shadow hover:from-[#b8ddf8]"
+              className="flex flex-col items-center justify-center rounded-md bg-blue-600 hover:bg-blue-700 active:bg-blue-800 py-2 text-[10px] font-semibold text-white shadow-sm hover:shadow transition-all"
             >
               <span>قائمة الذمم</span>
             </button>
             <button
               type="button"
               onClick={() => navi('/expenses')}
-              className="flex flex-col items-center justify-center rounded border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] py-2 text-[11px] font-bold text-black shadow hover:from-[#b8ddf8]"
+              className="flex flex-col items-center justify-center rounded-md bg-blue-600 hover:bg-blue-700 active:bg-blue-800 py-2 text-[10px] font-semibold text-white shadow-sm hover:shadow transition-all"
             >
               <span>المصاريف</span>
             </button>
             <button
               type="button"
               onClick={() => navi('/settings')}
-              className="flex flex-col items-center justify-center rounded border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] py-2 text-[11px] font-bold text-black shadow hover:from-[#b8ddf8]"
+              className="flex flex-col items-center justify-center rounded-md bg-blue-600 hover:bg-blue-700 active:bg-blue-800 py-2 text-[10px] font-semibold text-white shadow-sm hover:shadow transition-all"
             >
               <span>الإعدادات</span>
             </button>
             <button
               type="button"
               onClick={() => navi('/inventory')}
-              className="flex flex-col items-center justify-center rounded border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] py-2 text-[11px] font-bold text-black shadow hover:from-[#b8ddf8]"
+              className="flex flex-col items-center justify-center rounded-md bg-blue-600 hover:bg-blue-700 active:bg-blue-800 py-2 text-[10px] font-semibold text-white shadow-sm hover:shadow transition-all"
             >
               <span>المنتجات</span>
             </button>
             <button
               type="button"
               onClick={() => navi('/reports')}
-              className="flex flex-col items-center justify-center rounded border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] py-2 text-[11px] font-bold text-black shadow hover:from-[#b8ddf8]"
+              className="flex flex-col items-center justify-center rounded-md bg-blue-600 hover:bg-blue-700 active:bg-blue-800 py-2 text-[10px] font-semibold text-white shadow-sm hover:shadow transition-all"
             >
               <span>التقارير</span>
             </button>
             <button
               type="button"
               onClick={() => navi('/suppliers')}
-              className="flex flex-col items-center justify-center rounded border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] py-2 text-[11px] font-bold text-black shadow hover:from-[#b8ddf8]"
+              className="flex flex-col items-center justify-center rounded-md bg-blue-600 hover:bg-blue-700 active:bg-blue-800 py-2 text-[10px] font-semibold text-white shadow-sm hover:shadow transition-all"
             >
               <span>الموردين</span>
             </button>
@@ -1267,8 +1302,8 @@ export function PosPage() {
         {/* المنطقة الوسطى: جدول الفاتورة + أزرار الدفع */}
         <div className="flex min-w-0 flex-1 flex-col gap-1">
           {/* جدول الفاتورة */}
-          <main className="flex min-h-0 flex-1 flex-col overflow-hidden border border-[#808080] bg-white shadow">
-            <div className="shrink-0 border-b border-slate-300 bg-[#d0d0d0] px-2 py-1">
+          <main className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-lg bg-white shadow-md">
+            <div className="shrink-0 border-b border-gray-200 bg-gray-50 px-2 py-1.5">
               <div className="flex flex-wrap items-center justify-between gap-1">
                 <span className="text-[12px] font-bold text-slate-900">أسطر الفاتورة</span>
                 {(cartExpirySummary.expired > 0 || cartExpirySummary.near > 0) && (
@@ -1285,7 +1320,7 @@ export function PosPage() {
           </div>
           <div className="min-h-0 flex-1 overflow-auto">
             <table className="w-full border-collapse text-sm">
-              <thead className="sticky top-0 z-[1] border-b-2 border-slate-400 bg-[#d0d0d0] text-[11px] font-bold text-slate-900">
+              <thead className="sticky top-0 z-[1] border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-700">
                 <tr>
                   <th className="border border-slate-400 p-1 text-center w-8">X</th>
                   <th className="border border-slate-400 p-1 text-center">رقم المادة</th>
@@ -1363,11 +1398,11 @@ export function PosPage() {
           </div>
         </main>
 
-          {/* شريط سفلي - صف دفع + أزرار زرقاء */}
-          <footer className="shrink-0 border-t-2 border-[#555] bg-[#b8b8b8] px-2 py-0.5 shadow">
-            <div className="flex flex-col gap-0.5">
+          {/* شريط سفلي - صف دفع + أزرار */}
+          <footer className="shrink-0 bg-white rounded-lg shadow-md px-2 py-1.5">
+            <div className="flex flex-col gap-1">
               {/* صف الدفع والخصم */}
-              <div className="flex flex-wrap items-center gap-1 rounded border border-[#666] bg-[#d4d4d4] px-1 py-1 shadow-inner" dir="rtl">
+              <div className="flex flex-wrap items-center gap-1.5 rounded-md bg-gray-50 border border-gray-200 px-2 py-1.5" dir="rtl">
                 {can('pos.discount') && (
                   <label className="flex items-center gap-0.5">
                     <span className="text-[12px] font-bold text-slate-800">خصم</span>
@@ -1381,15 +1416,15 @@ export function PosPage() {
                 )}
                 
                 {/* أزرار طرق الدفع */}
-                <div className="flex items-center gap-0.5">
+                <div className="flex items-center gap-1">
                   <button
                     type="button"
                     onClick={() => setPaymentCode('cash')}
                     className={
-                      'h-9 rounded border px-2 text-[11px] font-bold shadow ' +
+                      'h-8 rounded-md px-3 text-xs font-semibold shadow-sm transition-all ' +
                       (paymentCode === 'cash'
-                        ? 'border-green-700 bg-green-600 text-white'
-                        : 'border-slate-500 bg-white text-slate-800 hover:bg-slate-100')
+                        ? 'bg-green-600 text-white hover:bg-green-700 ring-2 ring-green-300'
+                        : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300')
                     }
                   >
                     نقدي
@@ -1398,10 +1433,10 @@ export function PosPage() {
                     type="button"
                     onClick={() => setPaymentCode('card')}
                     className={
-                      'h-9 rounded border px-2 text-[11px] font-bold shadow ' +
+                      'h-8 rounded-md px-3 text-xs font-semibold shadow-sm transition-all ' +
                       (paymentCode === 'card'
-                        ? 'border-blue-700 bg-blue-600 text-white'
-                        : 'border-slate-500 bg-white text-slate-800 hover:bg-slate-100')
+                        ? 'bg-blue-600 text-white hover:bg-blue-700 ring-2 ring-blue-300'
+                        : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300')
                     }
                   >
                     فيزا
@@ -1410,10 +1445,10 @@ export function PosPage() {
                     type="button"
                     onClick={() => setPaymentCode('click')}
                     className={
-                      'h-9 rounded border px-2 text-[11px] font-bold shadow ' +
+                      'h-8 rounded-md px-3 text-xs font-semibold shadow-sm transition-all ' +
                       (paymentCode === 'click'
-                        ? 'border-purple-700 bg-purple-600 text-white'
-                        : 'border-slate-500 bg-white text-slate-800 hover:bg-slate-100')
+                        ? 'bg-purple-600 text-white hover:bg-purple-700 ring-2 ring-purple-300'
+                        : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300')
                     }
                   >
                     كليك
@@ -1423,10 +1458,10 @@ export function PosPage() {
                       type="button"
                       onClick={() => setPaymentCode('credit')}
                       className={
-                        'h-9 rounded border px-2 text-[11px] font-bold shadow ' +
+                        'h-8 rounded-md px-3 text-xs font-semibold shadow-sm transition-all ' +
                         (paymentCode === 'credit'
-                          ? 'border-red-700 bg-red-600 text-white'
-                          : 'border-slate-500 bg-white text-slate-800 hover:bg-slate-100')
+                          ? 'bg-orange-600 text-white hover:bg-orange-700 ring-2 ring-orange-300'
+                          : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300')
                       }
                     >
                       ذمم
@@ -1486,9 +1521,9 @@ export function PosPage() {
                 </div>
               </div>
 
-              {/* شبكة الأزرار الزرقاء */}
+              {/* شبكة الأزرار */}
               <div className="flex items-stretch gap-1">
-                <div className="grid flex-1 grid-cols-5 grid-rows-2 gap-1">
+                <div className="grid flex-1 grid-cols-5 gap-1">
                   <button
                     type="button"
                     onClick={async () => {
@@ -1505,17 +1540,17 @@ export function PosPage() {
                         toast('خطأ في الطباعة', 'err')
                       }
                     }}
-                    className="flex flex-col items-center justify-center gap-0 rounded border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] py-2.5 text-[9px] font-bold text-black shadow hover:from-[#b8ddf8]"
+                    className="flex flex-col items-center justify-center gap-0.5 rounded-md bg-blue-600 hover:bg-blue-700 active:bg-blue-800 py-2 text-[9px] font-semibold text-white shadow-sm hover:shadow transition-all"
                   >
-                    <Printer className="h-4 w-4" />
+                    <Printer className="h-3.5 w-3.5" />
                     <span>طباعة آخر فاتورة</span>
                   </button>
                   <button
                     type="button"
                     onClick={() => void window.posApi.hardware.cashDrawer()}
-                    className="flex flex-col items-center justify-center gap-0 rounded border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] py-2.5 text-[9px] font-bold text-black shadow hover:from-[#b8ddf8]"
+                    className="flex flex-col items-center justify-center gap-0.5 rounded-md bg-blue-600 hover:bg-blue-700 active:bg-blue-800 py-2 text-[9px] font-semibold text-white shadow-sm hover:shadow transition-all"
                   >
-                    <Package className="h-4 w-4" />
+                    <Package className="h-3.5 w-3.5" />
                     <span>فتح الدرج</span>
                   </button>
                   <button
@@ -1527,27 +1562,27 @@ export function PosPage() {
                         toast('اختر منتجاً من الفاتورة أولاً', 'err')
                       }
                     }}
-                    className="flex flex-col items-center justify-center gap-0 rounded border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] py-2.5 text-[9px] font-bold text-black shadow hover:from-[#b8ddf8]"
+                    className="flex flex-col items-center justify-center gap-0.5 rounded-md bg-blue-600 hover:bg-blue-700 active:bg-blue-800 py-2 text-[9px] font-semibold text-white shadow-sm hover:shadow transition-all"
                   >
-                    <DollarSign className="h-4 w-4" />
+                    <DollarSign className="h-3.5 w-3.5" />
                     <span>تعديل السعر (F4)</span>
                   </button>
                   <button
                     type="button"
                     disabled={!lines.length}
                     onClick={() => void completeSale({ printReceipt: false })}
-                    className="flex flex-col items-center justify-center gap-0 rounded border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] py-2.5 text-[9px] font-bold text-black shadow hover:from-[#b8ddf8] disabled:opacity-50"
+                    className="flex flex-col items-center justify-center gap-0.5 rounded-md bg-green-600 hover:bg-green-700 active:bg-green-800 py-2 text-[9px] font-semibold text-white shadow-sm hover:shadow transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <Save className="h-4 w-4" />
+                    <Save className="h-3.5 w-3.5" />
                     <span>حفظ (F10)</span>
                   </button>
                   <button
                     type="button"
                     disabled={!lines.length}
                     onClick={() => void completeSale({ printReceipt: true })}
-                    className="flex flex-col items-center justify-center gap-0 rounded border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] py-2.5 text-[9px] font-bold text-black shadow hover:from-[#b8ddf8] disabled:opacity-50"
+                    className="flex flex-col items-center justify-center gap-0.5 rounded-md bg-green-600 hover:bg-green-700 active:bg-green-800 py-2 text-[9px] font-semibold text-white shadow-sm hover:shadow transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <Printer className="h-4 w-4" />
+                    <Printer className="h-3.5 w-3.5" />
                     <span>حفظ+طباعة (F11)</span>
                   </button>
                   <button
@@ -1567,50 +1602,50 @@ export function PosPage() {
                         toast('تم تعليق الفاتورة')
                       }
                     }}
-                    className="flex flex-col items-center justify-center gap-0 rounded border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] py-2.5 text-[9px] font-bold text-black shadow hover:from-[#b8ddf8]"
+                    className="flex flex-col items-center justify-center gap-0.5 rounded-md bg-yellow-600 hover:bg-yellow-700 active:bg-yellow-800 py-2 text-[9px] font-semibold text-white shadow-sm hover:shadow transition-all"
                   >
-                    <Pause className="h-4 w-4" />
+                    <Pause className="h-3.5 w-3.5" />
                     <span>تعليق (PageDown)</span>
                   </button>
                   <button
                     type="button"
                     onClick={cancelSale}
-                    className="flex flex-col items-center justify-center gap-0 rounded border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] py-2.5 text-[9px] font-bold text-black shadow hover:from-[#b8ddf8]"
+                    className="flex flex-col items-center justify-center gap-0.5 rounded-md bg-red-600 hover:bg-red-700 active:bg-red-800 py-2 text-[9px] font-semibold text-white shadow-sm hover:shadow transition-all"
                   >
-                    <Eraser className="h-4 w-4" />
+                    <Eraser className="h-3.5 w-3.5" />
                     <span>مسح (Esc)</span>
                   </button>
                   <button
                     type="button"
                     onClick={() => setHeldOpen(true)}
-                    className="flex flex-col items-center justify-center gap-0 rounded border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] py-2.5 text-[9px] font-bold text-black shadow hover:from-[#b8ddf8]"
+                    className="flex flex-col items-center justify-center gap-0.5 rounded-md bg-blue-600 hover:bg-blue-700 active:bg-blue-800 py-2 text-[9px] font-semibold text-white shadow-sm hover:shadow transition-all"
                   >
-                    <ListOrdered className="h-4 w-4" />
+                    <ListOrdered className="h-3.5 w-3.5" />
                     <span>المعلقة (F9)</span>
                   </button>
                   <button
                     type="button"
                     onClick={() => navi('/returns')}
-                    className="flex flex-col items-center justify-center gap-0 rounded border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] py-2.5 text-[9px] font-bold text-black shadow hover:from-[#b8ddf8]"
+                    className="flex flex-col items-center justify-center gap-0.5 rounded-md bg-blue-600 hover:bg-blue-700 active:bg-blue-800 py-2 text-[9px] font-semibold text-white shadow-sm hover:shadow transition-all"
                   >
-                    <Undo2 className="h-4 w-4" />
+                    <Undo2 className="h-3.5 w-3.5" />
                     <span>مرتجعات (F7)</span>
                   </button>
                   <button
                     type="button"
                     onClick={() => navi('/customers')}
-                    className="flex flex-col items-center justify-center gap-0 rounded border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] py-2.5 text-[9px] font-bold text-black shadow hover:from-[#b8ddf8]"
+                    className="flex flex-col items-center justify-center gap-0.5 rounded-md bg-blue-600 hover:bg-blue-700 active:bg-blue-800 py-2 text-[9px] font-semibold text-white shadow-sm hover:shadow transition-all"
                   >
-                    <UserCircle className="h-4 w-4" />
+                    <UserCircle className="h-3.5 w-3.5" />
                     <span>الزبائن</span>
                   </button>
                 </div>
                 <button
                   type="button"
                   onClick={() => void logout()}
-                  className="flex w-14 shrink-0 flex-col items-center justify-center gap-0 rounded border-2 border-[#b71c1c] bg-gradient-to-b from-[#e53935] to-[#b71c1c] py-2.5 text-[9px] font-bold text-white shadow hover:from-[#ef5350]"
+                  className="flex w-12 shrink-0 flex-col items-center justify-center gap-0.5 rounded-md bg-red-600 hover:bg-red-700 active:bg-red-800 py-2 text-[9px] font-bold text-white shadow-sm hover:shadow transition-all"
                 >
-                  <Power className="h-5 w-5" />
+                  <Power className="h-4 w-4" />
                   <span>خروج</span>
                 </button>
               </div>
@@ -1619,29 +1654,55 @@ export function PosPage() {
         </div>
 
         {/* أزرار المنتجات - يسار */}
-        <aside className="flex w-[min(100%,280px)] shrink-0 flex-col overflow-hidden border border-[#808080] bg-[#b8b8b8] shadow-sm sm:w-[280px]">
-          {debounced.trim().length >= 2 && ranked.length > 0 && (
-            <div className="flex max-h-11 shrink-0 flex-wrap gap-0.5 overflow-hidden border-b border-slate-500 bg-[#c8c8c8] px-1 py-0.5">
-              {ranked.slice(0, 6).map((p) => (
+        <aside className="flex w-[min(100%,320px)] shrink-0 overflow-hidden rounded-lg bg-white shadow-md md:w-[340px] lg:w-[400px]">
+          <div className="flex w-16 shrink-0 flex-col items-center gap-1 border-e border-gray-200 bg-gray-50 p-2">
+            <button
+              type="button"
+              onClick={() => setSelectedCategoryId(null)}
+              className={`flex w-full flex-col items-center justify-center gap-1 rounded-xl px-1 py-3 text-[10px] font-bold transition-all ${
+                selectedCategoryId == null
+                  ? 'bg-blue-100 text-blue-700 shadow-sm'
+                  : 'text-slate-600 hover:bg-white'
+              }`}
+            >
+              <Grid2x2 className="h-4 w-4" />
+              <span>الكل</span>
+            </button>
+            {categories.slice(0, 6).map((c) => {
+              const label = c.name.length > 8 ? `${c.name.slice(0, 8)}…` : c.name
+              const icon = c.name.includes('مشروب')
+                ? CupSoda
+                : c.name.includes('حل') || c.name.includes('حلو')
+                  ? Candy
+                  : c.name.includes('غذ') || c.name.includes('مادة')
+                    ? Apple
+                    : c.name.includes('منظ')
+                      ? SprayCan
+                      : MoreHorizontal
+              const Icon = icon
+              return (
                 <button
-                  key={p.id}
+                  key={c.id}
                   type="button"
-                  className="max-w-[120px] truncate rounded-full border border-green-800 bg-green-100 px-1.5 py-0.5 text-[9px] font-semibold text-green-950 hover:bg-green-200"
-                  onClick={() =>
-                    addProduct({
-                      id: p.id,
-                      name: p.name,
-                      salePrice: p.salePrice,
-                      quantityAvailable: p.quantity
-                    })
-                  }
+                  onClick={() => setSelectedCategoryId(c.id)}
+                  className={`flex w-full flex-col items-center justify-center gap-1 rounded-xl px-1 py-3 text-[10px] font-bold transition-all ${
+                    selectedCategoryId === c.id
+                      ? 'bg-blue-100 text-blue-700 shadow-sm'
+                      : 'text-slate-600 hover:bg-white'
+                  }`}
+                  title={c.name}
                 >
-                  {p.name}
+                  <Icon className="h-4 w-4" />
+                  <span className="text-center leading-tight">{label}</span>
                 </button>
-              ))}
+              )
+            })}
+            <div className="mt-auto w-full rounded-lg border border-gray-200 bg-white px-1 py-2 text-center text-[10px] font-semibold text-slate-600">
+              <div className="font-mono text-[11px] text-slate-800">{filtered.length}</div>
+              <div>مادة معروضة</div>
             </div>
-          )}
-          <div ref={parentRef} className="min-h-0 flex-1 overflow-auto bg-[#d8d8d8] p-0.5">
+          </div>
+          <div ref={parentRef} className="min-h-0 flex-1 overflow-auto bg-gray-100 p-3">
             <div style={{ height: `${rowVirtualizer.getTotalSize()}px`, position: 'relative' }} className="w-full">
               {rowVirtualizer.getVirtualItems().map((vRow) => {
                 const rowIndex = vRow.index
@@ -1653,7 +1714,7 @@ export function PosPage() {
                     className="absolute left-0 top-0 w-full"
                     style={{ transform: `translateY(${vRow.start}px)` }}
                   >
-                    <div className="grid gap-0.5 pb-0.5" style={{ gridTemplateColumns: `repeat(${COLS}, minmax(0, 1fr))` }}>
+                    <div className="grid gap-3 pb-4 md:gap-4 md:pb-5 xl:gap-6 xl:pb-6" style={{ gridTemplateColumns: `repeat(${COLS}, minmax(0, 1fr))` }}>
                       {slice.map((p) => (
                         <button
                           key={p.id}
@@ -1666,14 +1727,14 @@ export function PosPage() {
                               quantityAvailable: p.quantity
                             })
                           }
-                          className="flex min-h-[3.5rem] flex-col justify-between rounded border-2 border-[#1b5e20] bg-gradient-to-b from-[#a5d6a7] to-[#66bb6a] p-1.5 text-start shadow hover:from-[#c8e6c9] hover:to-[#81c784] active:translate-y-px"
+                          className="flex h-[9.5rem] flex-col gap-2 rounded-xl border-4 border-white bg-gradient-to-br from-green-400 to-green-500 p-3 text-start shadow-lg ring-2 ring-gray-300 transition-all hover:from-green-500 hover:to-green-600 hover:shadow-xl active:scale-95 md:h-[10rem] md:p-3.5 xl:h-[11rem] xl:gap-2.5 xl:p-4 overflow-hidden"
                         >
-                          <span className="font-mono text-[9px] font-bold leading-none text-green-950 opacity-75">
+                          <span className="font-mono text-[11px] font-semibold leading-tight text-green-900 opacity-75 truncate">
                             {p.id.length > 8 ? p.id.slice(-6) : p.id}
                           </span>
-                          <span className="line-clamp-2 text-[13px] font-bold leading-tight text-slate-900">{p.name}</span>
-                          <span className="text-[11px] font-bold text-green-950">
-                            <span className="font-mono text-[14px] font-black tabular-nums">
+                          <span className="line-clamp-3 text-base font-bold leading-snug text-white flex-1 overflow-hidden">{p.name}</span>
+                          <span className="text-sm font-semibold text-white shrink-0">
+                            <span className="font-mono text-lg font-bold tabular-nums">
                               {p.salePrice.toFixed(3)}
                             </span>
                           </span>
@@ -1684,44 +1745,6 @@ export function PosPage() {
                 )
               })}
             </div>
-          </div>
-          <div className="shrink-0 border-t border-slate-600 bg-[#a5d6a7] p-1">
-            <div className="mb-1 flex flex-wrap gap-0.5">
-              <button
-                type="button"
-                onClick={() => setSelectedCategoryId(null)}
-                className={
-                  'rounded border px-2 py-1 text-[12px] font-bold shadow ' +
-                  (selectedCategoryId === null
-                    ? 'border-green-900 bg-[#2e7d32] text-white'
-                    : 'border-green-800 bg-[#c8e6c9] text-slate-900 hover:bg-[#a5d6a7]')
-                }
-              >
-                الكل
-              </button>
-              {categories.map((c) => (
-                <button
-                  key={c.id}
-                  type="button"
-                  onClick={() => setSelectedCategoryId(c.id)}
-                  className={
-                    'max-w-[120px] truncate rounded border px-2 py-1 text-[12px] font-bold shadow ' +
-                    (selectedCategoryId === c.id
-                      ? 'border-green-900 bg-[#2e7d32] text-white'
-                      : 'border-green-800 bg-[#c8e6c9] text-slate-900 hover:bg-[#a5d6a7]')
-                  }
-                >
-                  {c.name}
-                </button>
-              ))}
-            </div>
-            <button
-              type="button"
-              onClick={() => setQuickProductPickOpen(true)}
-              className="w-full rounded border border-green-900 bg-[#1b5e20] px-2 py-2 text-[13px] font-black text-white shadow hover:bg-[#2e7d32]"
-            >
-              إضافة مادة
-            </button>
           </div>
         </aside>
       </div>

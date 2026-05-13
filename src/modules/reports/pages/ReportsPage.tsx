@@ -540,35 +540,35 @@ export function ReportsPage() {
   }
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden bg-[#d0d0d0] print:bg-white">
+    <div className="page-microtype reports-microtype flex h-screen flex-col overflow-hidden bg-gray-50 print:bg-white">
       {/* شريط العنوان */}
-      <div className="flex items-center justify-between border-b-2 border-[#555] bg-gradient-to-b from-[#e8e8e8] to-[#c0c0c0] px-3 py-2 shadow print:hidden">
-        <h1 className="text-lg font-black text-[#1a1a1a]">التقارير</h1>
+      <div className="flex items-center justify-between border-b border-gray-200 bg-gradient-to-r from-white to-gray-50 px-4 py-3 shadow-sm print:hidden">
+        <h1 className="text-xl font-bold text-blue-700">التقارير</h1>
         <div className="flex gap-2">
           <button
             type="button"
-            className="border border-[#555] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-3 py-1 text-sm font-bold shadow"
+            className="rounded-lg border-2 border-gray-300 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow-md"
             onClick={() => void loadInv()}
           >
             قيمة المخزون
           </button>
           <button
             type="button"
-            className="border border-[#555] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-3 py-1 text-sm font-bold shadow"
+            className="rounded-lg border-2 border-gray-300 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow-md"
             onClick={() => void exportPdf()}
           >
             تصدير PDF
           </button>
           <button
             type="button"
-            className="border border-[#555] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-3 py-1 text-sm font-bold shadow"
+            className="rounded-lg border-2 border-gray-300 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow-md"
             onClick={exportExcel}
           >
             تصدير Excel
           </button>
           <button
             type="button"
-            className="border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] px-3 py-1 text-sm font-black text-black shadow"
+            className="rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 px-3 py-1.5 text-sm font-semibold text-white shadow-md transition-all hover:from-blue-600 hover:to-blue-700 hover:shadow-lg active:scale-95"
             onClick={doPrint}
           >
             طباعة
@@ -581,7 +581,7 @@ export function ReportsPage() {
         <div className="py-16 text-center text-slate-500">جاري التحميل…</div>
       )}
 
-      <div className="rounded-xl border-2 border-[#808080] p-4 space-y-3 bg-[#d0d0d0] shadow-md print:border-0 print:p-0">
+      <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-lg print:border-0 print:p-0 space-y-3">
         <div className="font-semibold text-sm text-slate-800">الفترة</div>
         <div className="flex flex-wrap gap-2 print:hidden">
           {(
@@ -638,7 +638,7 @@ export function ReportsPage() {
 
       {err && <div className="text-sm text-red-600">{err}</div>}
 
-      <div className="rounded-xl border-2 border-[#808080] p-4 space-y-3 bg-[#d0d0d0] shadow-md print:border-0 print:p-0">
+      <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-lg print:border-0 print:p-0 space-y-3">
         <div className="font-semibold text-sm text-slate-800">تصفية المبيعات والفواتير</div>
         <p className="text-xs text-slate-500">
           بطاقتا «الإيراد» و«عدد الفواتير» وجدول «وسيلة الدفع» أدناه تعكسان نفس التصفية والفترة.
@@ -674,14 +674,14 @@ export function ReportsPage() {
       </div>
 
       {invVal && (
-        <div className="rounded-xl border-2 border-[#808080] p-4 text-sm bg-[#d0d0d0] shadow-md print:border print:p-3">
+        <div className="rounded-xl border border-gray-200 bg-white p-4 text-sm shadow-lg print:border print:p-3">
           قيمة المخزون (متوسط التكلفة × الكمية):{' '}
           <span className="font-mono font-bold">{invVal.value.toFixed(2)}</span> — SKUs: {invVal.skus}
         </div>
       )}
 
       {/* Inventory Count Section */}
-      <div className="rounded-xl border-2 border-[#808080] p-4 bg-[#d0d0d0] shadow-md print:border print:p-3">
+      <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-lg print:border print:p-3">
         <div className="flex items-center justify-between">
           <div>
             <div className="text-sm font-semibold text-slate-700 dark:text-slate-200 mb-1">جرد المخزون</div>
@@ -689,7 +689,7 @@ export function ReportsPage() {
           </div>
           <Link
             to="/inventory-count"
-            className="rounded-lg border-2 border-[#808080] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] px-4 py-2 text-sm font-bold text-black shadow-sm hover:from-[#90c0e8] hover:to-[#2870b4]"
+            className="rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition-all hover:from-blue-600 hover:to-blue-700 hover:shadow-lg active:scale-95"
           >
             عرض الجرد
           </Link>
@@ -699,13 +699,13 @@ export function ReportsPage() {
       {summary && (
         <div className="space-y-2">
           <div className="grid md:grid-cols-2 gap-4">
-            <div className="rounded-xl border-2 border-[#808080] p-5 bg-[#d0d0d0] shadow-md print:border print:p-4">
+            <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-lg print:border print:p-4">
               <div className="text-sm text-slate-700 font-semibold">
                 إيراد {filtersAffectSalesTotals ? '(ضمن التصفية)' : '(الفترة كاملة)'}
               </div>
               <div className="text-3xl font-bold font-mono mt-2">{summary.revenue.toFixed(2)}</div>
             </div>
-            <div className="rounded-xl border-2 border-[#808080] p-5 bg-[#d0d0d0] shadow-md print:border print:p-4">
+            <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-lg print:border print:p-4">
               <div className="text-sm text-slate-700 font-semibold">
                 عدد الفواتير {filtersAffectSalesTotals ? '(ضمن التصفية)' : '(الفترة كاملة)'}
               </div>
@@ -716,7 +716,7 @@ export function ReportsPage() {
       )}
 
       {paymentBreakdown.length > 0 && (
-        <div className="rounded-xl border-2 border-[#808080] p-4 bg-[#d0d0d0] shadow-md print:border space-y-2">
+        <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-lg print:border space-y-2">
           <div className="font-semibold text-slate-800">المبيعات حسب وسيلة الدفع</div>
           <p className="text-xs text-slate-500">
             {filtersAffectSalesTotals
@@ -746,7 +746,7 @@ export function ReportsPage() {
         </div>
       )}
 
-      <div className="rounded-xl border-2 border-[#808080] p-4 bg-[#d0d0d0] shadow-md print:border space-y-3">
+      <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-lg print:border space-y-3">
         <div className="font-semibold text-slate-800">فواتير المبيعات (تفصيل)</div>
         <p className="text-xs text-slate-500">
           نفس التصفية أعلاه. انقر صفّاً لعرض الأسطر وإعادة طباعة الإيصال (إن وُجدت صلاحية الطباعة).
@@ -794,7 +794,7 @@ export function ReportsPage() {
       </div>
 
       {profit && (
-        <div className="rounded-xl border-2 border-[#808080] p-4 grid md:grid-cols-3 gap-3 text-sm bg-[#d0d0d0] shadow-md print:border">
+        <div className="grid gap-3 rounded-xl border border-gray-200 bg-white p-4 text-sm shadow-lg md:grid-cols-3 print:border">
           <div>
             إيراد: <span className="font-mono font-bold">{profit.revenue.toFixed(2)}</span>
           </div>
@@ -808,7 +808,7 @@ export function ReportsPage() {
       )}
 
       {expenseRows.length > 0 && (
-        <div className="rounded-xl border-2 border-[#808080] p-4 bg-[#d0d0d0] shadow-md print:border space-y-2">
+        <div className="space-y-2 rounded-xl border border-gray-200 bg-white p-4 shadow-lg print:border">
           <div className="font-semibold text-slate-800">مصروفات الفترة</div>
           <p className="text-xs text-slate-500">كل سطر يوضح من سجّل المصروف (لمراجعة المدير).</p>
           <div className="overflow-x-auto">
@@ -842,7 +842,7 @@ export function ReportsPage() {
       )}
 
       {topProducts.length > 0 && (
-        <div className="rounded-xl border-2 border-[#808080] p-4 bg-[#d0d0d0] shadow-md h-[360px] print:h-auto print:border print:min-h-0">
+        <div className="h-[300px] rounded-xl border border-gray-200 bg-white p-4 shadow-lg lg:h-[360px] print:h-auto print:min-h-0 print:border">
           <div className="font-semibold text-slate-800 mb-3">المواد الأكثر مبيعاً</div>
           <ResponsiveContainer width="100%" height="85%">
             <BarChart data={topProducts}>
@@ -857,7 +857,7 @@ export function ReportsPage() {
       )}
 
       {hourly.length > 0 && (
-        <div className="rounded-xl border-2 border-[#808080] p-4 bg-[#d0d0d0] shadow-md h-[360px] print:h-auto print:border print:min-h-0">
+        <div className="h-[300px] rounded-xl border border-gray-200 bg-white p-4 shadow-lg lg:h-[360px] print:h-auto print:min-h-0 print:border">
           <div className="font-semibold text-slate-800 mb-3">المبيعات بالساعة (ضمن الفترة)</div>
           <ResponsiveContainer width="100%" height="85%">
             <BarChart data={hourly}>

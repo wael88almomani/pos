@@ -170,18 +170,18 @@ export function ReceivablesPage() {
   }, [invoiceDetailsOpen])
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden bg-[#d0d0d0]">
+    <div className="page-microtype receivables-microtype flex h-screen flex-col overflow-hidden bg-gray-50">
       {/* شريط العنوان */}
-      <div className="flex items-center justify-between border-b-2 border-[#555] bg-gradient-to-b from-[#e8e8e8] to-[#c0c0c0] px-3 py-2 shadow">
-        <h1 className="text-lg font-black text-[#1a1a1a]">ذمم الزبائن</h1>
-        <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-gray-200 bg-gradient-to-r from-white to-gray-50 px-4 py-3 shadow-sm">
+        <h1 className="text-xl font-bold text-blue-700">ذمم الزبائن</h1>
+        <div className="flex w-full flex-wrap items-center gap-2 sm:w-auto sm:justify-end">
           <input
-            className="border border-slate-400 bg-white px-2 py-1 text-sm min-w-[180px] shadow-inner"
+            className="h-9 w-full rounded-lg border border-gray-300 bg-white px-3 text-sm shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500 sm:min-w-[180px] sm:w-auto"
             placeholder="بحث بالاسم أو الهاتف…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <span className="text-xs font-bold text-[#1a1a1a] whitespace-nowrap">
+          <span className="whitespace-nowrap text-xs font-semibold text-slate-700">
             إجمالي الذمم:{' '}
             <span className="font-mono tabular-nums" dir="ltr">
               {totalDebt.toFixed(2)}
@@ -192,15 +192,15 @@ export function ReceivablesPage() {
       </div>
 
       {/* المحتوى */}
-      <div className="flex-1 overflow-auto p-3">
-        <div className="border-2 border-[#808080] bg-white shadow">
-          <table className="w-full text-sm">
+      <div className="flex-1 overflow-auto p-4">
+        <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white shadow-lg">
+          <table className="min-w-[760px] w-full text-sm">
             <thead>
-              <tr className="border-b-2 border-[#808080] bg-gradient-to-b from-[#f0f0f0] to-[#d8d8d8]">
-                <th className="border-l border-[#c0c0c0] px-3 py-2 text-right font-black">الزبون</th>
-                <th className="border-l border-[#c0c0c0] px-3 py-2 text-right font-black">الهاتف</th>
-                <th className="border-l border-[#c0c0c0] px-3 py-2 text-right font-black">الذمة ({CURRENCY_LABEL})</th>
-                <th className="px-3 py-2 text-center font-black w-36">إجراءات</th>
+              <tr className="border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
+                <th className="border-l border-gray-200 px-3 py-3 text-right font-bold text-slate-700">الزبون</th>
+                <th className="border-l border-gray-200 px-3 py-3 text-right font-bold text-slate-700">الهاتف</th>
+                <th className="border-l border-gray-200 px-3 py-3 text-right font-bold text-slate-700">الذمة ({CURRENCY_LABEL})</th>
+                <th className="w-36 px-3 py-3 text-center font-bold text-slate-700">إجراءات</th>
               </tr>
             </thead>
             <tbody>
@@ -212,18 +212,18 @@ export function ReceivablesPage() {
                 </tr>
               ) : (
                 debtors.map((c) => (
-                  <tr key={c.id} className="border-b border-[#e0e0e0] hover:bg-[#f5f5f5]">
-                    <td className="border-l border-[#e0e0e0] px-3 py-2 font-medium">{c.name}</td>
-                    <td className="border-l border-[#e0e0e0] px-3 py-2 font-mono text-xs text-slate-600">{c.phone ?? '—'}</td>
-                    <td className="border-l border-[#e0e0e0] px-3 py-2 font-mono font-semibold tabular-nums text-amber-800" dir="ltr">
+                  <tr key={c.id} className="border-b border-gray-100 hover:bg-blue-50 transition-colors">
+                    <td className="border-l border-gray-100 px-3 py-2.5 font-medium">{c.name}</td>
+                    <td className="border-l border-gray-100 px-3 py-2.5 font-mono text-xs text-slate-600">{c.phone ?? '—'}</td>
+                    <td className="border-l border-gray-100 px-3 py-2.5 font-mono font-semibold tabular-nums text-amber-800" dir="ltr">
                       {c.balance.toFixed(2)}
                       {CURRENCY_SUFFIX}
                     </td>
-                    <td className="px-3 py-2 text-center">
+                    <td className="px-3 py-2.5 text-center">
                       <div className="flex items-center justify-center gap-1">
                         <button
                           type="button"
-                          className="border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] px-2 py-1 text-xs font-black text-black shadow"
+                          className="rounded-lg border-2 border-blue-300 bg-gradient-to-br from-blue-500 to-blue-600 px-2 py-1 text-xs font-semibold text-white shadow-sm transition-all hover:shadow-md active:scale-95"
                           onClick={() => setDetailsOpen(c)}
                         >
                           تفاصيل
@@ -231,7 +231,7 @@ export function ReceivablesPage() {
                         <Can perm="customer.receive_payment">
                           <button
                             type="button"
-                            className="border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] px-2 py-1 text-xs font-black text-black shadow"
+                            className="rounded-lg bg-gradient-to-br from-green-500 to-green-600 px-2 py-1 text-xs font-semibold text-white shadow-sm transition-all hover:shadow-md active:scale-95"
                             onClick={() => setPayOpen(c)}
                           >
                             استلام دفعة
@@ -252,12 +252,12 @@ export function ReceivablesPage() {
 
       {/* مودال التفاصيل */}
       {detailsOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-          <div className="border-2 border-[#808080] bg-[#d0d0d0] shadow-xl w-[720px] max-w-[calc(100vw-32px)] max-h-[calc(100vh-64px)] flex flex-col">
-            <div className="border-b-2 border-[#555] bg-gradient-to-b from-[#e8e8e8] to-[#c0c0c0] px-3 py-2 flex items-center justify-between shrink-0">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm">
+          <div className="flex max-h-[calc(100vh-64px)] w-[720px] max-w-[calc(100vw-32px)] flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl">
+            <div className="flex shrink-0 items-center justify-between bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-3">
               <div>
-                <h2 className="text-sm font-black">تفاصيل الذمم — {detailsOpen.name}</h2>
-                <div className="text-xs text-slate-600 mt-0.5">
+                <h2 className="text-sm font-bold text-white">تفاصيل الذمم — {detailsOpen.name}</h2>
+                <div className="mt-0.5 text-xs text-blue-100">
                   الهاتف: {detailsOpen.phone ?? 'غير متوفر'} | الذمة الإجمالية:{' '}
                   <span className="font-mono font-bold" dir="ltr">
                     {detailsOpen.balance.toFixed(2)}
@@ -267,7 +267,7 @@ export function ReceivablesPage() {
               </div>
               <button
                 type="button"
-                className="border border-[#555] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-2 py-0.5 text-xs font-bold shadow"
+                className="rounded-lg bg-white/15 px-2 py-1 text-xs font-semibold text-white transition-all hover:bg-white/25"
                 onClick={() => setDetailsOpen(null)}
               >
                 ✕
@@ -282,45 +282,45 @@ export function ReceivablesPage() {
                   <p className="text-xs mt-1 text-slate-500">تأكد من أن الفواتير مربوطة بحساب الزبون</p>
                 </div>
               ) : (
-                <div className="border-2 border-[#808080] bg-white shadow">
+                <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
                   <table className="w-full text-xs">
                     <thead>
-                      <tr className="border-b-2 border-[#808080] bg-gradient-to-b from-[#f0f0f0] to-[#d8d8d8]">
-                        <th className="border-l border-[#c0c0c0] px-2 py-1.5 text-right font-black">رقم الفاتورة</th>
-                        <th className="border-l border-[#c0c0c0] px-2 py-1.5 text-right font-black">التاريخ</th>
-                        <th className="border-l border-[#c0c0c0] px-2 py-1.5 text-right font-black">المبلغ</th>
-                        <th className="border-l border-[#c0c0c0] px-2 py-1.5 text-right font-black">المدفوع</th>
-                        <th className="border-l border-[#c0c0c0] px-2 py-1.5 text-right font-black">الباقي</th>
-                        <th className="px-2 py-1.5 text-center font-black w-24">إجراء</th>
+                      <tr className="border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
+                        <th className="border-l border-gray-200 px-2 py-2 text-right font-bold text-slate-700">رقم الفاتورة</th>
+                        <th className="border-l border-gray-200 px-2 py-2 text-right font-bold text-slate-700">التاريخ</th>
+                        <th className="border-l border-gray-200 px-2 py-2 text-right font-bold text-slate-700">المبلغ</th>
+                        <th className="border-l border-gray-200 px-2 py-2 text-right font-bold text-slate-700">المدفوع</th>
+                        <th className="border-l border-gray-200 px-2 py-2 text-right font-bold text-slate-700">الباقي</th>
+                        <th className="w-24 px-2 py-2 text-center font-bold text-slate-700">إجراء</th>
                       </tr>
                     </thead>
                     <tbody>
                       {invoices.map((inv) => (
                         <tr 
                           key={inv.id} 
-                          className="border-b border-[#e0e0e0] hover:bg-[#e8f4fd] cursor-pointer"
+                          className="cursor-pointer border-b border-gray-100 hover:bg-blue-50"
                           onClick={() => setInvoiceDetailsOpen(inv.id)}
                         >
-                          <td className="border-l border-[#e0e0e0] px-2 py-1.5 font-mono font-semibold">
+                          <td className="border-l border-gray-100 px-2 py-1.5 font-mono font-semibold">
                             {inv.invoiceNumber}
                           </td>
-                          <td className="border-l border-[#e0e0e0] px-2 py-1.5 font-mono text-slate-600">
+                          <td className="border-l border-gray-100 px-2 py-1.5 font-mono text-slate-600">
                             {format(new Date(inv.date), 'dd/MM/yyyy', { locale: arSA })}
                           </td>
-                          <td className="border-l border-[#e0e0e0] px-2 py-1.5 font-mono tabular-nums" dir="ltr">
+                          <td className="border-l border-gray-100 px-2 py-1.5 font-mono tabular-nums" dir="ltr">
                             {inv.total.toFixed(2)}
                           </td>
-                          <td className="border-l border-[#e0e0e0] px-2 py-1.5 font-mono tabular-nums text-green-700" dir="ltr">
+                          <td className="border-l border-gray-100 px-2 py-1.5 font-mono tabular-nums text-green-700" dir="ltr">
                             {inv.paid.toFixed(2)}
                           </td>
-                          <td className="border-l border-[#e0e0e0] px-2 py-1.5 font-mono font-bold tabular-nums text-amber-800" dir="ltr">
+                          <td className="border-l border-gray-100 px-2 py-1.5 font-mono font-bold tabular-nums text-amber-800" dir="ltr">
                             {inv.balance.toFixed(2)}
                           </td>
                           <td className="px-2 py-1.5 text-center">
                             <Can perm="customer.receive_payment">
                               <button
                                 type="button"
-                                className="border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] px-2 py-0.5 text-[10px] font-black text-black shadow"
+                                className="rounded-lg bg-gradient-to-br from-green-500 to-green-600 px-2 py-1 text-[10px] font-semibold text-white shadow-sm transition-all hover:shadow-md active:scale-95"
                                 onClick={(e) => {
                                   e.stopPropagation()
                                   setDetailsOpen(null)
@@ -339,13 +339,13 @@ export function ReceivablesPage() {
                 </div>
               )}
             </div>
-            <div className="border-t-2 border-[#555] bg-gradient-to-b from-[#e8e8e8] to-[#c0c0c0] px-3 py-2 shrink-0">
+            <div className="shrink-0 border-t border-gray-200 bg-gray-50 px-3 py-2">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold">عدد الفواتير: {invoices.length}</span>
                 <Can perm="customer.receive_payment">
                   <button
                     type="button"
-                    className="border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] px-3 py-1.5 text-xs font-black text-black shadow"
+                    className="rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition-all hover:shadow-md active:scale-95"
                     onClick={() => {
                       setDetailsOpen(null)
                       setPayOpen(detailsOpen)
@@ -362,15 +362,15 @@ export function ReceivablesPage() {
 
       {/* مودال تفاصيل الفاتورة الكاملة */}
       {invoiceDetailsOpen && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60">
-          <div className="border-2 border-[#808080] bg-[#d0d0d0] shadow-xl w-[680px] max-w-[calc(100vw-32px)] max-h-[calc(100vh-64px)] flex flex-col">
-            <div className="border-b-2 border-[#555] bg-gradient-to-b from-[#e8e8e8] to-[#c0c0c0] px-3 py-2 flex items-center justify-between shrink-0">
-              <h2 className="text-sm font-black">
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm">
+          <div className="flex max-h-[calc(100vh-64px)] w-[680px] max-w-[calc(100vw-32px)] flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl">
+            <div className="flex shrink-0 items-center justify-between bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-3">
+              <h2 className="text-sm font-bold text-white">
                 تفاصيل الفاتورة — {invoiceFullDetails?.invoiceNumber || '...'}
               </h2>
               <button
                 type="button"
-                className="border border-[#555] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-2 py-0.5 text-xs font-bold shadow"
+                className="rounded-lg bg-white/15 px-2 py-1 text-xs font-semibold text-white transition-all hover:bg-white/25"
                 onClick={() => setInvoiceDetailsOpen(null)}
               >
                 ✕
@@ -384,7 +384,7 @@ export function ReceivablesPage() {
               ) : (
                 <div className="space-y-3">
                   {/* معلومات الفاتورة */}
-                  <div className="border-2 border-[#808080] bg-white p-3">
+                  <div className="rounded-xl border border-gray-200 bg-gray-50 p-3">
                     <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-xs">
                       <div className="flex justify-between">
                         <span className="text-slate-600">رقم الفاتورة:</span>
@@ -412,31 +412,31 @@ export function ReceivablesPage() {
                   </div>
 
                   {/* البنود */}
-                  <div className="border-2 border-[#808080] bg-white shadow">
-                    <div className="border-b-2 border-[#555] bg-gradient-to-b from-[#f0f0f0] to-[#d8d8d8] px-2 py-1">
-                      <span className="text-xs font-black">بنود الفاتورة</span>
+                  <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+                    <div className="border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100 px-2 py-1.5">
+                      <span className="text-xs font-bold text-slate-700">بنود الفاتورة</span>
                     </div>
                     <table className="w-full text-xs">
                       <thead>
-                        <tr className="border-b border-[#808080] bg-[#f5f5f5]">
-                          <th className="border-l border-[#c0c0c0] px-2 py-1 text-right font-black">المنتج</th>
-                          <th className="border-l border-[#c0c0c0] px-2 py-1 text-right font-black w-16">الكمية</th>
-                          <th className="border-l border-[#c0c0c0] px-2 py-1 text-right font-black w-20">السعر</th>
-                          <th className="border-l border-[#c0c0c0] px-2 py-1 text-right font-black w-20">الخصم</th>
-                          <th className="px-2 py-1 text-right font-black w-24">الإجمالي</th>
+                        <tr className="border-b border-gray-200 bg-gray-50">
+                          <th className="border-l border-gray-200 px-2 py-1 text-right font-bold text-slate-700">المنتج</th>
+                          <th className="w-16 border-l border-gray-200 px-2 py-1 text-right font-bold text-slate-700">الكمية</th>
+                          <th className="w-20 border-l border-gray-200 px-2 py-1 text-right font-bold text-slate-700">السعر</th>
+                          <th className="w-20 border-l border-gray-200 px-2 py-1 text-right font-bold text-slate-700">الخصم</th>
+                          <th className="w-24 px-2 py-1 text-right font-bold text-slate-700">الإجمالي</th>
                         </tr>
                       </thead>
                       <tbody>
                         {invoiceFullDetails.items.map((item, idx) => (
-                          <tr key={idx} className="border-b border-[#e0e0e0]">
-                            <td className="border-l border-[#e0e0e0] px-2 py-1">{item.productName}</td>
-                            <td className="border-l border-[#e0e0e0] px-2 py-1 font-mono text-center">
+                          <tr key={idx} className="border-b border-gray-100">
+                            <td className="border-l border-gray-100 px-2 py-1">{item.productName}</td>
+                            <td className="border-l border-gray-100 px-2 py-1 font-mono text-center">
                               {item.quantity}
                             </td>
-                            <td className="border-l border-[#e0e0e0] px-2 py-1 font-mono" dir="ltr">
+                            <td className="border-l border-gray-100 px-2 py-1 font-mono" dir="ltr">
                               {item.unitPrice.toFixed(2)}
                             </td>
-                            <td className="border-l border-[#e0e0e0] px-2 py-1 font-mono" dir="ltr">
+                            <td className="border-l border-gray-100 px-2 py-1 font-mono" dir="ltr">
                               {item.discount.toFixed(2)}
                             </td>
                             <td className="px-2 py-1 font-mono font-semibold" dir="ltr">
@@ -449,7 +449,7 @@ export function ReceivablesPage() {
                   </div>
 
                   {/* الملخص المالي */}
-                  <div className="border-2 border-[#808080] bg-white p-3">
+                  <div className="rounded-xl border border-gray-200 bg-gray-50 p-3">
                     <div className="space-y-1 text-xs">
                       <div className="flex justify-between">
                         <span className="text-slate-600">المجموع الفرعي:</span>
@@ -516,10 +516,10 @@ export function ReceivablesPage() {
                 </div>
               )}
             </div>
-            <div className="border-t-2 border-[#555] bg-gradient-to-b from-[#e8e8e8] to-[#c0c0c0] px-3 py-2 shrink-0 flex justify-end">
+            <div className="flex shrink-0 justify-end border-t border-gray-200 bg-gray-50 px-3 py-2">
               <button
                 type="button"
-                className="border border-[#555] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-4 py-1.5 text-xs font-bold shadow"
+                className="rounded-lg border-2 border-gray-300 bg-white px-4 py-1.5 text-xs font-semibold text-slate-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow-md"
                 onClick={() => setInvoiceDetailsOpen(null)}
               >
                 إغلاق
@@ -531,20 +531,20 @@ export function ReceivablesPage() {
 
       {/* مودال الدفعة */}
       {payOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-          <div className="border-2 border-[#808080] bg-[#d0d0d0] shadow-xl w-[480px] max-w-[calc(100vw-32px)]">
-            <div className="border-b-2 border-[#555] bg-gradient-to-b from-[#e8e8e8] to-[#c0c0c0] px-3 py-2 flex items-center justify-between">
-              <h2 className="text-sm font-black">دفعة — {payOpen.name}</h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm">
+          <div className="w-[480px] max-w-[calc(100vw-32px)] overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl">
+            <div className="flex items-center justify-between bg-gradient-to-r from-green-500 to-green-600 px-4 py-3">
+              <h2 className="text-sm font-bold text-white">دفعة — {payOpen.name}</h2>
               <button
                 type="button"
-                className="border border-[#555] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-2 py-0.5 text-xs font-bold shadow"
+                className="rounded-lg bg-white/15 px-2 py-1 text-xs font-semibold text-white transition-all hover:bg-white/25"
                 onClick={() => setPayOpen(null)}
               >
                 ✕
               </button>
             </div>
             <div className="p-4 space-y-3">
-              <div className="border border-slate-400 bg-white p-2 shadow-inner">
+              <div className="rounded-lg border border-gray-200 bg-gradient-to-br from-green-50 to-emerald-50 p-2 shadow-sm">
                 <div className="flex justify-between">
                   <span className="text-sm text-slate-600">الذمة الحالية</span>
                   <span className="font-mono font-bold tabular-nums" dir="ltr">
@@ -554,20 +554,20 @@ export function ReceivablesPage() {
                 </div>
               </div>
               <div>
-                <label className="mb-1 block text-sm font-bold">المبلغ المستلم</label>
+                <label className="mb-1 block text-sm font-semibold text-slate-700">المبلغ المستلم</label>
                 <input
                   type="text"
                   inputMode="numeric"
-                  className="w-full border border-slate-400 bg-white px-2 py-1.5 font-mono shadow-inner"
+                  className="h-9 w-full rounded-lg border border-gray-300 bg-white px-3 font-mono text-sm shadow-sm transition-all focus:border-green-500 focus:ring-2 focus:ring-green-500"
                   value={payAmount}
                   onChange={(e) => setPayAmount(e.target.value)}
                   autoFocus
                 />
               </div>
               <div>
-                <label className="mb-1 block text-sm font-bold">ملاحظة (اختياري)</label>
+                <label className="mb-1 block text-sm font-semibold text-slate-700">ملاحظة (اختياري)</label>
                 <input
-                  className="w-full border border-slate-400 bg-white px-2 py-1.5 shadow-inner"
+                  className="h-9 w-full rounded-lg border border-gray-300 bg-white px-3 text-sm shadow-sm transition-all focus:border-green-500 focus:ring-2 focus:ring-green-500"
                   value={payNote}
                   onChange={(e) => setPayNote(e.target.value)}
                 />
@@ -575,7 +575,7 @@ export function ReceivablesPage() {
               <button
                 type="button"
                 disabled={payBusy}
-                className="w-full border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] py-2 text-sm font-black text-black shadow disabled:opacity-50"
+                className="w-full rounded-lg bg-gradient-to-br from-green-500 to-green-600 py-2 text-sm font-semibold text-white shadow-md transition-all hover:from-green-600 hover:to-green-700 hover:shadow-lg active:scale-95 disabled:opacity-50"
                 onClick={() => void submitPayment()}
               >
                 {payBusy ? 'جاري الحفظ…' : 'تأكيد الدفعة'}

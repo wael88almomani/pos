@@ -7,8 +7,8 @@ type Props = {
 
 export function OldStyleHeader({ title, actions }: Props) {
   return (
-    <div className="flex items-center justify-between border-b-2 border-[#555] bg-gradient-to-b from-[#e8e8e8] to-[#c0c0c0] px-3 py-2 shadow">
-      <h1 className="text-lg font-black text-[#1a1a1a]">{title}</h1>
+    <div className="flex items-center justify-between border-b border-gray-200 bg-gradient-to-r from-white to-gray-50 px-4 py-3 shadow-sm">
+      <h1 className="text-xl font-bold text-blue-700">{title}</h1>
       {actions && <div className="flex items-center gap-2">{actions}</div>}
     </div>
   )
@@ -30,14 +30,14 @@ export function OldStyleButton({
 }) {
   const baseClass =
     variant === 'primary'
-      ? 'border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] text-white font-black'
-      : 'border border-[#555] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] font-bold'
+      ? 'rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 text-white font-semibold shadow-md transition-all hover:from-blue-600 hover:to-blue-700 hover:shadow-lg active:scale-95'
+      : 'rounded-lg border-2 border-gray-300 bg-white font-semibold text-slate-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow-md'
 
   return (
     <button
       type="button"
       onClick={onClick}
-      className={`${baseClass} px-4 py-1.5 text-sm shadow hover:from-[#b8ddf8] ${className}`}
+      className={`${baseClass} px-4 py-2 text-sm ${className}`}
       {...props}
     >
       {children}
@@ -57,10 +57,10 @@ export function OldStyleModal({
   width?: string
 }) {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={onClose}>
-      <div className={`w-full ${width} border-2 border-[#808080] bg-[#d0d0d0] shadow-2xl`} onClick={(e) => e.stopPropagation()}>
-        <div className="border-b-2 border-[#555] bg-gradient-to-b from-[#e8e8e8] to-[#c0c0c0] px-3 py-2">
-          <h2 className="text-base font-black text-[#1a1a1a]">{title}</h2>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm" onClick={onClose}>
+      <div className={`w-full ${width} overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl`} onClick={(e) => e.stopPropagation()}>
+        <div className="bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-3">
+          <h2 className="text-base font-bold text-white">{title}</h2>
         </div>
         {children}
       </div>

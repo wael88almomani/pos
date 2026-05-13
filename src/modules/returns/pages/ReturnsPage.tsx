@@ -81,17 +81,17 @@ export function ReturnsPage() {
   }
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden bg-[#d0d0d0]">
+    <div className="flex h-screen flex-col overflow-hidden bg-gray-50">
       {/* شريط العنوان */}
-      <div className="flex items-center justify-between border-b-2 border-[#555] bg-gradient-to-b from-[#e8e8e8] to-[#c0c0c0] px-3 py-2 shadow">
-        <h1 className="text-lg font-black text-[#1a1a1a]">المرتجعات</h1>
-        <div className="flex border border-[#555] overflow-hidden shadow">
+      <div className="flex items-center justify-between border-b border-gray-200 bg-gradient-to-r from-white to-gray-50 px-4 py-3 shadow-sm">
+        <h1 className="text-xl font-bold text-blue-700">المرتجعات</h1>
+        <div className="flex overflow-hidden rounded-lg border border-gray-300 shadow-sm">
           <button
             type="button"
             className={`px-3 py-1 text-sm font-bold ${
               tab === 'sale'
-                ? 'bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] text-black border-l border-[#1a4480]'
-                : 'bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] border-l border-[#555]'
+                ? 'border-l border-blue-300 bg-gradient-to-br from-blue-500 to-blue-600 text-white'
+                : 'border-l border-gray-300 bg-white text-slate-700 hover:bg-gray-50'
             }`}
             onClick={() => setTab('sale')}
           >
@@ -101,8 +101,8 @@ export function ReturnsPage() {
             type="button"
             className={`px-3 py-1 text-sm font-bold ${
               tab === 'purchase'
-                ? 'bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] text-black'
-                : 'bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0]'
+                ? 'bg-gradient-to-br from-blue-500 to-blue-600 text-white'
+                : 'bg-white text-slate-700 hover:bg-gray-50'
             }`}
             onClick={() => setTab('purchase')}
           >
@@ -112,34 +112,34 @@ export function ReturnsPage() {
       </div>
 
       {/* المحتوى */}
-      <div className="flex-1 overflow-auto p-3">
+      <div className="flex-1 overflow-auto p-4">
         {tab === 'sale' && (
           <Can perm="returns.sales">
-            <div className="border-2 border-[#808080] bg-white p-4 shadow">
-              <div className="mb-3 border-b border-slate-300 pb-2 text-sm font-black">مرتجع مبيعات</div>
+            <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-lg">
+              <div className="mb-3 border-b border-gray-200 pb-2 text-sm font-bold text-slate-700">مرتجع مبيعات</div>
               <div className="space-y-3">
                 <div>
-                  <label className="mb-1 block text-sm font-bold">معرّف الفاتورة الأصلية (اختياري)</label>
+                  <label className="mb-1 block text-sm font-semibold text-slate-700">معرّف الفاتورة الأصلية (اختياري)</label>
                   <input
-                    className="w-full border border-slate-400 bg-white px-2 py-1.5 font-mono text-xs shadow-inner"
+                    className="h-9 w-full rounded-lg border border-gray-300 bg-white px-3 font-mono text-xs shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                     placeholder="معرّف الفاتورة"
                     value={saleId}
                     onChange={(e) => setSaleId(e.target.value)}
                   />
                 </div>
                 <div>
-                  <label className="mb-1 block text-sm font-bold">سبب المرتجع</label>
+                  <label className="mb-1 block text-sm font-semibold text-slate-700">سبب المرتجع</label>
                   <input
-                    className="w-full border border-slate-400 bg-white px-2 py-1.5 shadow-inner"
+                    className="h-9 w-full rounded-lg border border-gray-300 bg-white px-3 text-sm shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                     placeholder="سبب المرتجع"
                     value={reason}
                     onChange={(e) => setReason(e.target.value)}
                   />
                 </div>
                 <div>
-                  <label className="mb-1 block text-sm font-bold">طريقة الاسترداد للعميل</label>
+                  <label className="mb-1 block text-sm font-semibold text-slate-700">طريقة الاسترداد للعميل</label>
                   <select
-                    className="w-full border border-slate-400 bg-white px-2 py-1.5 shadow-inner"
+                    className="h-9 w-full rounded-lg border border-gray-300 bg-white px-3 text-sm shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                     value={pay}
                     onChange={(e) => setPay(e.target.value)}
                   >
@@ -149,24 +149,24 @@ export function ReturnsPage() {
                   </select>
                 </div>
 
-                <div className="text-xs font-bold pt-2">أسطر المرتجع</div>
-                <div className="border border-[#808080] bg-white">
+                <div className="pt-2 text-xs font-bold text-slate-700">أسطر المرتجع</div>
+                <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="border-b-2 border-[#808080] bg-gradient-to-b from-[#f0f0f0] to-[#d8d8d8]">
-                        <th className="border-l border-[#c0c0c0] px-2 py-2 text-right font-black">المنتج</th>
-                        <th className="border-l border-[#c0c0c0] px-2 py-2 text-center font-black w-24">الكمية</th>
-                        <th className="px-2 py-2 text-center font-black w-28">سعر الوحدة</th>
+                      <tr className="border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
+                        <th className="border-l border-gray-200 px-2 py-2 text-right font-bold text-slate-700">المنتج</th>
+                        <th className="w-24 border-l border-gray-200 px-2 py-2 text-center font-bold text-slate-700">الكمية</th>
+                        <th className="w-28 px-2 py-2 text-center font-bold text-slate-700">سعر الوحدة</th>
                       </tr>
                     </thead>
                     <tbody>
                       {lines.map((l, i) => (
-                        <tr key={i} className="border-b border-[#e0e0e0]">
-                          <td className="border-l border-[#e0e0e0] p-2">
+                        <tr key={i} className="border-b border-gray-100">
+                          <td className="border-l border-gray-100 p-2">
                             <div className="flex gap-1">
                               <button
                                 type="button"
-                                className="border border-[#555] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-2 py-1 text-xs font-bold shadow"
+                                className="rounded-lg border-2 border-gray-300 bg-white px-2 py-1 text-xs font-semibold text-slate-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow-md"
                                 onClick={() => setPickSaleIdx(i)}
                               >
                                 بحث
@@ -176,10 +176,10 @@ export function ReturnsPage() {
                               </span>
                             </div>
                           </td>
-                          <td className="border-l border-[#e0e0e0] p-2">
+                          <td className="border-l border-gray-100 p-2">
                             <input
                               type="number"
-                              className="w-full border border-slate-400 bg-white px-2 py-1 text-center font-mono text-xs shadow-inner"
+                              className="w-full rounded-lg border border-gray-300 bg-white px-2 py-1 text-center font-mono text-xs shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                               value={l.quantity}
                               onChange={(e) =>
                                 setLines((r) => r.map((x, j) => (j === i ? { ...x, quantity: Number(e.target.value) } : x)))
@@ -189,7 +189,7 @@ export function ReturnsPage() {
                           <td className="p-2">
                             <input
                               type="number"
-                              className="w-full border border-slate-400 bg-white px-2 py-1 text-center font-mono text-xs shadow-inner"
+                              className="w-full rounded-lg border border-gray-300 bg-white px-2 py-1 text-center font-mono text-xs shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                               value={l.unitPrice}
                               onChange={(e) =>
                                 setLines((r) => r.map((x, j) => (j === i ? { ...x, unitPrice: Number(e.target.value) } : x)))
@@ -203,14 +203,14 @@ export function ReturnsPage() {
                 </div>
                 <button
                   type="button"
-                  className="border border-[#555] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-3 py-1 text-sm font-bold shadow"
+                  className="rounded-lg border-2 border-gray-300 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow-md"
                   onClick={() => setLines((r) => [...r, { productId: '', quantity: 1, unitPrice: 0 }])}
                 >
                   + سطر جديد
                 </button>
                 <button
                   type="button"
-                  className="w-full border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] py-2 text-sm font-black text-black shadow"
+                  className="w-full rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 py-2 text-sm font-semibold text-white shadow-md transition-all hover:from-blue-600 hover:to-blue-700 hover:shadow-lg active:scale-95"
                   onClick={() => void submitSale()}
                 >
                   حفظ مرتجع المبيعات
@@ -222,13 +222,13 @@ export function ReturnsPage() {
 
         {tab === 'purchase' && (
           <Can perm="returns.purchase">
-            <div className="border-2 border-[#808080] bg-white p-4 shadow">
-              <div className="mb-3 border-b border-slate-300 pb-2 text-sm font-black">مرتجع مشتريات</div>
+            <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-lg">
+              <div className="mb-3 border-b border-gray-200 pb-2 text-sm font-bold text-slate-700">مرتجع مشتريات</div>
               <div className="space-y-3">
                 <div>
-                  <label className="mb-1 block text-sm font-bold">المورد</label>
+                  <label className="mb-1 block text-sm font-semibold text-slate-700">المورد</label>
                   <select
-                    className="w-full border border-slate-400 bg-white px-2 py-1.5 shadow-inner"
+                    className="h-9 w-full rounded-lg border border-gray-300 bg-white px-3 text-sm shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                     value={supId}
                     onChange={(e) => setSupId(e.target.value)}
                   >
@@ -241,32 +241,32 @@ export function ReturnsPage() {
                   </select>
                 </div>
                 <div>
-                  <label className="mb-1 block text-sm font-bold">سبب المرتجع</label>
+                  <label className="mb-1 block text-sm font-semibold text-slate-700">سبب المرتجع</label>
                   <input
-                    className="w-full border border-slate-400 bg-white px-2 py-1.5 shadow-inner"
+                    className="h-9 w-full rounded-lg border border-gray-300 bg-white px-3 text-sm shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                     placeholder="سبب المرتجع"
                     value={reason}
                     onChange={(e) => setReason(e.target.value)}
                   />
                 </div>
 
-                <div className="border border-[#808080] bg-white">
+                <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="border-b-2 border-[#808080] bg-gradient-to-b from-[#f0f0f0] to-[#d8d8d8]">
-                        <th className="border-l border-[#c0c0c0] px-2 py-2 text-right font-black">المنتج</th>
-                        <th className="border-l border-[#c0c0c0] px-2 py-2 text-center font-black w-24">الكمية</th>
-                        <th className="px-2 py-2 text-center font-black w-28">تكلفة الوحدة</th>
+                      <tr className="border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
+                        <th className="border-l border-gray-200 px-2 py-2 text-right font-bold text-slate-700">المنتج</th>
+                        <th className="w-24 border-l border-gray-200 px-2 py-2 text-center font-bold text-slate-700">الكمية</th>
+                        <th className="w-28 px-2 py-2 text-center font-bold text-slate-700">تكلفة الوحدة</th>
                       </tr>
                     </thead>
                     <tbody>
                       {plines.map((l, i) => (
-                        <tr key={i} className="border-b border-[#e0e0e0]">
-                          <td className="border-l border-[#e0e0e0] p-2">
+                        <tr key={i} className="border-b border-gray-100">
+                          <td className="border-l border-gray-100 p-2">
                             <div className="flex gap-1 items-center">
                               <button
                                 type="button"
-                                className="border border-[#555] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-2 py-1 text-xs font-bold shadow"
+                                className="rounded-lg border-2 border-gray-300 bg-white px-2 py-1 text-xs font-semibold text-slate-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow-md"
                                 onClick={() => setPickPurIdx(i)}
                               >
                                 بحث
@@ -277,10 +277,10 @@ export function ReturnsPage() {
                               </span>
                             </div>
                           </td>
-                          <td className="border-l border-[#e0e0e0] p-2">
+                          <td className="border-l border-gray-100 p-2">
                             <input
                               type="number"
-                              className="w-full border border-slate-400 bg-white px-2 py-1 text-center font-mono text-xs shadow-inner"
+                              className="w-full rounded-lg border border-gray-300 bg-white px-2 py-1 text-center font-mono text-xs shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                               value={l.quantity}
                               onChange={(e) =>
                                 setPlines((r) => r.map((x, j) => (j === i ? { ...x, quantity: Number(e.target.value) } : x)))
@@ -290,7 +290,7 @@ export function ReturnsPage() {
                           <td className="p-2">
                             <input
                               type="number"
-                              className="w-full border border-slate-400 bg-white px-2 py-1 text-center font-mono text-xs shadow-inner"
+                              className="w-full rounded-lg border border-gray-300 bg-white px-2 py-1 text-center font-mono text-xs shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                               value={l.unitCost}
                               onChange={(e) =>
                                 setPlines((r) => r.map((x, j) => (j === i ? { ...x, unitCost: Number(e.target.value) } : x)))
@@ -304,14 +304,14 @@ export function ReturnsPage() {
                 </div>
                 <button
                   type="button"
-                  className="border border-[#555] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-3 py-1 text-sm font-bold shadow"
+                  className="rounded-lg border-2 border-gray-300 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow-md"
                   onClick={() => setPlines((r) => [...r, { productId: '', quantity: 1, unitCost: 0 }])}
                 >
                   + سطر جديد
                 </button>
                 <button
                   type="button"
-                  className="w-full border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] py-2 text-sm font-black text-black shadow"
+                  className="w-full rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 py-2 text-sm font-semibold text-white shadow-md transition-all hover:from-blue-600 hover:to-blue-700 hover:shadow-lg active:scale-95"
                   onClick={() => void submitPurchase()}
                 >
                   حفظ مرتجع المشتريات

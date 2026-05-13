@@ -56,22 +56,22 @@ export function PurchasesPage() {
   }
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden bg-[#d0d0d0]">
+    <div className="flex h-screen flex-col overflow-hidden bg-gray-50">
       {/* شريط العنوان */}
-      <div className="flex items-center justify-between border-b-2 border-[#555] bg-gradient-to-b from-[#e8e8e8] to-[#c0c0c0] px-3 py-2 shadow">
-        <h1 className="text-lg font-black text-[#1a1a1a]">المشتريات</h1>
+      <div className="flex items-center justify-between border-b border-gray-200 bg-gradient-to-r from-white to-gray-50 px-4 py-3 shadow-sm">
+        <h1 className="text-xl font-bold text-blue-700">المشتريات</h1>
       </div>
 
       {/* المحتوى */}
-      <div className="flex-1 overflow-auto p-3 space-y-3">
+      <div className="flex-1 overflow-auto space-y-4 p-4">
         <Can perm="purchase.write">
-          <div className="border-2 border-[#808080] bg-white p-4 shadow">
-            <div className="mb-3 border-b border-slate-300 pb-2 text-sm font-black">فاتورة مشتراة جديدة</div>
+          <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-lg">
+            <div className="mb-3 border-b border-gray-200 pb-2 text-sm font-bold text-slate-700">فاتورة مشتراة جديدة</div>
             <div className="space-y-3">
               <div>
-                <label className="mb-1 block text-sm font-bold">المورد</label>
+                <label className="mb-1 block text-sm font-semibold text-slate-700">المورد</label>
                 <select
-                  className="w-full border border-slate-400 bg-white px-2 py-1.5 text-sm shadow-inner"
+                  className="h-9 w-full rounded-lg border border-gray-300 bg-white px-3 text-sm shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                   value={supplierId}
                   onChange={(e) => setSupplierId(e.target.value)}
                 >
@@ -84,29 +84,29 @@ export function PurchasesPage() {
                 </select>
               </div>
 
-              <div className="border border-[#808080] bg-white">
+              <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-b-2 border-[#808080] bg-gradient-to-b from-[#f0f0f0] to-[#d8d8d8]">
-                      <th className="border-l border-[#c0c0c0] px-2 py-2 text-right font-black">المنتج</th>
-                      <th className="border-l border-[#c0c0c0] px-2 py-2 text-center font-black w-28">الكمية</th>
-                      <th className="px-2 py-2 text-center font-black w-32">تكلفة الوحدة</th>
+                    <tr className="border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
+                      <th className="border-l border-gray-200 px-2 py-2 text-right font-bold text-slate-700">المنتج</th>
+                      <th className="w-28 border-l border-gray-200 px-2 py-2 text-center font-bold text-slate-700">الكمية</th>
+                      <th className="w-32 px-2 py-2 text-center font-bold text-slate-700">تكلفة الوحدة</th>
                     </tr>
                   </thead>
                   <tbody>
                     {lines.map((l, i) => (
-                      <tr key={i} className="border-b border-[#e0e0e0]">
-                        <td className="border-l border-[#e0e0e0] p-2">
+                      <tr key={i} className="border-b border-gray-100">
+                        <td className="border-l border-gray-100 p-2">
                           <div className="flex gap-1">
                             <button
                               type="button"
-                              className="border border-[#555] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-2 py-1 text-xs font-bold shadow hover:from-[#f5f5f5]"
+                              className="rounded-lg border-2 border-gray-300 bg-white px-2 py-1 text-xs font-semibold text-slate-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow-md"
                               onClick={() => setPickLine(i)}
                             >
                               بحث
                             </button>
                             <input
-                              className="flex-1 border border-slate-400 bg-white px-2 py-1 font-mono text-xs shadow-inner"
+                              className="flex-1 rounded-lg border border-gray-300 bg-white px-2 py-1 font-mono text-xs shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                               placeholder="معرّف المنتج"
                               value={l.productId}
                               onChange={(e) =>
@@ -115,10 +115,10 @@ export function PurchasesPage() {
                             />
                           </div>
                         </td>
-                        <td className="border-l border-[#e0e0e0] p-2">
+                        <td className="border-l border-gray-100 p-2">
                           <input
                             type="number"
-                            className="w-full border border-slate-400 bg-white px-2 py-1 text-center font-mono text-xs shadow-inner"
+                            className="w-full rounded-lg border border-gray-300 bg-white px-2 py-1 text-center font-mono text-xs shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                             value={l.quantity}
                             onChange={(e) =>
                               setLines((rows) => rows.map((r, j) => (j === i ? { ...r, quantity: Number(e.target.value) } : r)))
@@ -128,7 +128,7 @@ export function PurchasesPage() {
                         <td className="p-2">
                           <input
                             type="number"
-                            className="w-full border border-slate-400 bg-white px-2 py-1 text-center font-mono text-xs shadow-inner"
+                            className="w-full rounded-lg border border-gray-300 bg-white px-2 py-1 text-center font-mono text-xs shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                             value={l.unitCost}
                             onChange={(e) =>
                               setLines((rows) => rows.map((r, j) => (j === i ? { ...r, unitCost: Number(e.target.value) } : r)))
@@ -143,7 +143,7 @@ export function PurchasesPage() {
 
               <button
                 type="button"
-                className="border border-[#555] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-3 py-1 text-sm font-bold shadow hover:from-[#f5f5f5]"
+                className="inline-flex items-center rounded-lg border-2 border-gray-300 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow-md"
                 onClick={() => setLines((r) => [...r, { productId: '', quantity: 1, unitCost: 0 }])}
               >
                 + سطر جديد
@@ -151,17 +151,17 @@ export function PurchasesPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="mb-1 block text-sm font-bold">ضريبة %</label>
+                  <label className="mb-1 block text-sm font-semibold text-slate-700">ضريبة %</label>
                   <input
-                    className="w-full border border-slate-400 bg-white px-2 py-1.5 font-mono text-sm shadow-inner"
+                    className="h-9 w-full rounded-lg border border-gray-300 bg-white px-3 font-mono text-sm shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                     value={tax}
                     onChange={(e) => setTax(e.target.value)}
                   />
                 </div>
                 <div>
-                  <label className="mb-1 block text-sm font-bold">خصم</label>
+                  <label className="mb-1 block text-sm font-semibold text-slate-700">خصم</label>
                   <input
-                    className="w-full border border-slate-400 bg-white px-2 py-1.5 font-mono text-sm shadow-inner"
+                    className="h-9 w-full rounded-lg border border-gray-300 bg-white px-3 font-mono text-sm shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                     value={disc}
                     onChange={(e) => setDisc(e.target.value)}
                   />
@@ -171,7 +171,7 @@ export function PurchasesPage() {
               <div className="flex gap-2 pt-2">
                 <button
                   type="button"
-                  className="border border-[#555] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-4 py-1.5 text-sm font-bold shadow hover:from-[#f5f5f5]"
+                  className="rounded-lg border-2 border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow-md"
                   onClick={() => void saveDraft()}
                 >
                   حفظ مسودة
@@ -179,7 +179,7 @@ export function PurchasesPage() {
                 {canComplete && (
                   <button
                     type="button"
-                    className="border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] px-4 py-1.5 text-sm font-black text-black shadow hover:from-[#b8ddf8]"
+                    className="rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition-all hover:from-blue-600 hover:to-blue-700 hover:shadow-lg active:scale-95"
                     onClick={() => void complete()}
                   >
                     إتمام (تحديث المخزون)
@@ -192,16 +192,16 @@ export function PurchasesPage() {
           </div>
         </Can>
 
-        <div className="border-2 border-[#808080] bg-white shadow">
-          <div className="border-b-2 border-[#555] bg-gradient-to-b from-[#e8e8e8] to-[#c0c0c0] px-3 py-2 text-sm font-black">
+        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg">
+          <div className="border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100 px-3 py-2 text-sm font-bold text-slate-700">
             آخر المشتريات
           </div>
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b-2 border-[#808080] bg-gradient-to-b from-[#f0f0f0] to-[#d8d8d8]">
-                <th className="border-l border-[#c0c0c0] px-3 py-2 text-right font-black">رقم الفاتورة</th>
-                <th className="border-l border-[#c0c0c0] px-3 py-2 text-right font-black">الحالة</th>
-                <th className="px-3 py-2 text-right font-black">الإجمالي</th>
+              <tr className="border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
+                <th className="border-l border-gray-200 px-3 py-3 text-right font-bold text-slate-700">رقم الفاتورة</th>
+                <th className="border-l border-gray-200 px-3 py-3 text-right font-bold text-slate-700">الحالة</th>
+                <th className="px-3 py-3 text-right font-bold text-slate-700">الإجمالي</th>
               </tr>
             </thead>
             <tbody>
@@ -213,10 +213,10 @@ export function PurchasesPage() {
                 </tr>
               ) : (
                 list.map((x) => (
-                  <tr key={x.id} className="border-b border-[#e0e0e0] hover:bg-[#f5f5f5]">
-                    <td className="border-l border-[#e0e0e0] px-3 py-2 font-mono">{x.invoiceNumber}</td>
-                    <td className="border-l border-[#e0e0e0] px-3 py-2">{x.status}</td>
-                    <td className="px-3 py-2 font-mono">{x.total.toFixed(2)}</td>
+                  <tr key={x.id} className="border-b border-gray-100 hover:bg-blue-50 transition-colors">
+                    <td className="border-l border-gray-100 px-3 py-2.5 font-mono">{x.invoiceNumber}</td>
+                    <td className="border-l border-gray-100 px-3 py-2.5">{x.status}</td>
+                    <td className="px-3 py-2.5 font-mono">{x.total.toFixed(2)}</td>
                   </tr>
                 ))
               )}

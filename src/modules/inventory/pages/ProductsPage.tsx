@@ -146,13 +146,13 @@ export function ProductsPage() {
   }, [toast, load])
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden bg-[#d0d0d0]">
+    <div className="flex h-screen flex-col overflow-hidden bg-gray-50">
       {/* شريط العنوان */}
-      <div className="flex items-center justify-between border-b-2 border-[#555] bg-gradient-to-b from-[#e8e8e8] to-[#c0c0c0] px-3 py-2 shadow">
-        <h1 className="text-lg font-black text-[#1a1a1a]">المستودعات</h1>
-        <div className="flex items-center gap-2">
+      <div className="flex items-center justify-between border-b border-gray-200 bg-gradient-to-r from-white to-gray-50 px-4 py-3 shadow-sm">
+        <h1 className="text-xl font-bold text-blue-700">المستودعات</h1>
+        <div className="flex flex-wrap items-center gap-3">
           <select
-            className="h-8 border border-slate-400 bg-white px-2 text-sm shadow-inner"
+            className="h-9 rounded-lg border border-gray-300 bg-white px-3 text-sm shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
             value={filterCategoryId}
             onChange={(e) => setFilterCategoryId(e.target.value)}
           >
@@ -165,7 +165,7 @@ export function ProductsPage() {
             ))}
           </select>
           <input
-            className="h-8 w-48 border border-slate-400 bg-white px-2 text-sm shadow-inner"
+            className="h-9 w-full sm:w-60 rounded-lg border border-gray-300 bg-white px-3 text-sm shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
             placeholder="البحث بواسطة: رقم المادة / اسم المادة..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -174,78 +174,78 @@ export function ProductsPage() {
       </div>
 
       {/* الإحصائيات */}
-      <div className="border-b-2 border-[#555] bg-gradient-to-b from-[#f8f8f8] to-[#e0e0e0] px-4 py-3">
-        <div className="grid grid-cols-5 gap-6 text-sm">
+      <div className="border-b border-gray-200 bg-gradient-to-br from-blue-50 to-indigo-50 px-4 py-3 shadow-sm">
+        <div className="grid grid-cols-1 gap-3 text-sm sm:grid-cols-2 xl:grid-cols-5">
           <div className="text-right">
-            <span className="font-black text-slate-700">معلومات عن المستودع:</span>
-            <span className="mr-2 font-semibold text-blue-700">الرئيسي</span>
+            <span className="font-bold text-slate-600">معلومات عن المستودع:</span>
+            <span className="mr-2 font-semibold text-blue-600">الرئيسي</span>
           </div>
           <div className="text-right">
-            <span className="font-black text-slate-700">إجمالي التكلفة الحالية:</span>
-            <span className="mr-2 font-mono font-bold text-green-700">{totals.totalCost.toFixed(2)}</span>
+            <span className="font-bold text-slate-600">إجمالي التكلفة الحالية:</span>
+            <span className="mr-2 font-mono font-bold text-green-600">{totals.totalCost.toFixed(2)}</span>
           </div>
           <div className="text-right">
-            <span className="font-black text-slate-700">إجمالي السعر:</span>
-            <span className="mr-2 font-mono font-bold text-blue-700">{totals.totalSale.toFixed(2)}</span>
+            <span className="font-bold text-slate-600">إجمالي السعر:</span>
+            <span className="mr-2 font-mono font-bold text-blue-600">{totals.totalSale.toFixed(2)}</span>
           </div>
           <div className="text-right">
-            <span className="font-black text-slate-700">إجمالي سعر الشراء:</span>
-            <span className="mr-2 font-mono font-bold text-orange-700">{totals.totalPurchasePrice.toFixed(2)}</span>
+            <span className="font-bold text-slate-600">إجمالي سعر الشراء:</span>
+            <span className="mr-2 font-mono font-bold text-orange-600">{totals.totalPurchasePrice.toFixed(2)}</span>
           </div>
           <div className="text-right">
-            <span className="font-black text-slate-700">إجمالي سعر البيع:</span>
-            <span className="mr-2 font-mono font-bold text-purple-700">{totals.totalSalePrice.toFixed(2)}</span>
+            <span className="font-bold text-slate-600">إجمالي سعر البيع:</span>
+            <span className="mr-2 font-mono font-bold text-purple-600">{totals.totalSalePrice.toFixed(2)}</span>
           </div>
         </div>
       </div>
 
       {/* الجدول */}
-      <div className="flex-1 overflow-auto p-3">
-        <div className="border-2 border-[#808080] bg-white shadow-lg">
+      <div className="flex-1 overflow-auto p-4">
+        <div className="rounded-xl border border-gray-200 bg-white shadow-lg overflow-hidden">
           <table className="w-full border-collapse text-sm">
             <thead>
-              <tr className="border-b-2 border-[#555] bg-gradient-to-b from-[#e8e8e8] to-[#c0c0c0]">
-                <th className="border-l border-[#808080] px-2 py-2.5 text-right">
-                  <button type="button" className="font-black hover:text-blue-700" onClick={() => toggleSort('id')}>
+              <tr className="border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
+                <th className="border-l border-gray-200 px-3 py-3 text-right">
+                  <button type="button" className="font-bold text-slate-700 hover:text-blue-600 transition-colors" onClick={() => toggleSort('id')}>
                     رقم المادة{sortMark('id')}
                   </button>
                 </th>
-                <th className="border-l border-[#808080] px-3 py-2.5 text-right">
-                  <button type="button" className="font-black hover:text-blue-700" onClick={() => toggleSort('name')}>
+                <th className="border-l border-gray-200 px-3 py-3 text-right">
+                  <button type="button" className="font-bold text-slate-700 hover:text-blue-600 transition-colors" onClick={() => toggleSort('name')}>
                     اسم المادة{sortMark('name')}
                   </button>
                 </th>
-                <th className="border-l border-[#808080] px-2 py-2.5 text-center">
-                  <button type="button" className="font-black hover:text-blue-700" onClick={() => toggleSort('quantity')}>
+                <th className="border-l border-gray-200 px-3 py-3 text-center">
+                  <button type="button" className="font-bold text-slate-700 hover:text-blue-600 transition-colors" onClick={() => toggleSort('quantity')}>
                     الكمية{sortMark('quantity')}
                   </button>
                 </th>
-                <th className="border-l border-[#808080] px-2 py-2.5 text-center">
-                  <button type="button" className="font-black hover:text-blue-700" onClick={() => toggleSort('purchasePrice')}>
+                <th className="border-l border-gray-200 px-3 py-3 text-center">
+                  <button type="button" className="font-bold text-slate-700 hover:text-blue-600 transition-colors" onClick={() => toggleSort('purchasePrice')}>
                     سعر التكلفة{sortMark('purchasePrice')}
                   </button>
                 </th>
-                <th className="border-l border-[#808080] px-2 py-2.5 text-center">
-                  <button type="button" className="font-black hover:text-blue-700" onClick={() => toggleSort('salePrice')}>
+                <th className="border-l border-gray-200 px-3 py-3 text-center">
+                  <button type="button" className="font-bold text-slate-700 hover:text-blue-600 transition-colors" onClick={() => toggleSort('salePrice')}>
                     سعر البيع{sortMark('salePrice')}
                   </button>
                 </th>
-                <th className="border-l border-[#808080] px-2 py-2.5 text-center font-black">
+                <th className="border-l border-gray-200 px-3 py-3 text-center font-bold text-slate-700">
                   سعر البيع
                 </th>
-                <th className="border-l border-[#808080] px-3 py-2.5 text-right">
-                  <button type="button" className="font-black hover:text-blue-700" onClick={() => toggleSort('category')}>
+                <th className="border-l border-gray-200 px-3 py-3 text-right">
+                  <button type="button" className="font-bold text-slate-700 hover:text-blue-600 transition-colors" onClick={() => toggleSort('category')}>
                     التصنيف{sortMark('category')}
                   </button>
                 </th>
-                <th className="border-l border-[#808080] px-3 py-2.5 text-center font-black">
+                <th className="border-l border-gray-200 px-3 py-3 text-center font-bold text-slate-700">
                   المورد
                 </th>
-                <th className="border-l border-[#808080] px-2 py-2.5 text-center font-black">
+                <th className="border-l border-gray-200 px-3 py-3 text-center font-bold text-slate-700">
                   نسبة الضريبة %
                 </th>
-                <th className="px-2 py-2.5 text-center">
-                  <button type="button" className="font-black hover:text-blue-700" onClick={() => toggleSort('expiryDate')}>
+                <th className="px-3 py-3 text-center">
+                  <button type="button" className="font-bold text-slate-700 hover:text-blue-600 transition-colors" onClick={() => toggleSort('expiryDate')}>
                     تاريخ الانتهاء{sortMark('expiryDate')}
                   </button>
                 </th>
@@ -262,20 +262,20 @@ export function ProductsPage() {
                 rows.map((p, idx) => (
                   <tr 
                     key={p.id} 
-                    className={`border-b border-[#d0d0d0] hover:bg-[#e8f4ff] cursor-pointer ${idx % 2 === 0 ? 'bg-white' : 'bg-[#f8f8f8]'}`}
+                    className="border-b border-gray-100 hover:bg-blue-50 cursor-pointer transition-colors"
                     onClick={() => setEditing(p)}
                   >
-                    <td className="border-l border-[#d0d0d0] px-2 py-1.5 text-right font-mono text-xs">{idx + 1}</td>
-                    <td className="border-l border-[#d0d0d0] px-3 py-1.5 text-right font-semibold">{p.name}</td>
-                    <td className="border-l border-[#d0d0d0] px-2 py-1.5 text-center font-mono">{p.quantity.toLocaleString('ar')}</td>
-                    <td className="border-l border-[#d0d0d0] px-2 py-1.5 text-center font-mono">{Number(p.purchasePrice).toFixed(3)}</td>
-                    <td className="border-l border-[#d0d0d0] px-2 py-1.5 text-center font-mono">{Number(p.salePrice).toFixed(3)}</td>
-                    <td className="border-l border-[#d0d0d0] px-2 py-1.5 text-center font-mono">{Number(p.salePrice).toFixed(3)}</td>
-                    <td className="border-l border-[#d0d0d0] px-3 py-1.5 text-right text-slate-700">
+                    <td className="border-l border-gray-100 px-3 py-2.5 text-right font-mono text-xs">{idx + 1}</td>
+                    <td className="border-l border-gray-100 px-3 py-2.5 text-right font-semibold">{p.name}</td>
+                    <td className="border-l border-gray-100 px-3 py-2.5 text-center font-mono">{p.quantity.toLocaleString('ar')}</td>
+                    <td className="border-l border-gray-100 px-3 py-2.5 text-center font-mono">{Number(p.purchasePrice).toFixed(3)}</td>
+                    <td className="border-l border-gray-100 px-3 py-2.5 text-center font-mono">{Number(p.salePrice).toFixed(3)}</td>
+                    <td className="border-l border-gray-100 px-3 py-2.5 text-center font-mono">{Number(p.salePrice).toFixed(3)}</td>
+                    <td className="border-l border-gray-100 px-3 py-2.5 text-right text-slate-700">
                       {categories.find((c) => c.id === p.categoryId)?.name ?? '—'}
                     </td>
-                    <td className="border-l border-[#d0d0d0] px-3 py-1.5 text-center text-slate-500">—</td>
-                    <td className="border-l border-[#d0d0d0] px-2 py-1.5 text-center font-mono">0.000</td>
+                    <td className="border-l border-gray-100 px-3 py-2.5 text-center text-slate-500">—</td>
+                    <td className="border-l border-gray-100 px-3 py-2.5 text-center font-mono">0.000</td>
                     <td className="px-2 py-1.5 text-center text-xs text-slate-600">
                       {p.expiryDate 
                         ? format(new Date(p.expiryDate), 'yyyy-MM-dd', { locale: arSA })
@@ -300,34 +300,34 @@ export function ProductsPage() {
       </div>
 
       {/* شريط الأزرار السفلي */}
-      <div className="flex items-center justify-between border-t-2 border-[#555] bg-gradient-to-b from-[#e8e8e8] to-[#c0c0c0] px-4 py-2.5 shadow-lg">
+      <div className="flex items-center justify-between border-t border-gray-200 bg-gradient-to-r from-white to-gray-50 px-4 py-3 shadow-sm">
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-1">
-            <span className="font-black text-slate-700">عدد المواد</span>
-            <span className="rounded border border-[#555] bg-white px-3 py-1 font-mono font-bold text-blue-700">
+          <div className="flex items-center gap-2">
+            <span className="font-bold text-slate-700">عدد المواد</span>
+            <span className="rounded-lg border border-gray-300 bg-white px-3 py-1.5 font-mono font-bold text-blue-600 shadow-sm">
               {totalCount}
             </span>
           </div>
           
           {/* Pagination */}
-          <div className="flex items-center gap-2 border-r border-slate-400 pr-4">
+          <div className="flex items-center gap-2 border-r border-gray-300 pr-4">
             <button
               type="button"
               onClick={() => setPage(p => Math.max(1, p - 1))}
               disabled={page === 1 || loading}
-              className="flex items-center gap-1 border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] px-3 py-1 text-xs font-bold text-black shadow hover:from-[#b8ddf8] disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center gap-1 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 px-3 py-1.5 text-xs font-semibold text-white shadow-md hover:shadow-lg hover:from-blue-600 hover:to-blue-700 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
               <ChevronRight className="h-3 w-3" />
               السابق
             </button>
-            <span className="font-mono text-sm font-bold">
+            <span className="font-mono text-sm font-bold text-slate-700">
               صفحة {page} من {totalPages}
             </span>
             <button
               type="button"
               onClick={() => setPage(p => Math.min(totalPages, p + 1))}
               disabled={page >= totalPages || loading}
-              className="flex items-center gap-1 border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] px-3 py-1 text-xs font-bold text-black shadow hover:from-[#b8ddf8] disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center gap-1 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 px-3 py-1.5 text-xs font-semibold text-white shadow-md hover:shadow-lg hover:from-blue-600 hover:to-blue-700 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
               التالي
               <ChevronLeft className="h-3 w-3" />
@@ -338,7 +338,7 @@ export function ProductsPage() {
         <div className="flex items-center gap-2">
           <button
             type="button"
-            className="flex items-center gap-1.5 border border-[#555] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-3 py-1.5 text-sm font-bold shadow hover:from-[#f5f5f5]"
+            className="flex items-center gap-1.5 rounded-lg border-2 border-gray-300 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 shadow-sm hover:bg-gray-50 hover:shadow-md transition-all"
             onClick={() => window.print()}
           >
             <Printer className="h-4 w-4" />
@@ -348,7 +348,7 @@ export function ProductsPage() {
           {canExport && (
             <button
               type="button"
-              className="flex items-center gap-1.5 border border-[#555] bg-gradient-to-b from-[#90ee90] to-[#50c050] px-3 py-1.5 text-sm font-bold text-black shadow hover:from-[#a0ffa0]"
+              className="flex items-center gap-1.5 rounded-lg bg-gradient-to-br from-green-500 to-green-600 px-3 py-1.5 text-sm font-semibold text-white shadow-md hover:shadow-lg hover:from-green-600 hover:to-green-700 active:scale-95 transition-all"
               onClick={() => void onExportStock()}
             >
               <Download className="h-4 w-4" />
@@ -358,7 +358,7 @@ export function ProductsPage() {
 
           <button
             type="button"
-            className="flex items-center gap-1.5 border border-[#555] bg-gradient-to-b from-[#87ceeb] to-[#4682b4] px-3 py-1.5 text-sm font-bold text-black shadow hover:from-[#97defc]"
+            className="flex items-center gap-1.5 rounded-lg bg-gradient-to-br from-blue-400 to-blue-500 px-3 py-1.5 text-sm font-semibold text-white shadow-md hover:shadow-lg hover:from-blue-500 hover:to-blue-600 active:scale-95 transition-all"
             onClick={() => {/* TODO: Filter by expiry */}}
           >
             <Calendar className="h-4 w-4" />
@@ -367,7 +367,7 @@ export function ProductsPage() {
 
           <button
             type="button"
-            className="flex items-center gap-1.5 border border-[#555] bg-gradient-to-b from-[#90ee90] to-[#50c050] px-3 py-1.5 text-sm font-bold text-black shadow hover:from-[#a0ffa0]"
+            className="flex items-center gap-1.5 rounded-lg bg-gradient-to-br from-green-500 to-green-600 px-3 py-1.5 text-sm font-semibold text-white shadow-md hover:shadow-lg hover:from-green-600 hover:to-green-700 active:scale-95 transition-all"
             onClick={() => {/* TODO: Filter by quantity */}}
           >
             <Package className="h-4 w-4" />
@@ -376,7 +376,7 @@ export function ProductsPage() {
 
           <button
             type="button"
-            className="flex items-center gap-1.5 border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] px-4 py-1.5 text-sm font-black text-black shadow hover:from-[#b8ddf8]"
+            className="flex items-center gap-1.5 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 px-4 py-1.5 text-sm font-bold text-white shadow-md hover:shadow-lg hover:from-blue-600 hover:to-blue-700 active:scale-95 transition-all"
             onClick={() => setEditing('new')}
           >
             <Plus className="h-5 w-5" />

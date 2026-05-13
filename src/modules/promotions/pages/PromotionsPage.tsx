@@ -104,35 +104,35 @@ export function PromotionsPage() {
     <div className={enterprisePageRootClass}>
       <EnterpriseToolbar title="إدارة العروض الترويجية" icon={Tag} />
 
-      <div className="flex-1 overflow-auto p-6 bg-[#d0d0d0]">
+      <div className="flex-1 overflow-auto bg-gray-50 p-6">
         {/* الفلاتر */}
         <div className="mb-4 flex gap-2">
           <button
             onClick={() => setFilter('all')}
-            className={`px-4 py-2 text-sm font-bold border ${
+            className={`rounded-lg border-2 px-4 py-2 text-sm font-semibold transition-all ${
               filter === 'all'
-                ? 'bg-blue-100 border-blue-400'
-                : 'bg-white border-slate-300'
+                ? 'border-blue-300 bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-md'
+                : 'border-gray-300 bg-white text-slate-700 hover:bg-gray-50'
             }`}
           >
             الكل ({promotions.length})
           </button>
           <button
             onClick={() => setFilter('active')}
-            className={`px-4 py-2 text-sm font-bold border ${
+            className={`rounded-lg border-2 px-4 py-2 text-sm font-semibold transition-all ${
               filter === 'active'
-                ? 'bg-green-100 border-green-400'
-                : 'bg-white border-slate-300'
+                ? 'border-green-300 bg-gradient-to-br from-green-500 to-green-600 text-white shadow-md'
+                : 'border-gray-300 bg-white text-slate-700 hover:bg-gray-50'
             }`}
           >
             النشطة ({promotions.filter((p) => p.isActive).length})
           </button>
           <button
             onClick={() => setFilter('expired')}
-            className={`px-4 py-2 text-sm font-bold border ${
+            className={`rounded-lg border-2 px-4 py-2 text-sm font-semibold transition-all ${
               filter === 'expired'
-                ? 'bg-red-100 border-red-400'
-                : 'bg-white border-slate-300'
+                ? 'border-red-300 bg-gradient-to-br from-red-500 to-red-600 text-white shadow-md'
+                : 'border-gray-300 bg-white text-slate-700 hover:bg-gray-50'
             }`}
           >
             المنتهية
@@ -147,7 +147,7 @@ export function PromotionsPage() {
         )}
 
         {!loading && filteredPromotions.length === 0 && (
-          <div className="text-center py-12 bg-white border-2 border-[#808080] rounded">
+          <div className="rounded-xl border border-gray-200 bg-white py-12 text-center shadow-lg">
             <Tag className="mx-auto h-12 w-12 text-slate-400 mb-3" />
             <p className="text-lg font-bold text-slate-600">لا توجد عروض</p>
             <p className="text-sm text-slate-500 mt-1">
@@ -160,7 +160,7 @@ export function PromotionsPage() {
           {filteredPromotions.map((promo) => (
             <div
               key={promo.id}
-              className="bg-white border-2 border-[#808080] p-4 rounded shadow"
+              className="rounded-xl border border-gray-200 bg-white p-4 shadow-lg"
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1">
@@ -208,10 +208,10 @@ export function PromotionsPage() {
                 <div className="flex gap-1">
                   <button
                     onClick={() => void togglePromotion(promo.id)}
-                    className={`p-2 border-2 ${
+                    className={`rounded-lg p-2 transition-all ${
                       promo.isActive
-                        ? 'bg-yellow-100 border-yellow-400 hover:bg-yellow-200'
-                        : 'bg-green-100 border-green-400 hover:bg-green-200'
+                        ? 'bg-gradient-to-br from-amber-400 to-amber-500 text-white shadow-sm hover:shadow-md'
+                        : 'bg-gradient-to-br from-green-500 to-green-600 text-white shadow-sm hover:shadow-md'
                     }`}
                     title={promo.isActive ? 'إيقاف' : 'تفعيل'}
                   >
@@ -223,10 +223,10 @@ export function PromotionsPage() {
                   </button>
                   <button
                     onClick={() => void deletePromotion(promo.id)}
-                    className="p-2 bg-red-100 border-2 border-red-400 hover:bg-red-200"
+                    className="rounded-lg bg-gradient-to-br from-red-500 to-red-600 p-2 text-white shadow-sm transition-all hover:shadow-md"
                     title="حذف"
                   >
-                    <Trash2 className="h-4 w-4 text-red-700" />
+                    <Trash2 className="h-4 w-4" />
                   </button>
                 </div>
               </div>

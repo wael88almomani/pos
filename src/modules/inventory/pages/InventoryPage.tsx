@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+﻿import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { format } from 'date-fns'
 import { arSA } from 'date-fns/locale'
 import { Package, ChevronLeft, ChevronRight } from 'lucide-react'
@@ -14,13 +14,13 @@ import {
 } from '../../shared/EnterpriseToolbar'
 
 const MOVE_LABELS: Record<string, string> = {
-  stock_in: 'إدخال مخزون',
-  stock_out: 'إخراج مخزون',
-  adjustment: 'تعديل',
-  damage: 'تلف',
-  waste: 'هالك',
-  sale: 'بيع',
-  purchase: 'مشتريات'
+  stock_in: 'Ø¥Ø¯Ø®Ø§Ù„ Ù…Ø®Ø²ÙˆÙ†',
+  stock_out: 'Ø¥Ø®Ø±Ø§Ø¬ Ù…Ø®Ø²ÙˆÙ†',
+  adjustment: 'ØªØ¹Ø¯ÙŠÙ„',
+  damage: 'ØªÙ„Ù',
+  waste: 'Ù‡Ø§Ù„Ùƒ',
+  sale: 'Ø¨ÙŠØ¹',
+  purchase: 'Ù…Ø´ØªØ±ÙŠØ§Øª'
 }
 
 type LowRow = { id: string; name: string; quantity: number; minStock: number }
@@ -143,7 +143,7 @@ export function InventoryPage() {
 
   async function apply() {
     if (!picked) {
-      toast('اختر منتجاً من القائمة', 'err')
+      toast('Ø§Ø®ØªØ± Ù…Ù†ØªØ¬Ø§Ù‹ Ù…Ù† Ø§Ù„Ù‚Ø§Ø¦Ù…Ø©', 'err')
       return
     }
     const r = await window.posApi.inventory.applyMove({
@@ -154,7 +154,7 @@ export function InventoryPage() {
       unitCost: unitCost ? Number(unitCost) : undefined
     })
     if (r.ok) {
-      toast('تم تحديث المخزون')
+      toast('ØªÙ… ØªØ­Ø¯ÙŠØ« Ø§Ù„Ù…Ø®Ø²ÙˆÙ†')
       setMoveOpen(false)
       setPicked(null)
       setQty('1')
@@ -164,14 +164,14 @@ export function InventoryPage() {
     } else {
       const code = (r as { code?: string }).code
       if (code === 'NEGATIVE_STOCK' || (r as { error?: string }).error === 'NEGATIVE_STOCK')
-        toast('الكمية غير كافية في المخزون', 'err')
-      else toast('فشل الحركة', 'err')
+        toast('Ø§Ù„ÙƒÙ…ÙŠØ© ØºÙŠØ± ÙƒØ§ÙÙŠØ© ÙÙŠ Ø§Ù„Ù…Ø®Ø²ÙˆÙ†', 'err')
+      else toast('ÙØ´Ù„ Ø§Ù„Ø­Ø±ÙƒØ©', 'err')
     }
   }
 
   const pickedSummary = useMemo(() => {
     if (!picked) return null
-    return `${picked.name} — المتوفّر: ${picked.quantity}`
+    return `${picked.name} â€” Ø§Ù„Ù…ØªÙˆÙÙ‘Ø±: ${picked.quantity}`
   }, [picked])
 
   const filteredStockRows = useMemo(() => {
@@ -186,7 +186,7 @@ export function InventoryPage() {
     async (id: string) => {
       const r = await window.posApi.products.get(id)
       if (!r.ok || !('product' in r)) {
-        toast('تعذر تحميل بطاقة المنتج', 'err')
+        toast('ØªØ¹Ø°Ø± ØªØ­Ù…ÙŠÙ„ Ø¨Ø·Ø§Ù‚Ø© Ø§Ù„Ù…Ù†ØªØ¬', 'err')
         return
       }
       const pr = r.product as InventoryProduct
@@ -205,20 +205,20 @@ export function InventoryPage() {
   }, [stockRows])
 
   return (
-    <div className={enterprisePageRootClass}>
+    <div className={`${enterprisePageRootClass} page-microtype inventory-microtype`}>
       <EnterpriseToolbar
-        title="المستودع والحركات"
+        title="Ø§Ù„Ù…Ø³ØªÙˆØ¯Ø¹ ÙˆØ§Ù„Ø­Ø±ÙƒØ§Øª"
         actions={
           <Can perm="inventory.write">
             <button
               type="button"
-              className="rounded border-2 border-[#808080] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] px-4 py-2 text-sm font-bold text-black shadow-sm hover:from-[#90c0e8] hover:to-[#2870b4]"
+              className="rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-md hover:shadow-lg hover:from-blue-600 hover:to-blue-700 active:scale-95 transition-all"
               onClick={() => {
                 setMoveOpen(true)
                 setPickerOpen(false)
               }}
             >
-              تسجيل حركة مخزون
+              ØªØ³Ø¬ÙŠÙ„ Ø­Ø±ÙƒØ© Ù…Ø®Ø²ÙˆÙ†
             </button>
           </Can>
         }
@@ -227,52 +227,52 @@ export function InventoryPage() {
       <div className="flex-1 min-h-0 overflow-auto p-4 space-y-4">
         {/* Summary cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="rounded border-2 border-[#808080] bg-gradient-to-b from-[#e8e8e8] to-[#c0c0c0] p-4 shadow-sm">
-            <div className="text-xs font-bold text-slate-700 mb-1">منتجات تحت الحد الأدنى</div>
-            <div className="text-3xl font-bold font-mono text-slate-900">{low.length}</div>
+          <div className="rounded-xl border border-gray-200 bg-gradient-to-br from-red-50 to-red-100 p-4 shadow-lg">
+            <div className="text-xs font-bold text-slate-700 mb-1">Ù…Ù†ØªØ¬Ø§Øª ØªØ­Øª Ø§Ù„Ø­Ø¯ Ø§Ù„Ø£Ø¯Ù†Ù‰</div>
+            <div className="text-3xl font-bold font-mono text-red-600">{low.length}</div>
           </div>
-          <div className="rounded border-2 border-[#808080] bg-gradient-to-b from-[#e8e8e8] to-[#c0c0c0] p-4 shadow-sm">
-            <div className="text-xs font-bold text-slate-700 mb-1">حركات اليوم</div>
-            <div className="text-3xl font-bold font-mono text-slate-900">{moves.length}</div>
+          <div className="rounded-xl border border-gray-200 bg-gradient-to-br from-blue-50 to-blue-100 p-4 shadow-lg">
+            <div className="text-xs font-bold text-slate-700 mb-1">Ø­Ø±ÙƒØ§Øª Ø§Ù„ÙŠÙˆÙ…</div>
+            <div className="text-3xl font-bold font-mono text-blue-600">{moves.length}</div>
           </div>
-          <div className="rounded border-2 border-[#808080] bg-gradient-to-b from-[#e8e8e8] to-[#c0c0c0] p-4 shadow-sm">
-            <div className="text-xs font-bold text-slate-700 mb-1">منتجات قريبة/منتهية الصلاحية</div>
-            <div className="text-3xl font-bold font-mono text-slate-900">{nearExpiry}</div>
+          <div className="rounded-xl border border-gray-200 bg-gradient-to-br from-orange-50 to-orange-100 p-4 shadow-lg">
+            <div className="text-xs font-bold text-slate-700 mb-1">Ù…Ù†ØªØ¬Ø§Øª Ù‚Ø±ÙŠØ¨Ø©/Ù…Ù†ØªÙ‡ÙŠØ© Ø§Ù„ØµÙ„Ø§Ø­ÙŠØ©</div>
+            <div className="text-3xl font-bold font-mono text-orange-600">{nearExpiry}</div>
           </div>
         </div>
 
         {/* Tabs */}
-        <div className="rounded border-2 border-[#808080] bg-[#d0d0d0] shadow-sm overflow-hidden">
-          <div className="flex border-b-2 border-[#808080] bg-gradient-to-b from-[#e8e8e8] to-[#c0c0c0]">
+        <div className="rounded-xl border border-gray-200 bg-white shadow-lg overflow-hidden">
+          <div className="flex flex-wrap border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
             <button
               onClick={() => setActiveTab('low')}
-              className={`px-4 py-2 text-sm font-bold border-l-2 border-[#808080] ${
+              className={`flex-1 min-w-[11rem] border-l border-gray-200 px-4 py-3 text-sm font-bold transition-all ${
                 activeTab === 'low'
-                  ? 'bg-[#d0d0d0] text-black'
-                  : 'text-slate-700 hover:bg-[#d8d8d8]'
+                  ? 'bg-white text-blue-600 shadow-sm'
+                  : 'text-slate-700 hover:bg-white/50'
               }`}
             >
-              تنبيهات الحد الأدنى ({low.length})
+              ØªÙ†Ø¨ÙŠÙ‡Ø§Øª Ø§Ù„Ø­Ø¯ Ø§Ù„Ø£Ø¯Ù†Ù‰ ({low.length})
             </button>
             <button
               onClick={() => setActiveTab('moves')}
-              className={`px-4 py-2 text-sm font-bold border-l-2 border-[#808080] ${
+              className={`flex-1 min-w-[11rem] border-l border-gray-200 px-4 py-3 text-sm font-bold transition-all ${
                 activeTab === 'moves'
-                  ? 'bg-[#d0d0d0] text-black'
-                  : 'text-slate-700 hover:bg-[#d8d8d8]'
+                  ? 'bg-white text-blue-600 shadow-sm'
+                  : 'text-slate-700 hover:bg-white/50'
               }`}
             >
-              آخر الحركات ({moves.length})
+              Ø¢Ø®Ø± Ø§Ù„Ø­Ø±ÙƒØ§Øª ({moves.length})
             </button>
             <button
               onClick={() => setActiveTab('expiry')}
-              className={`px-4 py-2 text-sm font-bold ${
+              className={`flex-1 min-w-[11rem] px-4 py-3 text-sm font-bold transition-all ${
                 activeTab === 'expiry'
-                  ? 'bg-[#d0d0d0] text-black'
-                  : 'text-slate-700 hover:bg-[#d8d8d8]'
+                  ? 'bg-white text-blue-600 shadow-sm'
+                  : 'text-slate-700 hover:bg-white/50'
               }`}
             >
-              تقرير الصلاحية
+              ØªÙ‚Ø±ÙŠØ± Ø§Ù„ØµÙ„Ø§Ø­ÙŠØ©
             </button>
           </div>
 
@@ -281,35 +281,35 @@ export function InventoryPage() {
               <div className="overflow-x-auto">
                 <table className="w-full text-sm border-collapse">
                   <thead>
-                    <tr className="bg-[#f5f5f5] border-2 border-[#808080]">
-                      <th className="border border-slate-400 p-2 text-right font-bold">المنتج</th>
-                      <th className="border border-slate-400 p-2 text-center font-bold">المتوفر</th>
-                      <th className="border border-slate-400 p-2 text-center font-bold">الحد الأدنى</th>
-                      <th className="border border-slate-400 p-2 text-center font-bold">إجراءات</th>
+                    <tr className="border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
+                      <th className="border-l border-gray-200 p-3 text-right font-bold text-slate-700">Ø§Ù„Ù…Ù†ØªØ¬</th>
+                      <th className="border-l border-gray-200 p-3 text-center font-bold text-slate-700">Ø§Ù„Ù…ØªÙˆÙØ±</th>
+                      <th className="border-l border-gray-200 p-3 text-center font-bold text-slate-700">Ø§Ù„Ø­Ø¯ Ø§Ù„Ø£Ø¯Ù†Ù‰</th>
+                      <th className="border-l border-gray-200 p-3 text-center font-bold text-slate-700">Ø¥Ø¬Ø±Ø§Ø¡Ø§Øª</th>
                     </tr>
                   </thead>
                   <tbody>
                     {low.map((p) => (
-                      <tr key={p.id} className="border border-slate-300 hover:bg-[#f0f0f0]">
-                        <td className="border border-slate-300 p-2">{p.name}</td>
-                        <td className="border border-slate-300 p-2 text-center font-mono font-bold text-red-700">
+                      <tr key={p.id} className="border-b border-gray-100 hover:bg-blue-50 transition-colors">
+                        <td className="border-l border-gray-100 p-2.5">{p.name}</td>
+                        <td className="border-l border-gray-100 p-2.5 text-center font-mono font-bold text-red-600">
                           {p.quantity}
                         </td>
-                        <td className="border border-slate-300 p-2 text-center font-mono">{p.minStock}</td>
-                        <td className="border border-slate-300 p-2 text-center">
+                        <td className="border-l border-gray-100 p-2.5 text-center font-mono">{p.minStock}</td>
+                        <td className="border-l border-gray-100 p-2.5 text-center">
                           <button
                             onClick={() => void openProductCard(p.id)}
-                            className="rounded border border-[#808080] bg-gradient-to-b from-[#e8e8e8] to-[#c0c0c0] px-3 py-1 text-xs font-bold text-black hover:from-[#d0d0d0] hover:to-[#a8a8a8]"
+                            className="rounded-lg border-2 border-gray-300 bg-white px-3 py-1 text-xs font-semibold text-slate-700 hover:bg-gray-50 hover:shadow-md transition-all"
                           >
-                            عرض التفاصيل
+                            Ø¹Ø±Ø¶ Ø§Ù„ØªÙØ§ØµÙŠÙ„
                           </button>
                         </td>
                       </tr>
                     ))}
                     {low.length === 0 && (
                       <tr>
-                        <td colSpan={4} className="border border-slate-300 p-8 text-center text-slate-500">
-                          ✓ جميع المنتجات فوق الحد الأدنى
+                        <td colSpan={4} className="border-l border-gray-100 p-8 text-center text-slate-500">
+                          âœ“ Ø¬Ù…ÙŠØ¹ Ø§Ù„Ù…Ù†ØªØ¬Ø§Øª ÙÙˆÙ‚ Ø§Ù„Ø­Ø¯ Ø§Ù„Ø£Ø¯Ù†Ù‰
                         </td>
                       </tr>
                     )}
@@ -322,46 +322,46 @@ export function InventoryPage() {
               <div className="overflow-x-auto">
                 <table className="w-full text-sm border-collapse">
                   <thead>
-                    <tr className="bg-[#f5f5f5] border-2 border-[#808080]">
-                      <th className="border border-slate-400 p-2 text-right font-bold">النوع</th>
-                      <th className="border border-slate-400 p-2 text-right font-bold">المنتج</th>
-                      <th className="border border-slate-400 p-2 text-center font-bold">الكمية</th>
-                      <th className="border border-slate-400 p-2 text-right font-bold">المرجع</th>
-                      <th className="border border-slate-400 p-2 text-center font-bold">التاريخ</th>
+                    <tr className="border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
+                      <th className="border-l border-gray-200 p-3 text-right font-bold text-slate-700">Ø§Ù„Ù†ÙˆØ¹</th>
+                      <th className="border-l border-gray-200 p-3 text-right font-bold text-slate-700">Ø§Ù„Ù…Ù†ØªØ¬</th>
+                      <th className="border-l border-gray-200 p-3 text-center font-bold text-slate-700">Ø§Ù„ÙƒÙ…ÙŠØ©</th>
+                      <th className="border-l border-gray-200 p-3 text-right font-bold text-slate-700">Ø§Ù„Ù…Ø±Ø¬Ø¹</th>
+                      <th className="border-l border-gray-200 p-3 text-center font-bold text-slate-700">Ø§Ù„ØªØ§Ø±ÙŠØ®</th>
                     </tr>
                   </thead>
                   <tbody>
                     {moves.map((m) => (
-                      <tr key={m.id} className="border border-slate-300 hover:bg-[#f0f0f0]">
-                        <td className="border border-slate-300 p-2">
-                          <span className="inline-block rounded border border-slate-400 bg-slate-100 px-2 py-0.5 text-xs font-bold">
+                      <tr key={m.id} className="border-b border-gray-100 hover:bg-blue-50 transition-colors">
+                        <td className="border-l border-gray-100 p-2.5">
+                          <span className="inline-block rounded-lg border border-gray-300 bg-gray-50 px-2 py-0.5 text-xs font-bold text-slate-700">
                             {MOVE_LABELS[m.type] ?? m.type}
                           </span>
                         </td>
-                        <td className="border border-slate-300 p-2">
+                        <td className="border-l border-gray-100 p-2.5">
                           <button
                             onClick={() => void openProductCard(m.productId)}
-                            className="text-blue-700 hover:underline font-semibold"
+                            className="text-blue-600 hover:text-blue-700 hover:underline font-semibold transition-colors"
                           >
                             {m.productName}
                           </button>
                         </td>
-                        <td className="border border-slate-300 p-2 text-center font-mono font-bold">
+                        <td className="border-l border-gray-100 p-2.5 text-center font-mono font-bold">
                           {m.quantity > 0 ? '+' : ''}{m.quantity}
                         </td>
-                        <td className="border border-slate-300 p-2 text-xs">
-                          {m.refType ?? '—'}
-                          {m.note ? ` • ${m.note}` : ''}
+                        <td className="border-l border-gray-100 p-2.5 text-xs">
+                          {m.refType ?? 'â€”'}
+                          {m.note ? ` â€¢ ${m.note}` : ''}
                         </td>
-                        <td className="border border-slate-300 p-2 text-center text-xs font-mono">
+                        <td className="border-l border-gray-100 p-2.5 text-center text-xs font-mono">
                           {fmtIso(m.createdAt)}
                         </td>
                       </tr>
                     ))}
                     {moves.length === 0 && (
                       <tr>
-                        <td colSpan={5} className="border border-slate-300 p-8 text-center text-slate-500">
-                          لا توجد حركات مسجلة
+                        <td colSpan={5} className="border-l border-gray-100 p-8 text-center text-slate-500">
+                          Ù„Ø§ ØªÙˆØ¬Ø¯ Ø­Ø±ÙƒØ§Øª Ù…Ø³Ø¬Ù„Ø©
                         </td>
                       </tr>
                     )}
@@ -374,13 +374,13 @@ export function InventoryPage() {
               <>
                 <div className="mb-4 flex flex-wrap gap-3 items-end">
                   <label className="text-sm space-y-1">
-                    <span className="font-bold">التصنيف</span>
+                    <span className="font-bold text-slate-700">Ø§Ù„ØªØµÙ†ÙŠÙ</span>
                     <select
-                      className="block rounded border-2 border-[#808080] px-3 py-2 bg-white min-w-[12rem]"
+                      className="block h-9 rounded-lg border border-gray-300 px-3 py-2 bg-white min-w-[12rem] shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                       value={stockCategoryFilter}
                       onChange={(e) => setStockCategoryFilter(e.target.value)}
                     >
-                      <option value="">الكل</option>
+                      <option value="">Ø§Ù„ÙƒÙ„</option>
                       {categories.map((c) => (
                         <option key={c.id} value={c.id}>
                           {c.name}
@@ -389,30 +389,30 @@ export function InventoryPage() {
                     </select>
                   </label>
                   <label className="text-sm space-y-1">
-                    <span className="font-bold">حالة الصلاحية</span>
+                    <span className="font-bold text-slate-700">Ø­Ø§Ù„Ø© Ø§Ù„ØµÙ„Ø§Ø­ÙŠØ©</span>
                     <select
-                      className="block rounded border-2 border-[#808080] px-3 py-2 bg-white min-w-[12rem]"
+                      className="block h-9 rounded-lg border border-gray-300 px-3 py-2 bg-white min-w-[12rem] shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                       value={expiryFilter}
                       onChange={(e) => setExpiryFilter(e.target.value as ExpiryStatus)}
                     >
-                      <option value="all">الكل</option>
-                      <option value="expired">منتهي</option>
-                      <option value="near">قريب الانتهاء (30 يوم)</option>
-                      <option value="ok">ساري</option>
-                      <option value="none">بدون تاريخ صلاحية</option>
+                      <option value="all">Ø§Ù„ÙƒÙ„</option>
+                      <option value="expired">Ù…Ù†ØªÙ‡ÙŠ</option>
+                      <option value="near">Ù‚Ø±ÙŠØ¨ Ø§Ù„Ø§Ù†ØªÙ‡Ø§Ø¡ (30 ÙŠÙˆÙ…)</option>
+                      <option value="ok">Ø³Ø§Ø±ÙŠ</option>
+                      <option value="none">Ø¨Ø¯ÙˆÙ† ØªØ§Ø±ÙŠØ® ØµÙ„Ø§Ø­ÙŠØ©</option>
                     </select>
                   </label>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm border-collapse">
                     <thead>
-                      <tr className="bg-[#f5f5f5] border-2 border-[#808080]">
-                        <th className="border border-slate-400 p-2 text-right font-bold">المنتج</th>
-                        <th className="border border-slate-400 p-2 text-right font-bold">التصنيف</th>
-                        <th className="border border-slate-400 p-2 text-center font-bold">الكمية</th>
-                        <th className="border border-slate-400 p-2 text-center font-bold">الحد الأدنى</th>
-                        <th className="border border-slate-400 p-2 text-center font-bold">تاريخ الصلاحية</th>
-                        <th className="border border-slate-400 p-2 text-center font-bold">الحالة</th>
+                      <tr className="border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
+                        <th className="border-l border-gray-200 p-3 text-right font-bold text-slate-700">Ø§Ù„Ù…Ù†ØªØ¬</th>
+                        <th className="border-l border-gray-200 p-3 text-right font-bold text-slate-700">Ø§Ù„ØªØµÙ†ÙŠÙ</th>
+                        <th className="border-l border-gray-200 p-3 text-center font-bold text-slate-700">Ø§Ù„ÙƒÙ…ÙŠØ©</th>
+                        <th className="border-l border-gray-200 p-3 text-center font-bold text-slate-700">Ø§Ù„Ø­Ø¯ Ø§Ù„Ø£Ø¯Ù†Ù‰</th>
+                        <th className="border-l border-gray-200 p-3 text-center font-bold text-slate-700">ØªØ§Ø±ÙŠØ® Ø§Ù„ØµÙ„Ø§Ø­ÙŠØ©</th>
+                        <th className="border-l border-gray-200 p-3 text-center font-bold text-slate-700">Ø§Ù„Ø­Ø§Ù„Ø©</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -426,28 +426,28 @@ export function InventoryPage() {
                               : ''
                         const statusLabel =
                           st === 'expired'
-                            ? 'منتهي ❌'
+                            ? 'Ù…Ù†ØªÙ‡ÙŠ âŒ'
                             : st === 'near'
-                              ? 'قريب الانتهاء ⚠️'
+                              ? 'Ù‚Ø±ÙŠØ¨ Ø§Ù„Ø§Ù†ØªÙ‡Ø§Ø¡ âš ï¸'
                               : st === 'ok'
-                                ? 'ساري ✓'
-                                : 'بدون تاريخ'
+                                ? 'Ø³Ø§Ø±ÙŠ âœ“'
+                                : 'Ø¨Ø¯ÙˆÙ† ØªØ§Ø±ÙŠØ®'
                         return (
                           <tr
                             key={m.id}
-                            className={`border border-slate-300 hover:bg-slate-50 cursor-pointer ${rowCls}`}
+                            className={`border-b border-gray-100 hover:bg-blue-50 cursor-pointer transition-colors ${rowCls}`}
                             onClick={() => void openProductCard(m.id)}
                           >
-                            <td className="border border-slate-300 p-2 font-semibold">{m.name}</td>
-                            <td className="border border-slate-300 p-2">{m.categoryName ?? '—'}</td>
-                            <td className="border border-slate-300 p-2 text-center font-mono font-bold">
+                            <td className="border-l border-gray-100 p-2.5 font-semibold">{m.name}</td>
+                            <td className="border-l border-gray-100 p-2.5">{m.categoryName ?? 'â€”'}</td>
+                            <td className="border-l border-gray-100 p-2.5 text-center font-mono font-bold">
                               {m.quantity}
                             </td>
-                            <td className="border border-slate-300 p-2 text-center font-mono">{m.minStock}</td>
-                            <td className="border border-slate-300 p-2 text-center font-mono text-xs">
-                              {m.expiryDate ? m.expiryDate.slice(0, 10) : '—'}
+                            <td className="border-l border-gray-100 p-2.5 text-center font-mono">{m.minStock}</td>
+                            <td className="border-l border-gray-100 p-2.5 text-center font-mono text-xs">
+                              {m.expiryDate ? m.expiryDate.slice(0, 10) : 'â€”'}
                             </td>
-                            <td className="border border-slate-300 p-2 text-center text-xs font-bold">
+                            <td className="border-l border-gray-100 p-2.5 text-center text-xs font-bold">
                               {statusLabel}
                             </td>
                           </tr>
@@ -455,8 +455,8 @@ export function InventoryPage() {
                       })}
                       {filteredStockRows.length === 0 && (
                         <tr>
-                          <td colSpan={6} className="border border-slate-300 p-8 text-center text-slate-500">
-                            لا توجد منتجات مطابقة للتصفية
+                          <td colSpan={6} className="border-l border-gray-100 p-8 text-center text-slate-500">
+                            Ù„Ø§ ØªÙˆØ¬Ø¯ Ù…Ù†ØªØ¬Ø§Øª Ù…Ø·Ø§Ø¨Ù‚Ø© Ù„Ù„ØªØµÙÙŠØ©
                           </td>
                         </tr>
                       )}
@@ -466,34 +466,34 @@ export function InventoryPage() {
                   {loading && (
                     <div className="absolute inset-0 flex items-center justify-center bg-white/80">
                       <div className="text-center">
-                        <div className="mb-2 text-2xl">⏳</div>
-                        <div className="font-bold text-slate-700">جاري التحميل...</div>
+                        <div className="mb-2 text-2xl">â³</div>
+                        <div className="font-bold text-slate-700">Ø¬Ø§Ø±ÙŠ Ø§Ù„ØªØ­Ù…ÙŠÙ„...</div>
                       </div>
                     </div>
                   )}
                 </div>
                 
                 {/* Pagination */}
-                <div className="mt-4 flex items-center justify-center gap-3 border-t border-slate-300 pt-3">
+                <div className="mt-4 flex items-center justify-center gap-3 border-t border-gray-200 pt-3">
                   <button
                     type="button"
                     onClick={() => setPage(p => Math.max(1, p - 1))}
                     disabled={page === 1 || loading}
-                    className="flex items-center gap-1 rounded border-2 border-[#808080] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-3 py-1.5 text-xs font-bold shadow hover:from-[#f5f5f5] disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex items-center gap-1 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 px-3 py-1.5 text-xs font-semibold text-white shadow-md hover:shadow-lg hover:from-blue-600 hover:to-blue-700 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                   >
                     <ChevronRight className="h-3 w-3" />
-                    السابق
+                    Ø§Ù„Ø³Ø§Ø¨Ù‚
                   </button>
-                  <span className="font-mono text-sm font-bold">
-                    صفحة {page} من {totalPages} ({totalCount} منتج)
+                  <span className="font-mono text-sm font-bold text-slate-700">
+                    ØµÙØ­Ø© {page} Ù…Ù† {totalPages} ({totalCount} Ù…Ù†ØªØ¬)
                   </span>
                   <button
                     type="button"
                     onClick={() => setPage(p => Math.min(totalPages, p + 1))}
                     disabled={page >= totalPages || loading}
-                    className="flex items-center gap-1 rounded border-2 border-[#808080] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-3 py-1.5 text-xs font-bold shadow hover:from-[#f5f5f5] disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex items-center gap-1 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 px-3 py-1.5 text-xs font-semibold text-white shadow-md hover:shadow-lg hover:from-blue-600 hover:to-blue-700 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                   >
-                    التالي
+                    Ø§Ù„ØªØ§Ù„ÙŠ
                     <ChevronLeft className="h-3 w-3" />
                   </button>
                 </div>
@@ -504,46 +504,46 @@ export function InventoryPage() {
       </div>
 
       {moveOpen && (
-        <EnterpriseModalFrame title="حركة مخزون يدوية" onClose={() => setMoveOpen(false)} maxWidthClass="max-w-lg">
+        <EnterpriseModalFrame title="Ø­Ø±ÙƒØ© Ù…Ø®Ø²ÙˆÙ† ÙŠØ¯ÙˆÙŠØ©" onClose={() => setMoveOpen(false)} maxWidthClass="max-w-lg">
           <div className="space-y-3 text-sm">
             <div>
-              <span className="text-xs font-bold block mb-1">المنتج</span>
+              <span className="text-xs font-bold block mb-1">Ø§Ù„Ù…Ù†ØªØ¬</span>
               <button
                 type="button"
                 onClick={() => setPickerOpen(true)}
-                className="w-full flex items-center gap-2 rounded border-2 border-[#808080] bg-white px-3 py-2.5 text-right hover:bg-[#f0f0f0]"
+                className="w-full flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-right hover:bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-500 transition-all"
               >
                 <Package className="h-5 w-5 shrink-0 text-slate-600" />
-                <span className="flex-1 truncate font-semibold">{pickedSummary ?? 'اضغط لاختيار منتج من البحث…'}</span>
+                <span className="flex-1 truncate font-semibold">{pickedSummary ?? 'Ø§Ø¶ØºØ· Ù„Ø§Ø®ØªÙŠØ§Ø± Ù…Ù†ØªØ¬ Ù…Ù† Ø§Ù„Ø¨Ø­Ø«â€¦'}</span>
               </button>
             </div>
             <label className="block space-y-1">
-              <span className="text-xs font-bold">نوع الحركة</span>
+              <span className="text-xs font-bold">Ù†ÙˆØ¹ Ø§Ù„Ø­Ø±ÙƒØ©</span>
               <select
-                className="w-full rounded border-2 border-[#808080] bg-white px-3 py-2"
+                className="w-full h-9 rounded-lg border border-gray-300 bg-white px-3 py-2 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                 value={type}
                 onChange={(e) => setType(e.target.value)}
               >
-                <option value="stock_in">إدخال مخزون</option>
-                <option value="stock_out">إخراج مخزون</option>
-                <option value="adjustment">تعديل كمية</option>
-                <option value="damage">تلف</option>
-                <option value="waste">هالك</option>
+                <option value="stock_in">Ø¥Ø¯Ø®Ø§Ù„ Ù…Ø®Ø²ÙˆÙ†</option>
+                <option value="stock_out">Ø¥Ø®Ø±Ø§Ø¬ Ù…Ø®Ø²ÙˆÙ†</option>
+                <option value="adjustment">ØªØ¹Ø¯ÙŠÙ„ ÙƒÙ…ÙŠØ©</option>
+                <option value="damage">ØªÙ„Ù</option>
+                <option value="waste">Ù‡Ø§Ù„Ùƒ</option>
               </select>
             </label>
             <label className="block space-y-1">
-              <span className="text-xs font-bold">الكمية</span>
+              <span className="text-xs font-bold">Ø§Ù„ÙƒÙ…ÙŠØ©</span>
               <input
-                className="w-full rounded border-2 border-[#808080] px-3 py-2 font-mono"
+                className="w-full h-9 rounded-lg border border-gray-300 px-3 py-2 font-mono shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                 value={qty}
                 onChange={(e) => setQty(e.target.value)}
                 inputMode="numeric"
               />
             </label>
             <label className="block space-y-1">
-              <span className="text-xs font-bold">تكلفة الوحدة (اختياري)</span>
+              <span className="text-xs font-bold">ØªÙƒÙ„ÙØ© Ø§Ù„ÙˆØ­Ø¯Ø© (Ø§Ø®ØªÙŠØ§Ø±ÙŠ)</span>
               <input
-                className="w-full rounded border-2 border-[#808080] px-3 py-2 font-mono"
+                className="w-full h-9 rounded-lg border border-gray-300 px-3 py-2 font-mono shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                 value={unitCost}
                 onChange={(e) => setUnitCost(e.target.value)}
                 inputMode="decimal"
@@ -551,9 +551,9 @@ export function InventoryPage() {
               />
             </label>
             <label className="block space-y-1">
-              <span className="text-xs font-bold">ملاحظة</span>
+              <span className="text-xs font-bold">Ù…Ù„Ø§Ø­Ø¸Ø©</span>
               <input
-                className="w-full rounded border-2 border-[#808080] px-3 py-2"
+                className="w-full h-9 rounded-lg border border-gray-300 px-3 py-2 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
               />
@@ -561,10 +561,10 @@ export function InventoryPage() {
             <Can perm="inventory.write">
               <button
                 type="button"
-                className="w-full rounded border-2 border-[#808080] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] py-3 font-bold text-black hover:from-[#90c0e8] hover:to-[#2870b4]"
+                className="w-full rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 py-3 font-bold text-white shadow-md hover:shadow-lg hover:from-blue-600 hover:to-blue-700 active:scale-95 transition-all"
                 onClick={() => void apply()}
               >
-                حفظ الحركة
+                Ø­ÙØ¸ Ø§Ù„Ø­Ø±ÙƒØ©
               </button>
             </Can>
           </div>
@@ -573,7 +573,7 @@ export function InventoryPage() {
 
       <ProductSearchModal
         open={pickerOpen}
-        title="اختيار منتج للحركة"
+        title="Ø§Ø®ØªÙŠØ§Ø± Ù…Ù†ØªØ¬ Ù„Ù„Ø­Ø±ÙƒØ©"
         onClose={() => setPickerOpen(false)}
         onPick={(p) => {
           setPicked(p)
@@ -595,13 +595,13 @@ export function InventoryPage() {
             setActiveProduct(null)
             void load()
           }}
-          titleOverride="بطاقة المنتج"
+          titleOverride="Ø¨Ø·Ø§Ù‚Ø© Ø§Ù„Ù…Ù†ØªØ¬"
         />
       )}
 
       {productReadonlyOpen && activeProduct && (
         <EnterpriseModalFrame
-          title={`بطاقة المنتج — ${activeProduct.name}`}
+          title={`Ø¨Ø·Ø§Ù‚Ø© Ø§Ù„Ù…Ù†ØªØ¬ â€” ${activeProduct.name}`}
           onClose={() => {
             setProductReadonlyOpen(false)
             setActiveProduct(null)
@@ -610,30 +610,30 @@ export function InventoryPage() {
         >
           <div className="space-y-3 text-sm">
             <div className="grid grid-cols-2 gap-3">
-              <div className="rounded border-2 border-[#808080] bg-[#f5f5f5] p-3">
-                <div className="text-xs font-bold text-slate-600 mb-1">الاسم</div>
+              <div className="rounded-xl border border-gray-200 bg-gradient-to-br from-gray-50 to-slate-50 p-3 shadow-sm">
+                <div className="text-xs font-bold text-slate-600 mb-1">Ø§Ù„Ø§Ø³Ù…</div>
                 <div className="font-semibold">{activeProduct.name}</div>
               </div>
-              <div className="rounded border-2 border-[#808080] bg-[#f5f5f5] p-3">
-                <div className="text-xs font-bold text-slate-600 mb-1">التصنيف</div>
-                <div className="font-semibold">{activeProduct.categoryName ?? '—'}</div>
+              <div className="rounded-xl border border-gray-200 bg-gradient-to-br from-gray-50 to-slate-50 p-3 shadow-sm">
+                <div className="text-xs font-bold text-slate-600 mb-1">Ø§Ù„ØªØµÙ†ÙŠÙ</div>
+                <div className="font-semibold">{activeProduct.categoryName ?? 'â€”'}</div>
               </div>
-              <div className="rounded border-2 border-[#808080] bg-[#f5f5f5] p-3">
-                <div className="text-xs font-bold text-slate-600 mb-1">الكمية المتوفرة</div>
+              <div className="rounded-xl border border-gray-200 bg-gradient-to-br from-gray-50 to-slate-50 p-3 shadow-sm">
+                <div className="text-xs font-bold text-slate-600 mb-1">Ø§Ù„ÙƒÙ…ÙŠØ© Ø§Ù„Ù…ØªÙˆÙØ±Ø©</div>
                 <div className="font-mono font-bold text-lg">{activeProduct.quantity}</div>
               </div>
-              <div className="rounded border-2 border-[#808080] bg-[#f5f5f5] p-3">
-                <div className="text-xs font-bold text-slate-600 mb-1">الحد الأدنى</div>
+              <div className="rounded-xl border border-gray-200 bg-gradient-to-br from-gray-50 to-slate-50 p-3 shadow-sm">
+                <div className="text-xs font-bold text-slate-600 mb-1">Ø§Ù„Ø­Ø¯ Ø§Ù„Ø£Ø¯Ù†Ù‰</div>
                 <div className="font-mono font-bold text-lg">{activeProduct.minStock}</div>
               </div>
-              <div className="rounded border-2 border-[#808080] bg-[#f5f5f5] p-3">
-                <div className="text-xs font-bold text-slate-600 mb-1">سعر البيع</div>
+              <div className="rounded-xl border border-gray-200 bg-gradient-to-br from-gray-50 to-slate-50 p-3 shadow-sm">
+                <div className="text-xs font-bold text-slate-600 mb-1">Ø³Ø¹Ø± Ø§Ù„Ø¨ÙŠØ¹</div>
                 <div className="font-mono font-bold">{activeProduct.salePrice.toFixed(2)} JD</div>
               </div>
-              <div className="rounded border-2 border-[#808080] bg-[#f5f5f5] p-3">
-                <div className="text-xs font-bold text-slate-600 mb-1">تاريخ الصلاحية</div>
+              <div className="rounded-xl border border-gray-200 bg-gradient-to-br from-gray-50 to-slate-50 p-3 shadow-sm">
+                <div className="text-xs font-bold text-slate-600 mb-1">ØªØ§Ø±ÙŠØ® Ø§Ù„ØµÙ„Ø§Ø­ÙŠØ©</div>
                 <div className="font-mono font-semibold">
-                  {activeProduct.expiryDate ? activeProduct.expiryDate.slice(0, 10) : 'غير محدد'}
+                  {activeProduct.expiryDate ? activeProduct.expiryDate.slice(0, 10) : 'ØºÙŠØ± Ù…Ø­Ø¯Ø¯'}
                 </div>
               </div>
             </div>
@@ -643,3 +643,4 @@ export function InventoryPage() {
     </div>
   )
 }
+

@@ -292,7 +292,7 @@ export function ProductEditorModal({
               />
               <button 
                 type="button" 
-                className="border border-[#555] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-2 py-1 text-xs font-bold hover:from-[#f5f5f5] whitespace-nowrap" 
+                className="rounded-lg border-2 border-gray-300 bg-white px-2 py-1 text-xs font-semibold text-slate-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow-md whitespace-nowrap" 
                 onClick={() => void gen()}
               >
                 توليد
@@ -472,7 +472,7 @@ export function ProductEditorModal({
 
           {/* نافذة إنشاء تصنيف جديد */}
           {newCategoryOpen && (
-            <div className="border-2 border-[#808080] bg-[#f5f5f5] p-3 space-y-2">
+            <div className="space-y-2 rounded-xl border border-gray-200 bg-gray-50 p-3">
               <label className="text-xs block">
                 <span className="font-bold mb-1 block">اسم التصنيف الجديد:</span>
                 <input
@@ -503,7 +503,7 @@ export function ProductEditorModal({
                 </button>
                 <button
                   type="button"
-                  className="border border-[#555] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-3 py-1 text-xs font-bold hover:from-[#f5f5f5]"
+                  className="rounded-lg border-2 border-gray-300 bg-white px-3 py-1 text-xs font-semibold text-slate-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow-md"
                   disabled={creatingCategory}
                   onClick={() => {
                     setNewCategoryOpen(false)
@@ -521,7 +521,7 @@ export function ProductEditorModal({
           {preview && <div className="text-xs text-slate-500">آخر باركود تم توليده: {preview}</div>}
           
           {/* قسم الباركودات البديلة (المواد البديلة) */}
-          <div ref={barcodesRef} className="border-2 border-[#808080] bg-white p-3 space-y-2 scroll-mt-4">
+          <div ref={barcodesRef} className="scroll-mt-4 space-y-2 rounded-xl border border-gray-200 bg-white p-3">
             <div className="flex items-center justify-between border-b-2 border-[#808080] pb-2">
               <div className="font-bold text-[#1a1a1a]">المواد البديلة (أنواع المنتج)</div>
               <button
@@ -665,10 +665,10 @@ export function ProductEditorModal({
 
       {/* نافذة الوحدات الكبرى */}
       {packagingOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={() => setPackagingOpen(false)}>
-          <div className="w-full max-w-3xl border-2 border-[#808080] bg-[#d0d0d0] shadow-2xl" onClick={(e) => e.stopPropagation()}>
-            <div className="border-b-2 border-[#555] bg-gradient-to-b from-[#e8e8e8] to-[#c0c0c0] px-3 py-2">
-              <h2 className="text-base font-black text-[#1a1a1a]">الوحدات الكبرى - {name || 'منتج جديد'}</h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm" onClick={() => setPackagingOpen(false)}>
+          <div className="w-full max-w-3xl overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl" onClick={(e) => e.stopPropagation()}>
+            <div className="bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-3">
+              <h2 className="text-base font-bold text-white">الوحدات الكبرى - {name || 'منتج جديد'}</h2>
             </div>
             <div className="p-4 space-y-3 max-h-[70vh] overflow-y-auto">
               <div className="text-sm text-slate-700 bg-blue-50 border border-blue-300 p-3 rounded">
@@ -677,23 +677,23 @@ export function ProductEditorModal({
                 <p className="mt-1">عند بيع علبة واحدة، يتم خصم 12 باكيت من المخزون تلقائياً.</p>
               </div>
 
-              <div className="border border-[#808080] bg-white">
+              <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-b-2 border-[#808080] bg-gradient-to-b from-[#f0f0f0] to-[#d8d8d8]">
-                      <th className="border-l border-[#c0c0c0] px-2 py-2 text-right font-black">اسم الوحدة</th>
-                      <th className="border-l border-[#c0c0c0] px-2 py-2 text-right font-black">الكمية (عدد القطع)</th>
-                      <th className="border-l border-[#c0c0c0] px-2 py-2 text-right font-black">الباركود</th>
-                      <th className="border-l border-[#c0c0c0] px-2 py-2 text-right font-black">سعر البيع</th>
-                      <th className="px-2 py-2 text-center font-black">حذف</th>
+                    <tr className="border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
+                      <th className="border-l border-gray-200 px-2 py-2 text-right font-bold text-slate-700">اسم الوحدة</th>
+                      <th className="border-l border-gray-200 px-2 py-2 text-right font-bold text-slate-700">الكمية (عدد القطع)</th>
+                      <th className="border-l border-gray-200 px-2 py-2 text-right font-bold text-slate-700">الباركود</th>
+                      <th className="border-l border-gray-200 px-2 py-2 text-right font-bold text-slate-700">سعر البيع</th>
+                      <th className="px-2 py-2 text-center font-bold text-slate-700">حذف</th>
                     </tr>
                   </thead>
                   <tbody>
                     {packagingUnits.map((unit, idx) => (
-                      <tr key={idx} className="border-b border-[#e0e0e0]">
-                        <td className="border-l border-[#e0e0e0] px-2 py-2">
+                      <tr key={idx} className="border-b border-gray-100">
+                        <td className="border-l border-gray-100 px-2 py-2">
                           <input
-                            className="w-full border border-[#808080] px-2 py-1 text-sm"
+                            className="w-full rounded-lg border border-gray-300 px-2 py-1 text-sm shadow-sm"
                             value={unit.name}
                             onChange={(e) => {
                               const updated = [...packagingUnits]
@@ -703,10 +703,10 @@ export function ProductEditorModal({
                             placeholder="مثال: علبة، كرتون"
                           />
                         </td>
-                        <td className="border-l border-[#e0e0e0] px-2 py-2">
+                        <td className="border-l border-gray-100 px-2 py-2">
                           <input
                             type="number"
-                            className="w-full border border-[#808080] px-2 py-1 text-sm font-mono"
+                            className="w-full rounded-lg border border-gray-300 px-2 py-1 text-sm font-mono shadow-sm"
                             value={unit.quantity}
                             onChange={(e) => {
                               const updated = [...packagingUnits]
@@ -716,9 +716,9 @@ export function ProductEditorModal({
                             placeholder="12"
                           />
                         </td>
-                        <td className="border-l border-[#e0e0e0] px-2 py-2">
+                        <td className="border-l border-gray-100 px-2 py-2">
                           <input
-                            className="w-full border border-[#808080] px-2 py-1 text-sm font-mono"
+                            className="w-full rounded-lg border border-gray-300 px-2 py-1 text-sm font-mono shadow-sm"
                             value={unit.barcode}
                             onChange={(e) => {
                               const updated = [...packagingUnits]
@@ -728,11 +728,11 @@ export function ProductEditorModal({
                             placeholder="الباركود"
                           />
                         </td>
-                        <td className="border-l border-[#e0e0e0] px-2 py-2">
+                        <td className="border-l border-gray-100 px-2 py-2">
                           <input
                             type="number"
                             step="0.01"
-                            className="w-full border border-[#808080] px-2 py-1 text-sm font-mono"
+                            className="w-full rounded-lg border border-gray-300 px-2 py-1 text-sm font-mono shadow-sm"
                             value={unit.salePrice}
                             onChange={(e) => {
                               const updated = [...packagingUnits]
@@ -745,7 +745,7 @@ export function ProductEditorModal({
                         <td className="px-2 py-2 text-center">
                           <button
                             type="button"
-                            className="border border-[#8b0000] bg-gradient-to-b from-[#ffb3b3] to-[#ff4444] px-2 py-1 text-xs font-bold text-black hover:from-[#ffc0c0]"
+                            className="rounded-lg bg-gradient-to-br from-red-500 to-red-600 px-2 py-1 text-xs font-semibold text-white shadow-sm transition-all hover:shadow-md active:scale-95"
                             onClick={() => setPackagingUnits(packagingUnits.filter((_, i) => i !== idx))}
                           >
                             حذف
@@ -759,7 +759,7 @@ export function ProductEditorModal({
 
               <button
                 type="button"
-                className="w-full border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] px-4 py-2 text-sm font-bold text-black hover:from-[#b8ddf8]"
+                className="w-full rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition-all hover:from-blue-600 hover:to-blue-700 hover:shadow-lg active:scale-95"
                 onClick={() => setPackagingUnits([...packagingUnits, { name: '', quantity: 1, barcode: '', salePrice: 0 }])}
               >
                 + إضافة وحدة كبرى
@@ -769,7 +769,7 @@ export function ProductEditorModal({
                 <button
                   type="button"
                   onClick={() => setPackagingOpen(false)}
-                  className="border border-[#808080] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-4 py-2 text-sm font-bold hover:from-[#f5f5f5]"
+                  className="rounded-lg border-2 border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow-md"
                 >
                   إغلاق
                 </button>
@@ -781,10 +781,10 @@ export function ProductEditorModal({
 
       {/* نافذة العروض */}
       {offersOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={() => setOffersOpen(false)}>
-          <div className="w-full max-w-3xl border-2 border-[#808080] bg-[#d0d0d0] shadow-2xl" onClick={(e) => e.stopPropagation()}>
-            <div className="border-b-2 border-[#555] bg-gradient-to-b from-[#e8e8e8] to-[#c0c0c0] px-3 py-2">
-              <h2 className="text-base font-black text-[#1a1a1a]">العروض الترويجية - {name || 'منتج جديد'}</h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm" onClick={() => setOffersOpen(false)}>
+          <div className="w-full max-w-3xl overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl" onClick={(e) => e.stopPropagation()}>
+            <div className="bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-3">
+              <h2 className="text-base font-bold text-white">العروض الترويجية - {name || 'منتج جديد'}</h2>
             </div>
             <div className="p-4 space-y-3 max-h-[70vh] overflow-y-auto">
               <div className="text-sm text-slate-700 bg-green-50 border border-green-300 p-3 rounded">
@@ -930,7 +930,7 @@ export function ProductEditorModal({
                 <button
                   type="button"
                   onClick={() => setOffersOpen(false)}
-                  className="border border-[#808080] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-4 py-2 text-sm font-bold hover:from-[#f5f5f5]"
+                  className="rounded-lg border-2 border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow-md"
                 >
                   إغلاق
                 </button>

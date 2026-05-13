@@ -95,14 +95,14 @@ export function UsersPage() {
   }
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden bg-[#d0d0d0]">
+    <div className="flex h-screen flex-col overflow-hidden bg-gray-50">
       {/* شريط العنوان */}
-      <div className="flex items-center justify-between border-b-2 border-[#555] bg-gradient-to-b from-[#e8e8e8] to-[#c0c0c0] px-3 py-2 shadow">
-        <h1 className="text-lg font-black text-[#1a1a1a]">المستخدمون</h1>
+      <div className="flex items-center justify-between border-b border-gray-200 bg-gradient-to-r from-white to-gray-50 px-4 py-3 shadow-sm">
+        <h1 className="text-xl font-bold text-blue-700">المستخدمون</h1>
         <CanAny perms={['users.manage']}>
           <Link
             to="/users/roles"
-            className="border border-[#555] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-3 py-1 text-sm font-bold shadow hover:from-[#f5f5f5]"
+            className="rounded-lg border-2 border-gray-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow-md"
           >
             الأدوار والصلاحيات
           </Link>
@@ -110,33 +110,33 @@ export function UsersPage() {
       </div>
 
       {/* المحتوى */}
-      <div className="flex-1 overflow-auto p-3 space-y-3">
+      <div className="flex-1 overflow-auto space-y-4 p-4">
         <CanAny perms={['users.create', 'users.manage']}>
-          <div className="border-2 border-[#808080] bg-white p-4 shadow">
-            <h2 className="mb-3 border-b border-slate-300 pb-2 text-sm font-black">مستخدم جديد</h2>
+          <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-lg">
+            <h2 className="mb-3 border-b border-gray-200 pb-2 text-sm font-bold text-slate-700">مستخدم جديد</h2>
             <div className="space-y-2">
               <div>
-                <label className="mb-1 block text-sm font-bold">اسم المستخدم</label>
+                <label className="mb-1 block text-sm font-semibold text-slate-700">اسم المستخدم</label>
                 <input
-                  className="w-full border border-slate-400 bg-white px-2 py-1.5 shadow-inner"
+                  className="h-9 w-full rounded-lg border border-gray-300 bg-white px-3 text-sm shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                   placeholder="username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
               <div>
-                <label className="mb-1 block text-sm font-bold">الاسم الظاهر</label>
+                <label className="mb-1 block text-sm font-semibold text-slate-700">الاسم الظاهر</label>
                 <input
-                  className="w-full border border-slate-400 bg-white px-2 py-1.5 shadow-inner"
+                  className="h-9 w-full rounded-lg border border-gray-300 bg-white px-3 text-sm shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                   placeholder="الاسم الظاهر"
                   value={displayName}
                   onChange={(e) => setDisplayName(e.target.value)}
                 />
               </div>
               <div>
-                <label className="mb-1 block text-sm font-bold">PIN</label>
+                <label className="mb-1 block text-sm font-semibold text-slate-700">PIN</label>
                 <input
-                  className="w-full border border-slate-400 bg-white px-2 py-1.5 font-mono shadow-inner"
+                  className="h-9 w-full rounded-lg border border-gray-300 bg-white px-3 font-mono text-sm shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                   type="password"
                   placeholder="PIN"
                   value={pin}
@@ -144,9 +144,9 @@ export function UsersPage() {
                 />
               </div>
               <div>
-                <label className="mb-1 block text-sm font-bold">الدور</label>
+                <label className="mb-1 block text-sm font-semibold text-slate-700">الدور</label>
                 <select
-                  className="w-full border border-slate-400 bg-white px-2 py-1.5 shadow-inner"
+                  className="h-9 w-full rounded-lg border border-gray-300 bg-white px-3 text-sm shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                   value={roleId}
                   onChange={(e) => setRoleId(e.target.value)}
                 >
@@ -160,7 +160,7 @@ export function UsersPage() {
               </div>
               <button
                 type="button"
-                className="border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] px-4 py-1.5 text-sm font-black text-black shadow"
+                className="rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition-all hover:from-blue-600 hover:to-blue-700 hover:shadow-lg active:scale-95"
                 onClick={() => void saveNew()}
               >
                 حفظ
@@ -170,31 +170,31 @@ export function UsersPage() {
         </CanAny>
 
         {edit && (
-          <div className="border-2 border-[#808080] bg-[#ffe] p-4 shadow">
-            <h2 className="mb-3 border-b border-slate-300 pb-2 text-sm font-black">تعديل: {edit.username}</h2>
+          <div className="rounded-xl border border-gray-200 bg-gradient-to-br from-amber-50 to-yellow-50 p-4 shadow-lg">
+            <h2 className="mb-3 border-b border-amber-200 pb-2 text-sm font-bold text-amber-800">تعديل: {edit.username}</h2>
             <div className="space-y-2">
               <div>
-                <label className="mb-1 block text-sm font-bold">الاسم الظاهر</label>
+                <label className="mb-1 block text-sm font-semibold text-slate-700">الاسم الظاهر</label>
                 <input
-                  className="w-full border border-slate-400 bg-white px-2 py-1.5 shadow-inner"
+                  className="h-9 w-full rounded-lg border border-gray-300 bg-white px-3 text-sm shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                   value={edit.displayName}
                   onChange={(e) => setEdit({ ...edit, displayName: e.target.value })}
                   placeholder="الاسم الظاهر"
                 />
               </div>
               <div>
-                <label className="mb-1 block text-sm font-bold">اسم المستخدم</label>
+                <label className="mb-1 block text-sm font-semibold text-slate-700">اسم المستخدم</label>
                 <input
-                  className="w-full border border-slate-400 bg-white px-2 py-1.5 shadow-inner"
+                  className="h-9 w-full rounded-lg border border-gray-300 bg-white px-3 text-sm shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                   value={edit.username}
                   onChange={(e) => setEdit({ ...edit, username: e.target.value })}
                   placeholder="username"
                 />
               </div>
               <div>
-                <label className="mb-1 block text-sm font-bold">الدور</label>
+                <label className="mb-1 block text-sm font-semibold text-slate-700">الدور</label>
                 <select
-                  className="w-full border border-slate-400 bg-white px-2 py-1.5 shadow-inner"
+                  className="h-9 w-full rounded-lg border border-gray-300 bg-white px-3 text-sm shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                   value={edit.roleId}
                   onChange={(e) => setEdit({ ...edit, roleId: e.target.value })}
                 >
@@ -210,9 +210,9 @@ export function UsersPage() {
                 نشط
               </label>
               <div>
-                <label className="mb-1 block text-sm font-bold">PIN جديد (اختياري)</label>
+                <label className="mb-1 block text-sm font-semibold text-slate-700">PIN جديد (اختياري)</label>
                 <input
-                  className="w-full border border-slate-400 bg-white px-2 py-1.5 font-mono shadow-inner"
+                  className="h-9 w-full rounded-lg border border-gray-300 bg-white px-3 font-mono text-sm shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                   type="password"
                   placeholder="PIN جديد"
                   value={editPin}
@@ -223,7 +223,7 @@ export function UsersPage() {
                 <CanAny perms={['users.edit', 'users.manage']}>
                   <button
                     type="button"
-                    className="border border-[#555] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-3 py-1 text-sm font-bold shadow"
+                    className="rounded-lg border-2 border-gray-300 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow-md"
                     onClick={() => {
                       nav(`/users/${edit.id}/permissions`)
                       setEdit(null)
@@ -235,14 +235,14 @@ export function UsersPage() {
                 </CanAny>
                 <button
                   type="button"
-                  className="border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] px-3 py-1 text-sm font-black text-black shadow"
+                  className="rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 px-3 py-1.5 text-sm font-semibold text-white shadow-md transition-all hover:from-blue-600 hover:to-blue-700 hover:shadow-lg active:scale-95"
                   onClick={() => void saveEdit()}
                 >
                   حفظ التعديل
                 </button>
                 <button
                   type="button"
-                  className="border border-[#555] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-3 py-1 text-sm font-bold shadow"
+                  className="rounded-lg border-2 border-gray-300 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow-md"
                   onClick={() => {
                     setEdit(null)
                     setEditPin('')
@@ -255,13 +255,13 @@ export function UsersPage() {
           </div>
         )}
 
-        <div className="border-2 border-[#808080] bg-white shadow">
-          <div className="border-b-2 border-[#555] bg-gradient-to-b from-[#e8e8e8] to-[#c0c0c0] px-3 py-2 text-sm font-black">
+        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg">
+          <div className="border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100 px-3 py-2 text-sm font-bold text-slate-700">
             قائمة المستخدمين
           </div>
           <ul className="text-sm divide-y divide-slate-200">
             {users.map((u) => (
-              <li key={u.id} className="flex flex-wrap items-center justify-between gap-2 px-3 py-2 hover:bg-[#f5f5f5]">
+              <li key={u.id} className="flex flex-wrap items-center justify-between gap-2 px-3 py-2 hover:bg-blue-50 transition-colors">
                 <span>
                   <strong>{u.displayName}</strong>{' '}
                   <span className="text-slate-500">({u.username})</span>
@@ -277,7 +277,7 @@ export function UsersPage() {
                   <CanAny perms={['users.edit', 'users.manage']}>
                     <button
                       type="button"
-                      className="text-xs border border-[#555] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-2 py-0.5 font-bold shadow"
+                      className="rounded-lg border-2 border-gray-300 bg-white px-2 py-1 text-xs font-semibold text-slate-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow-md"
                       onClick={() => nav(`/users/${u.id}/permissions`)}
                     >
                       صلاحيات
@@ -286,7 +286,7 @@ export function UsersPage() {
                   <CanAny perms={['users.edit', 'users.manage']}>
                     <button
                       type="button"
-                      className="text-xs border border-[#555] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-2 py-0.5 font-bold shadow"
+                      className="rounded-lg border-2 border-blue-300 bg-gradient-to-br from-blue-500 to-blue-600 px-2 py-1 text-xs font-semibold text-white shadow-sm transition-all hover:shadow-md active:scale-95"
                       onClick={() => {
                         setEdit(u)
                         setEditPin('')
@@ -298,7 +298,7 @@ export function UsersPage() {
                   <CanAny perms={['users.delete', 'users.manage']}>
                     <button
                       type="button"
-                      className="text-xs border border-red-400 bg-gradient-to-b from-[#fdd] to-[#fbb] px-2 py-0.5 font-bold text-red-800 shadow disabled:opacity-40"
+                      className="rounded-lg bg-gradient-to-br from-red-500 to-red-600 px-2 py-1 text-xs font-semibold text-white shadow-sm transition-all hover:shadow-md active:scale-95 disabled:opacity-40"
                       disabled={u.id === myId}
                       title={u.id === myId ? 'لا يمكن حذف المستخدم الحالي' : undefined}
                       onClick={() => void removeUser(u.id)}

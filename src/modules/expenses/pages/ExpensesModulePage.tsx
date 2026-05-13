@@ -104,16 +104,16 @@ export function ExpensesModulePage() {
   }
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden bg-[#d0d0d0]">
+    <div className="flex h-screen flex-col overflow-hidden bg-gray-50">
       {/* شريط العنوان */}
-      <div className="flex items-center justify-between border-b-2 border-[#555] bg-gradient-to-b from-[#e8e8e8] to-[#c0c0c0] px-3 py-2 shadow">
-        <h1 className="text-lg font-black text-[#1a1a1a]">المصروفات</h1>
+      <div className="flex items-center justify-between border-b border-gray-200 bg-gradient-to-r from-white to-gray-50 px-4 py-3 shadow-sm">
+        <h1 className="text-xl font-bold text-blue-700">المصروفات</h1>
         <div className="flex items-center gap-2">
           {readAll && (
             <button
               type="button"
               onClick={() => setFilterOpen(true)}
-              className="flex items-center gap-1 border border-[#555] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-3 py-1.5 text-sm font-bold shadow hover:from-[#f5f5f5]"
+              className="flex items-center gap-1.5 rounded-lg border-2 border-gray-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow-md"
             >
               <Filter className="h-4 w-4" />
               <span>فلترة</span>
@@ -123,7 +123,7 @@ export function ExpensesModulePage() {
             <button
               type="button"
               onClick={() => setAddOpen(true)}
-              className="flex items-center gap-1 border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] px-4 py-1.5 text-sm font-black text-black shadow hover:from-[#b8ddf8]"
+              className="flex items-center gap-1.5 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition-all hover:from-blue-600 hover:to-blue-700 hover:shadow-lg active:scale-95"
             >
               <Plus className="h-4 w-4" />
               <span>تسجيل مصروف</span>
@@ -140,18 +140,18 @@ export function ExpensesModulePage() {
       )}
 
       {/* الجدول */}
-      <div className="flex-1 overflow-auto p-3">
-        <div className="border border-[#808080] bg-white shadow">
+      <div className="flex-1 overflow-auto p-4">
+        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b-2 border-[#808080] bg-gradient-to-b from-[#f0f0f0] to-[#d8d8d8]">
-                <th className="border-l border-[#c0c0c0] px-3 py-2 text-right font-black">#</th>
-                <th className="border-l border-[#c0c0c0] px-3 py-2 text-right font-black">التصنيف</th>
-                <th className="border-l border-[#c0c0c0] px-3 py-2 text-right font-black">المبلغ</th>
-                <th className="border-l border-[#c0c0c0] px-3 py-2 text-right font-black">ملاحظة</th>
-                <th className="border-l border-[#c0c0c0] px-3 py-2 text-right font-black">التاريخ</th>
-                <th className="border-l border-[#c0c0c0] px-3 py-2 text-right font-black">المسجّل</th>
-                <th className="px-3 py-2 text-right font-black">إيصال</th>
+              <tr className="border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
+                <th className="border-l border-gray-200 px-3 py-3 text-right font-bold text-slate-700">#</th>
+                <th className="border-l border-gray-200 px-3 py-3 text-right font-bold text-slate-700">التصنيف</th>
+                <th className="border-l border-gray-200 px-3 py-3 text-right font-bold text-slate-700">المبلغ</th>
+                <th className="border-l border-gray-200 px-3 py-3 text-right font-bold text-slate-700">ملاحظة</th>
+                <th className="border-l border-gray-200 px-3 py-3 text-right font-bold text-slate-700">التاريخ</th>
+                <th className="border-l border-gray-200 px-3 py-3 text-right font-bold text-slate-700">المسجّل</th>
+                <th className="px-3 py-3 text-right font-bold text-slate-700">إيصال</th>
               </tr>
             </thead>
             <tbody>
@@ -163,17 +163,17 @@ export function ExpensesModulePage() {
                 </tr>
               ) : (
                 rows.map((r, idx) => (
-                  <tr key={r.id} className="border-b border-[#e0e0e0] hover:bg-[#f5f5f5]">
-                    <td className="border-l border-[#e0e0e0] px-3 py-2 text-center font-mono">{idx + 1}</td>
-                    <td className="border-l border-[#e0e0e0] px-3 py-2 font-semibold">{r.categoryName}</td>
-                    <td className="border-l border-[#e0e0e0] px-3 py-2 font-mono font-bold text-red-700">{r.amount.toFixed(2)}</td>
-                    <td className="border-l border-[#e0e0e0] px-3 py-2 text-slate-600">{r.note || '—'}</td>
-                    <td className="border-l border-[#e0e0e0] px-3 py-2 text-xs font-mono">{fmtAt(r.createdAt)}</td>
-                    <td className="border-l border-[#e0e0e0] px-3 py-2">
+                  <tr key={r.id} className="border-b border-gray-100 hover:bg-blue-50 transition-colors">
+                    <td className="border-l border-gray-100 px-3 py-2.5 text-center font-mono">{idx + 1}</td>
+                    <td className="border-l border-gray-100 px-3 py-2.5 font-semibold">{r.categoryName}</td>
+                    <td className="border-l border-gray-100 px-3 py-2.5 font-mono font-bold text-red-700">{r.amount.toFixed(2)}</td>
+                    <td className="border-l border-gray-100 px-3 py-2.5 text-slate-600">{r.note || '—'}</td>
+                    <td className="border-l border-gray-100 px-3 py-2.5 text-xs font-mono">{fmtAt(r.createdAt)}</td>
+                    <td className="border-l border-gray-100 px-3 py-2.5">
                       <div className="font-semibold">{r.createdByName?.trim() || '—'}</div>
                       <div className="text-xs text-slate-500 font-mono">{r.createdByUsername?.trim() || '—'}</div>
                     </td>
-                    <td className="px-3 py-2 text-center">
+                    <td className="px-3 py-2.5 text-center">
                       {r.receiptImagePath ? (
                         <img
                           src={`pos-asset://${encodeURIComponent(r.receiptImagePath)}`}
@@ -193,27 +193,27 @@ export function ExpensesModulePage() {
       </div>
       {/* نافذة الفلترة */}
       {filterOpen && readAll && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={() => setFilterOpen(false)}>
-          <div className="w-full max-w-lg border-2 border-[#808080] bg-[#d0d0d0] shadow-2xl" onClick={(e) => e.stopPropagation()}>
-            <div className="border-b-2 border-[#555] bg-gradient-to-b from-[#e8e8e8] to-[#c0c0c0] px-3 py-2">
-              <h2 className="text-base font-black text-[#1a1a1a]">تصفية المصروفات</h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm" onClick={() => setFilterOpen(false)}>
+          <div className="w-full max-w-lg overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl" onClick={(e) => e.stopPropagation()}>
+            <div className="bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-3">
+              <h2 className="text-base font-bold text-white">تصفية المصروفات</h2>
             </div>
             <div className="space-y-3 p-4">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="mb-1 block text-sm font-bold">من تاريخ</label>
+                  <label className="mb-1 block text-sm font-semibold text-slate-700">من تاريخ</label>
                   <input
                     type="date"
-                    className="w-full border border-slate-400 bg-white px-2 py-1.5 text-sm shadow-inner"
+                    className="h-9 w-full rounded-lg border border-gray-300 bg-white px-3 text-sm shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                     value={filterFrom}
                     onChange={(e) => setFilterFrom(e.target.value)}
                   />
                 </div>
                 <div>
-                  <label className="mb-1 block text-sm font-bold">إلى تاريخ</label>
+                  <label className="mb-1 block text-sm font-semibold text-slate-700">إلى تاريخ</label>
                   <input
                     type="date"
-                    className="w-full border border-slate-400 bg-white px-2 py-1.5 text-sm shadow-inner"
+                    className="h-9 w-full rounded-lg border border-gray-300 bg-white px-3 text-sm shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                     value={filterTo}
                     onChange={(e) => setFilterTo(e.target.value)}
                   />
@@ -221,9 +221,9 @@ export function ExpensesModulePage() {
               </div>
               {registrars.length > 0 && (
                 <div>
-                  <label className="mb-1 block text-sm font-bold">المسجّل</label>
+                  <label className="mb-1 block text-sm font-semibold text-slate-700">المسجّل</label>
                   <select
-                    className="w-full border border-slate-400 bg-white px-2 py-1.5 text-sm shadow-inner"
+                    className="h-9 w-full rounded-lg border border-gray-300 bg-white px-3 text-sm shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                     value={filterRegistrarId}
                     onChange={(e) => setFilterRegistrarId(e.target.value)}
                   >
@@ -245,14 +245,14 @@ export function ExpensesModulePage() {
                     setFilterRegistrarId('')
                     toast('تم إعادة ضبط الفلاتر')
                   }}
-                  className="border border-[#808080] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-4 py-1.5 text-sm font-bold shadow hover:from-[#f5f5f5]"
+                  className="rounded-lg border-2 border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow-md"
                 >
                   إعادة ضبط
                 </button>
                 <button
                   type="button"
                   onClick={() => setFilterOpen(false)}
-                  className="border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] px-4 py-1.5 text-sm font-black text-black shadow hover:from-[#b8ddf8]"
+                  className="rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition-all hover:from-blue-600 hover:to-blue-700 hover:shadow-lg active:scale-95"
                 >
                   تطبيق
                 </button>
@@ -264,17 +264,17 @@ export function ExpensesModulePage() {
 
       {/* نافذة إضافة مصروف */}
       {addOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={() => setAddOpen(false)}>
-          <div className="w-full max-w-md border-2 border-[#808080] bg-[#d0d0d0] shadow-2xl" onClick={(e) => e.stopPropagation()}>
-            <div className="border-b-2 border-[#555] bg-gradient-to-b from-[#e8e8e8] to-[#c0c0c0] px-3 py-2">
-              <h2 className="text-base font-black text-[#1a1a1a]">تسجيل مصروف جديد</h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm" onClick={() => setAddOpen(false)}>
+          <div className="w-full max-w-md overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl" onClick={(e) => e.stopPropagation()}>
+            <div className="bg-gradient-to-r from-blue-500 to-blue-600 px-4 py-3">
+              <h2 className="text-base font-bold text-white">تسجيل مصروف جديد</h2>
             </div>
             <Can perm="expense.write">
               <div className="space-y-3 p-4">
                 <div>
-                  <label className="mb-1 block text-sm font-bold">التصنيف</label>
+                  <label className="mb-1 block text-sm font-semibold text-slate-700">التصنيف</label>
                   <select
-                    className="w-full border border-slate-400 bg-white px-2 py-1.5 text-sm shadow-inner"
+                    className="h-9 w-full rounded-lg border border-gray-300 bg-white px-3 text-sm shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                     value={catId}
                     onChange={(e) => setCatId(e.target.value)}
                   >
@@ -287,9 +287,9 @@ export function ExpensesModulePage() {
                   </select>
                 </div>
                 <div>
-                  <label className="mb-1 block text-sm font-bold">المبلغ</label>
+                  <label className="mb-1 block text-sm font-semibold text-slate-700">المبلغ</label>
                   <input
-                    className="w-full border border-slate-400 bg-white px-2 py-1.5 text-sm font-mono shadow-inner"
+                    className="h-9 w-full rounded-lg border border-gray-300 bg-white px-3 text-sm font-mono shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
                     placeholder="0.00"
@@ -297,20 +297,20 @@ export function ExpensesModulePage() {
                   />
                 </div>
                 <div>
-                  <label className="mb-1 block text-sm font-bold">ملاحظة</label>
+                  <label className="mb-1 block text-sm font-semibold text-slate-700">ملاحظة</label>
                   <input
-                    className="w-full border border-slate-400 bg-white px-2 py-1.5 text-sm shadow-inner"
+                    className="h-9 w-full rounded-lg border border-gray-300 bg-white px-3 text-sm shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                     value={note}
                     onChange={(e) => setNote(e.target.value)}
                     placeholder="ملاحظة اختيارية..."
                   />
                 </div>
                 <div>
-                  <label className="mb-1 block text-sm font-bold">إيصال</label>
+                  <label className="mb-1 block text-sm font-semibold text-slate-700">إيصال</label>
                   <div className="flex items-center gap-2">
                     <button
                       type="button"
-                      className="border border-[#555] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-3 py-1.5 text-xs font-bold shadow hover:from-[#f5f5f5]"
+                      className="rounded-lg border-2 border-gray-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow-md"
                       onClick={async () => {
                         const img = await window.posApi.files.pickExpenseImage()
                         if (img.ok && 'relativePath' in img) setReceiptPath(img.relativePath as string)
@@ -337,18 +337,18 @@ export function ExpensesModulePage() {
                     )}
                   </div>
                 </div>
-                <div className="border-t border-slate-400 pt-2">
-                  <div className="mb-2 text-xs font-bold text-slate-600">إضافة تصنيف جديد:</div>
+                <div className="border-t border-gray-200 pt-2">
+                  <div className="mb-2 text-xs font-semibold text-slate-600">إضافة تصنيف جديد:</div>
                   <div className="flex gap-2">
                     <input
-                      className="flex-1 border border-slate-400 bg-white px-2 py-1.5 text-sm shadow-inner"
+                      className="h-9 flex-1 rounded-lg border border-gray-300 bg-white px-3 text-sm shadow-sm transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                       placeholder="اسم التصنيف"
                       value={catName}
                       onChange={(e) => setCatName(e.target.value)}
                     />
                     <button
                       type="button"
-                      className="border border-[#555] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-3 py-1.5 text-xs font-bold shadow hover:from-[#f5f5f5]"
+                      className="rounded-lg border-2 border-gray-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow-md"
                       onClick={async () => {
                         if (!catName) return
                         await window.posApi.expense.categorySave({ name: catName })
@@ -365,14 +365,14 @@ export function ExpensesModulePage() {
                   <button
                     type="button"
                     onClick={() => setAddOpen(false)}
-                    className="border border-[#808080] bg-gradient-to-b from-[#f0f0f0] to-[#d0d0d0] px-4 py-1.5 text-sm font-bold shadow hover:from-[#f5f5f5]"
+                    className="rounded-lg border-2 border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition-all hover:bg-gray-50 hover:shadow-md"
                   >
                     إلغاء
                   </button>
                   <button
                     type="button"
                     onClick={() => void add()}
-                    className="border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] px-4 py-1.5 text-sm font-black text-black shadow hover:from-[#b8ddf8]"
+                    className="rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-md transition-all hover:from-blue-600 hover:to-blue-700 hover:shadow-lg active:scale-95"
                   >
                     حفظ المصروف
                   </button>

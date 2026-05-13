@@ -36,8 +36,143 @@ body {
   color: rgb(var(--text));
 }
 
+/* Quick visual polish pass for tablet + 19/20" screens */
+@media (max-width: 1024px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 1600px) {
+  html {
+    font-size: 16.5px;
+  }
+}
+
 @layer utilities {
   .touch-target {
     @apply min-h-[48px] min-w-[48px];
+  }
+}
+
+/* Scoped micro-typography profiles for key operational pages */
+.page-microtype {
+  --micro-xs: 0.75rem;
+  --micro-sm: 0.875rem;
+  --micro-xs-lh: 1.1rem;
+  --micro-sm-lh: 1.3rem;
+  --micro-btn-min-h: 2.25rem;
+}
+
+.page-microtype :is(.text-xs) {
+  font-size: var(--micro-xs);
+  line-height: var(--micro-xs-lh);
+}
+
+.page-microtype :is(.text-sm) {
+  font-size: var(--micro-sm);
+  line-height: var(--micro-sm-lh);
+}
+
+.page-microtype button:not([class*='h-']) {
+  min-height: var(--micro-btn-min-h);
+}
+
+/* Tablet portrait profile: 768x1024-like layouts */
+@media (orientation: portrait) and (min-width: 760px) and (max-width: 820px) {
+  .page-microtype {
+    --micro-xs: 0.72rem;
+    --micro-sm: 0.84rem;
+    --micro-xs-lh: 1.05rem;
+    --micro-sm-lh: 1.2rem;
+    --micro-btn-min-h: 2.15rem;
+  }
+
+  /* Per-page portrait tuning */
+  .page-microtype.pos-microtype {
+    --micro-xs: 0.7rem;
+    --micro-sm: 0.82rem;
+    --micro-xs-lh: 1rem;
+    --micro-sm-lh: 1.15rem;
+    --micro-btn-min-h: 2.05rem;
+  }
+
+  .page-microtype.inventory-microtype {
+    --micro-xs: 0.71rem;
+    --micro-sm: 0.83rem;
+    --micro-xs-lh: 1.03rem;
+    --micro-sm-lh: 1.18rem;
+    --micro-btn-min-h: 2.1rem;
+  }
+
+  .page-microtype.receivables-microtype {
+    --micro-xs: 0.72rem;
+    --micro-sm: 0.84rem;
+    --micro-xs-lh: 1.05rem;
+    --micro-sm-lh: 1.2rem;
+    --micro-btn-min-h: 2.12rem;
+  }
+
+  .page-microtype.reports-microtype {
+    --micro-xs: 0.74rem;
+    --micro-sm: 0.86rem;
+    --micro-xs-lh: 1.1rem;
+    --micro-sm-lh: 1.24rem;
+    --micro-btn-min-h: 2.2rem;
+  }
+}
+
+/* Tablet landscape profile: 1024x768-like layouts */
+@media (orientation: landscape) and (min-width: 1000px) and (max-width: 1060px) and (max-height: 800px) {
+  .page-microtype {
+    --micro-xs: 0.7rem;
+    --micro-sm: 0.82rem;
+    --micro-xs-lh: 1rem;
+    --micro-sm-lh: 1.15rem;
+    --micro-btn-min-h: 2.05rem;
+  }
+
+  /* Per-page landscape tuning */
+  .page-microtype.pos-microtype {
+    --micro-xs: 0.68rem;
+    --micro-sm: 0.8rem;
+    --micro-xs-lh: 0.98rem;
+    --micro-sm-lh: 1.12rem;
+    --micro-btn-min-h: 2rem;
+  }
+
+  .page-microtype.inventory-microtype {
+    --micro-xs: 0.69rem;
+    --micro-sm: 0.81rem;
+    --micro-xs-lh: 1rem;
+    --micro-sm-lh: 1.14rem;
+    --micro-btn-min-h: 2.02rem;
+  }
+
+  .page-microtype.receivables-microtype {
+    --micro-xs: 0.7rem;
+    --micro-sm: 0.82rem;
+    --micro-xs-lh: 1.02rem;
+    --micro-sm-lh: 1.16rem;
+    --micro-btn-min-h: 2.04rem;
+  }
+
+  .page-microtype.reports-microtype {
+    --micro-xs: 0.72rem;
+    --micro-sm: 0.84rem;
+    --micro-xs-lh: 1.06rem;
+    --micro-sm-lh: 1.2rem;
+    --micro-btn-min-h: 2.1rem;
+  }
+
+  /* Ultra-fine table header compaction in landscape (thead only) */
+  .page-microtype.pos-microtype thead th,
+  .page-microtype.inventory-microtype thead th,
+  .page-microtype.receivables-microtype thead th,
+  .page-microtype.reports-microtype thead th {
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+    line-height: 1.05rem;
+    font-size: var(--micro-xs);
   }
 }

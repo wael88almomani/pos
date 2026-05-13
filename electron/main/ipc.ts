@@ -1,6 +1,7 @@
 import { BrowserWindow, dialog, ipcMain } from 'electron'
 import { readFileSync, writeFileSync } from 'node:fs'
 import { Decimal } from '@prisma/client/runtime/library'
+import { z } from 'zod'
 import { verifyPin } from './pin'
 import { getPrisma, runTransactionWithRetry } from './database'
 import { listBackups, restoreBackup, runBackup } from './backup'
