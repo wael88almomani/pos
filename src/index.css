@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --surface: 248 250 252;
+  --surface-elevated: 255 255 255;
+  --accent: 16 185 129;
+  --accent-muted: 5 150 105;
+  --text: 15 23 42;
+  --muted: 100 116 139;
+  --border: 226 232 240;
+}
+
+.dark {
+  --surface: 15 23 42;
+  --surface-elevated: 30 41 59;
+  --accent: 52 211 153;
+  --accent-muted: 16 185 129;
+  --text: 241 245 249;
+  --muted: 148 163 184;
+  --border: 51 65 85;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-surface text-slate-900 dark:text-slate-100 font-sans;
+  background-color: rgb(var(--surface));
+  color: rgb(var(--text));
+}
+
+@layer utilities {
+  .touch-target {
+    @apply min-h-[48px] min-w-[48px];
+  }
+}

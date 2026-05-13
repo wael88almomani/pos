@@ -1,0 +1,12 @@
+# Architecture (overview)
+
+- **Shell:** Electron main (`electron/main/`) owns SQLite via Prisma, IPC handlers, printing, backups, logging, and file storage.
+- **Renderer:** React 18 + Vite + Tailwind; state via Zustand; routing via React Router. Calls `window.posApi` (preload bridge). Renderer runs with **context isolation** and **sandbox** enabled; preload is the only privileged bridge.
+- **IPC validation:** Shared Zod contracts live in `lib/ipc/schemas.ts`. Main process uses `electron/main/ipc-middleware.ts` (`parseIpc`) so handlers return `{ ok: false, code: 'VALIDATION', message }` instead of leaking raw Zod errors. `sales:create` validation stays in `ipc-security.ts` (re-exported schema). Other domains (`enterprise-ipc.ts`) can adopt the same pattern incrementally without breaking callers.
+- **IPC surface:** Split between `ipc.ts` (core POS/session/products/sales), `enterprise-ipc.ts` (inventory, purchases, permissions, reports, etc.), and `hardware-ipc.ts` (printers, scale, files, PDF). Updater IPC is registered from `updater-service.ts`.
+- **Data:** SQLite file in `prisma/dev.db` (development) or `userData/pos.db` (packaged). WAL mode and foreign keys enabled at startup; integrity check on startup and before restore. Hot-path sales transactions use `runTransactionWithRetry` (`database.ts`) for SQLite busy retries.
+- **HAL / hardware:** Interfaces in `electron/main/hardware/hal.ts`. Real I/O remains in `hardware.ts` and `printing/*`. **Mock hardware:** set `hardware.mockMode` in hardware settings or `POS_HARDWARE_MOCK=1` to skip printer/drawer I/O while keeping business logic (useful for CI and demos).
+- **Sync-ready repositories:** Thin contracts in `electron/main/sync-ready/repositories.ts` (`IInventoryWriteRepository`, `IDeviceRegistry`) so future LAN/cloud adapters can swap persistence without rewriting domain rules.
+- **LAN / multi-register prep:** Stable `app.deviceId` setting, append-only `sync-prep/outbox.jsonl`, Prisma `LanSyncEvent` model (when migrated), and conflict helpers under `electron/main/lan/` — no live socket server in this phase.
+- **Recovery:** Cart snapshots under `userData/recovery/cart.json` plus append-only `userData/recovery/activity.log` for audit of save/load/clear.
+- **Diagnostics:** IPC `diagnostics:collect` (requires `settings.write`) aggregates DB pragmas, backup folder stats, offline queue size, hardware flags, and memory — surfaced in **الإعدادات → التشخيص**.

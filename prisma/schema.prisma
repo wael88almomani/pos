@@ -1,0 +1,532 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(cuid())
+  username     String    @unique
+  displayName  String
+  pinHash      String
+  roleId       String
+  role         Role      @relation(fields: [roleId], references: [id])
+  isActive     Boolean   @default(true)
+  /// عند التفعيل تُستخدم قائمة userPermissions بدل صلاحيات الدور
+  useCustomPermissions Boolean @default(false)
+  deletedAt    DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  userPermissions          UserPermission[]
+  sessions                 CashierSession[]
+  sales                    Sale[]
+  auditLogs                AuditLog[]
+  expensesCreated          Expense[]              @relation("ExpenseCreatedBy")
+  returnsCreated           Return[]
+  purchasesCreated         PurchaseInvoice[]      @relation("PurchaseCreatedBy")
+  supplierPayments         SupplierPayment[]
+  purchaseReturnsCreated   PurchaseReturn[]
+  inventoryCountSessions   InventoryCountSession[]
+}
+
+model Role {
+  id          String           @id @default(cuid())
+  name        String
+  code        String           @unique
+  permissions RolePermission[]
+  users       User[]
+  deletedAt   DateTime?
+  createdAt   DateTime         @default(now())
+}
+
+model Permission {
+  id          String           @id @default(cuid())
+  code        String           @unique
+  description String?
+  roles       RolePermission[]
+  userGrants  UserPermission[]
+  deletedAt   DateTime?
+}
+
+model UserPermission {
+  userId         String
+  permissionId String
+  user           User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  permission     Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@id([userId, permissionId])
+  @@index([permissionId])
+}
+
+model RolePermission {
+  roleId         String
+  permissionId   String
+  role           Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission     Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@id([roleId, permissionId])
+  @@index([permissionId])
+}
+
+model Category {
+  id        String    @id @default(cuid())
+  name      String
+  sortOrder Int       @default(0)
+  showOnPos Boolean   @default(false)
+  products  Product[]
+  deletedAt DateTime?
+  createdAt DateTime  @default(now())
+}
+
+model Product {
+  id            String           @id @default(cuid())
+  name          String
+  shortName     String?
+  categoryId    String?
+  category      Category?        @relation(fields: [categoryId], references: [id])
+  barcode       String?          @unique
+  purchasePrice Decimal          @default(0)
+  salePrice     Decimal          @default(0)
+  averageCost   Decimal          @default(0)
+  quantity      Int              @default(0)
+  minStock      Int              @default(0)
+  /// تاريخ صلاحية اختياري على مستوى المنتج
+  expiryDate    DateTime?
+  imagePath     String?
+  showOnPos     Boolean          @default(false)
+  isWeighted    Boolean          @default(false)
+  weightPrefix  String?
+  deletedAt     DateTime?
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+
+  barcodes             ProductBarcode[]
+  saleItems            SaleItem[]
+  inventoryMovements   InventoryMovement[]
+  returnItems          ReturnItem[]
+  purchaseItems        PurchaseItem[]
+  purchaseReturnItems  PurchaseReturnItem[]
+  countLines           InventoryCountLine[]
+  promotions           Promotion[]
+
+  @@index([name])
+  @@index([categoryId])
+  @@index([showOnPos])
+  @@index([quantity])
+  @@index([deletedAt])
+}
+
+model ProductBarcode {
+  id          String   @id @default(cuid())
+  productId   String
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  barcode     String   @unique
+  variantName String?
+  isDefault   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  @@index([productId])
+  @@index([barcode])
+}
+
+model Promotion {
+  id          String   @id @default(cuid())
+  productId   String
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  /// discount = خصم بالنسبة المئوية, fixed = خصم بقيمة ثابتة, bogo = اشتري X احصل على Y, bundle = حزمة
+  type        String   @default("discount")
+  /// القيمة: نسبة مئوية، قيمة ثابتة، عدد المنتجات، حسب النوع
+  value       Decimal  @default(0)
+  /// للعروض من نوع BOGO: عدد المنتجات المجانية (احصل على كم)
+  freeQty     Int      @default(1)
+  startDate   DateTime?
+  endDate     DateTime?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([productId])
+  @@index([isActive])
+  @@index([startDate])
+  @@index([endDate])
+}
+
+model Customer {
+  id            String    @id @default(cuid())
+  name          String
+  phone         String?
+  email         String?
+  barcode       String?   @unique
+  notes         String?
+  balance       Decimal   @default(0)
+  loyaltyPoints Int       @default(0)
+  deletedAt     DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  sales          Sale[]
+  loyaltyLedgers LoyaltyLedger[]
+}
+
+model LoyaltyLedger {
+  id         String   @id @default(cuid())
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  delta      Int
+  reason     String
+  refType    String?
+  refId      String?
+  createdAt  DateTime @default(now())
+
+  @@index([customerId])
+  @@index([createdAt])
+}
+
+model Supplier {
+  id          String    @id @default(cuid())
+  name        String
+  phone       String?
+  email       String?
+  address     String?
+  notes       String?
+  deletedAt   DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now()) @updatedAt
+
+  purchases        PurchaseInvoice[]
+  payments         SupplierPayment[]
+  purchaseReturns  PurchaseReturn[]
+}
+
+model PurchaseInvoice {
+  id               String          @id @default(cuid())
+  supplierId       String
+  supplier         Supplier        @relation(fields: [supplierId], references: [id])
+  invoiceNumber    String          @unique
+  status           String          @default("draft")
+  subtotal         Decimal         @default(0)
+  taxRate          Decimal         @default(0)
+  taxAmount        Decimal         @default(0)
+  discount         Decimal         @default(0)
+  total            Decimal         @default(0)
+  notes            String?
+  userId           String
+  user             User            @relation("PurchaseCreatedBy", fields: [userId], references: [id])
+  cashierSessionId String?
+  session          CashierSession? @relation(fields: [cashierSessionId], references: [id])
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+  deletedAt        DateTime?
+
+  items            PurchaseItem[]
+  payments         SupplierPayment[]
+  purchaseReturns  PurchaseReturn[]
+
+  @@index([supplierId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model PurchaseItem {
+  id           String          @id @default(cuid())
+  purchaseId   String
+  purchase     PurchaseInvoice @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
+  productId    String
+  product      Product         @relation(fields: [productId], references: [id])
+  quantity     Int
+  unitCost     Decimal
+  lineDiscount Decimal         @default(0)
+  lineTotal    Decimal
+
+  @@index([purchaseId])
+  @@index([productId])
+}
+
+model SupplierPayment {
+  id                String           @id @default(cuid())
+  supplierId        String
+  supplier          Supplier         @relation(fields: [supplierId], references: [id])
+  amount            Decimal
+  method            String
+  note              String?
+  purchaseInvoiceId String?
+  purchase          PurchaseInvoice? @relation(fields: [purchaseInvoiceId], references: [id])
+  userId            String
+  user              User             @relation(fields: [userId], references: [id])
+  createdAt         DateTime         @default(now())
+  deletedAt         DateTime?
+
+  @@index([supplierId])
+  @@index([createdAt])
+}
+
+model PurchaseReturn {
+  id                String           @id @default(cuid())
+  supplierId        String
+  supplier          Supplier         @relation(fields: [supplierId], references: [id])
+  purchaseInvoiceId String?
+  purchase          PurchaseInvoice? @relation(fields: [purchaseInvoiceId], references: [id])
+  reason            String?
+  total             Decimal          @default(0)
+  userId            String
+  user              User             @relation(fields: [userId], references: [id])
+  createdAt         DateTime         @default(now())
+  deletedAt         DateTime?
+
+  items PurchaseReturnItem[]
+
+  @@index([supplierId])
+  @@index([createdAt])
+}
+
+model PurchaseReturnItem {
+  id         String         @id @default(cuid())
+  returnId   String
+  returnDoc  PurchaseReturn @relation(fields: [returnId], references: [id], onDelete: Cascade)
+  productId  String
+  product    Product        @relation(fields: [productId], references: [id])
+  quantity   Int
+  unitCost   Decimal
+  lineTotal  Decimal
+
+  @@index([returnId])
+}
+
+model CashierSession {
+  id               String    @id @default(cuid())
+  userId           String
+  user             User      @relation(fields: [userId], references: [id])
+  deviceId         String
+  openedAt         DateTime  @default(now())
+  closedAt         DateTime?
+  openingCash      Decimal   @default(0)
+  closingCash      Decimal?
+  expectedCash     Decimal?
+  variance         Decimal?
+  varianceNote     String?
+  varianceApproved Boolean   @default(false)
+
+  sales            Sale[]
+  expenses         Expense[]
+  purchases        PurchaseInvoice[]
+  returns          Return[]
+
+  @@index([userId, closedAt])
+  @@index([openedAt])
+}
+
+model PaymentMethod {
+  id        String  @id @default(cuid())
+  code      String  @unique
+  nameAr    String
+  sortOrder Int     @default(0)
+  isActive  Boolean @default(true)
+}
+
+model Sale {
+  id               String         @id @default(cuid())
+  invoiceNumber    String         @unique
+  cashierSessionId String
+  session          CashierSession @relation(fields: [cashierSessionId], references: [id])
+  userId           String
+  user             User           @relation(fields: [userId], references: [id])
+  customerId       String?
+  customer         Customer?      @relation(fields: [customerId], references: [id])
+  status           String         @default("completed")
+  subtotal         Decimal        @default(0)
+  discount         Decimal        @default(0)
+  taxRate          Decimal        @default(0)
+  taxAmount        Decimal        @default(0)
+  total            Decimal        @default(0)
+  paymentMethod    String
+  cashReceived     Decimal?
+  changeDue        Decimal?
+  notes            String?
+  heldName         String?
+  createdAt        DateTime       @default(now())
+  deletedAt        DateTime?
+
+  items   SaleItem[]
+  returns Return[]
+
+  @@index([cashierSessionId])
+  @@index([createdAt])
+  @@index([userId])
+  @@index([status])
+}
+
+model SaleItem {
+  id         String  @id @default(cuid())
+  saleId     String
+  sale       Sale    @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  productId  String
+  product    Product @relation(fields: [productId], references: [id])
+  quantity   Int
+  unitPrice  Decimal
+  discount   Decimal @default(0)
+  lineTotal  Decimal
+
+  @@index([saleId])
+  @@index([productId])
+}
+
+model ExpenseCategory {
+  id        String    @id @default(cuid())
+  name      String    @unique
+  sortOrder Int       @default(0)
+  expenses  Expense[]
+  deletedAt DateTime?
+}
+
+model Expense {
+  id                String           @id @default(cuid())
+  amount            Decimal
+  category          String
+  categoryId        String?
+  categoryRef       ExpenseCategory? @relation(fields: [categoryId], references: [id])
+  note              String?
+  receiptImagePath  String?
+  cashierSessionId  String?
+  session           CashierSession?  @relation(fields: [cashierSessionId], references: [id])
+  createdById       String
+  createdBy         User             @relation("ExpenseCreatedBy", fields: [createdById], references: [id])
+  createdAt         DateTime         @default(now())
+  deletedAt         DateTime?
+
+  @@index([cashierSessionId])
+  @@index([createdAt])
+  @@index([categoryId])
+}
+
+model Return {
+  id               String          @id @default(cuid())
+  saleId           String?
+  sale             Sale?           @relation(fields: [saleId], references: [id])
+  returnType       String          @default("sale")
+  refundTotal      Decimal         @default(0)
+  paymentMethod    String
+  note             String?
+  reason           String?
+  userId           String?
+  user             User?           @relation(fields: [userId], references: [id])
+  cashierSessionId String?
+  session          CashierSession? @relation(fields: [cashierSessionId], references: [id])
+  createdAt        DateTime        @default(now())
+  deletedAt        DateTime?
+
+  items ReturnItem[]
+
+  @@index([createdAt])
+  @@index([saleId])
+}
+
+model ReturnItem {
+  id         String  @id @default(cuid())
+  returnId   String
+  returnDoc  Return  @relation(fields: [returnId], references: [id], onDelete: Cascade)
+  productId  String
+  product    Product @relation(fields: [productId], references: [id])
+  quantity   Int
+  unitPrice  Decimal
+  lineTotal  Decimal
+
+  @@index([returnId])
+}
+
+model InventoryMovement {
+  id         String   @id @default(cuid())
+  productId  String
+  product    Product  @relation(fields: [productId], references: [id])
+  type       String
+  quantity   Int
+  refType    String?
+  refId      String?
+  note       String?
+  unitCost   Decimal?
+  createdAt  DateTime @default(now())
+
+  @@index([productId])
+  @@index([createdAt])
+  @@index([type])
+}
+
+model InventoryCountSession {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  status    String   @default("draft")
+  note      String?
+  startedAt DateTime @default(now())
+  postedAt  DateTime?
+
+  lines InventoryCountLine[]
+
+  @@index([userId])
+  @@index([status])
+}
+
+model InventoryCountLine {
+  id         String                @id @default(cuid())
+  sessionId  String
+  session    InventoryCountSession   @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  productId  String
+  product    Product                 @relation(fields: [productId], references: [id])
+  systemQty  Int
+  countedQty Int
+  variance   Int
+
+  @@unique([sessionId, productId])
+  @@index([sessionId])
+  @@index([productId])
+}
+
+model Setting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  updatedAt DateTime @updatedAt
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  action    String
+  entity    String?
+  entityId  String?
+  meta      String?
+  ip        String?
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([userId])
+  @@index([action])
+}
+
+model ShortcutBinding {
+  id        String   @id @default(cuid())
+  actionId  String   @unique
+  keys      String
+  updatedAt DateTime @updatedAt
+}
+
+// سجل أحداث تمهيد المزامنة على الشبكة المحلية (بدون سحابة)
+model LanSyncEvent {
+  id         String   @id @default(cuid())
+  deviceId   String
+  direction  String
+  eventType  String
+  payload    String
+  status     String   @default("logged")
+  error      String?
+  retryCount Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([status, createdAt])
+  @@index([deviceId])
+}
