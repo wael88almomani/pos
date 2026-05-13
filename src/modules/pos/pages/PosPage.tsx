@@ -998,14 +998,11 @@ export function PosPage() {
   }, [lines, expiryByProductId])
 
   return (
-    <div className="page-microtype pos-microtype h-full flex flex-col min-h-0 bg-gradient-to-br from-gray-50 to-gray-100 text-slate-900" dir="rtl">
-      {/* شريط علوي — بسيط: بحث + قيمة الضريبة + المجموع */}
-      <header className="shrink-0 z-20 border-b border-gray-200 bg-white px-2 py-1.5 shadow-sm">
-        <div className="mx-auto flex max-w-[1900px] flex-wrap items-center justify-between gap-2">
+    <div className="page-microtype pos-microtype h-full flex flex-col min-h-0 bg-white text-slate-900" dir="rtl">
+      {/* شريط علوي — Header with KPI chips and search */}
+      <header className="shrink-0 z-20 border-b border-gray-300 bg-gradient-to-b from-blue-50 to-white px-3 py-2 shadow-md">
+        <div className="mx-auto flex max-w-[1900px] flex-wrap items-center justify-between gap-3">
           <div className="flex min-w-0 flex-1 items-center gap-2 sm:min-w-[20rem]">
-            <label htmlFor="pos-search" className="shrink-0 text-[13px] font-bold text-slate-900">
-              البحث بواسطة رقم المادة / اسم المادة
-            </label>
             <input
               id="pos-search"
               ref={posSearchRef}
@@ -1016,8 +1013,8 @@ export function PosPage() {
                   ? ` · اختصار: ${formatShortcutKeys(keyboardShortcuts['search.product'])}`
                   : '')
               }
-              className="w-full flex-1 rounded-lg border-2 border-gray-300 bg-white py-1.5 px-2 text-sm shadow-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
-              placeholder="رقم / اسم / باركود — Enter"
+              className="w-full flex-1 rounded-xl border-2 border-gray-300 bg-white py-2.5 px-3 text-sm shadow-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-300 transition-all"
+              placeholder="البحث برقم المادة / اسم المادة / باركود — Enter"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               onKeyDown={(e) => {
@@ -1065,40 +1062,40 @@ export function PosPage() {
             />
           </div>
           <div className="flex shrink-0 items-center gap-3">
-            <div className="flex items-center gap-1.5 rounded-lg bg-green-50 border border-green-200 px-2 py-1 shadow-sm">
-              <span className="text-xs font-semibold text-gray-700">قيمة الضريبة</span>
+            <div className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-300 px-3 py-2 shadow-md">
+              <span className="text-xs font-bold text-green-700">نسبة الضريبة</span>
               <input
-                className="h-7 w-14 rounded-md border border-gray-300 bg-white text-center font-mono text-xs font-semibold shadow-sm focus:border-green-500 focus:ring-1 focus:ring-green-200 transition-all"
+                className="h-8 w-16 rounded-lg border-2 border-green-400 bg-white text-center font-mono text-xs font-bold shadow-sm focus:border-green-600 focus:ring-1 focus:ring-green-300 transition-all"
                 value={taxRate}
                 onChange={(e) => setTaxRate(e.target.value)}
               />
-              <span className="text-xs font-semibold text-gray-700">%</span>
-              <div className="rounded-md bg-green-600 px-2 py-1 shadow-sm">
+              <span className="text-xs font-bold text-green-700">%</span>
+              <div className="rounded-lg bg-gradient-to-br from-green-500 to-green-600 px-3 py-1.5 shadow-md">
                 <span className="font-mono text-sm font-bold tabular-nums text-white">{taxPreview.toFixed(2)}</span>
               </div>
             </div>
             <div
-              className="flex min-w-[9rem] flex-col items-center rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 px-3 py-2 shadow-lg"
+              className="flex min-w-[10rem] flex-col items-center rounded-2xl bg-gradient-to-br from-blue-500 to-blue-700 px-4 py-3 shadow-xl"
               title="إجمالي الفاتورة"
             >
-              <span className="text-[10px] font-semibold tracking-wide text-blue-100">المجموع</span>
-              <span className="font-mono text-3xl font-bold tabular-nums leading-none text-white">
+              <span className="text-[11px] font-bold tracking-wider text-blue-100">المجموع</span>
+              <span className="font-mono text-4xl font-black tabular-nums leading-none text-white">
                 {grandTotal.toFixed(2)}
               </span>
             </div>
             <div className="flex shrink-0 items-end gap-3" dir="rtl">
-              <div className="flex flex-col gap-1">
-                <span className="text-[15px] font-black text-slate-900">رقم المادة</span>
+              <div className="flex flex-col gap-1.5">
+                <span className="text-sm font-bold text-slate-700">رقم المادة</span>
                 <input
                   readOnly
-                  className="h-11 w-[8rem] rounded border-2 border-amber-700 bg-[#fff9c4] text-center font-mono text-[17px] font-bold text-amber-950"
+                  className="h-10 w-[9rem] rounded-lg border-2 border-amber-500 bg-gradient-to-b from-yellow-100 to-yellow-50 text-center font-mono text-base font-bold text-amber-900 shadow-sm"
                   value={headerLineCtx.idShort}
                 />
               </div>
-              <div className="flex flex-col gap-1">
-                <span className="text-[15px] font-black text-slate-900">رصيد المادة</span>
+              <div className="flex flex-col gap-1.5">
+                <span className="text-sm font-bold text-slate-700">رصيد المادة</span>
                 <div
-                  className="flex h-11 w-[8rem] items-center justify-center rounded border-2 border-black bg-black font-mono text-[17px] font-black text-[#00ff00]"
+                  className="flex h-10 w-[9rem] items-center justify-center rounded-lg border-2 border-slate-800 bg-slate-900 font-mono text-base font-bold text-green-400 shadow-md"
                   dir="ltr"
                 >
                   {headerLineCtx.stockLabel}
@@ -1108,7 +1105,7 @@ export function PosPage() {
                 <button
                   type="button"
                   onClick={() => navi('/settings')}
-                  className="flex h-16 w-16 flex-col items-center justify-center rounded-xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 text-[10px] font-bold text-slate-600 shadow-sm transition-all hover:shadow-md"
+                  className="flex h-14 w-14 flex-col items-center justify-center rounded-lg border-2 border-gray-300 bg-gradient-to-b from-white to-gray-50 text-[9px] font-bold text-slate-600 shadow-md transition-all hover:shadow-lg hover:border-blue-400"
                 >
                   <Settings className="h-5 w-5" />
                   <span>إعدادات</span>
@@ -1116,7 +1113,7 @@ export function PosPage() {
                 <button
                   type="button"
                   onClick={() => navi('/users')}
-                  className="flex h-16 w-16 flex-col items-center justify-center rounded-xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 text-[10px] font-bold text-slate-600 shadow-sm transition-all hover:shadow-md"
+                  className="flex h-14 w-14 flex-col items-center justify-center rounded-lg border-2 border-gray-300 bg-gradient-to-b from-white to-gray-50 text-[9px] font-bold text-slate-600 shadow-md transition-all hover:shadow-lg hover:border-blue-400"
                 >
                   <User className="h-5 w-5" />
                   <span>مستخدم</span>
@@ -1124,7 +1121,7 @@ export function PosPage() {
                 <button
                   type="button"
                   onClick={() => void logout()}
-                  className="flex h-16 w-16 flex-col items-center justify-center rounded-xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 text-[10px] font-bold text-slate-600 shadow-sm transition-all hover:shadow-md"
+                  className="flex h-14 w-14 flex-col items-center justify-center rounded-lg border-2 border-gray-300 bg-gradient-to-b from-white to-gray-50 text-[9px] font-bold text-slate-600 shadow-md transition-all hover:shadow-lg hover:border-red-400"
                 >
                   <LogOut className="h-5 w-5" />
                   <span>إغلاق</span>
@@ -1318,9 +1315,9 @@ export function PosPage() {
               )}
             </div>
           </div>
-          <div className="min-h-0 flex-1 overflow-auto">
+          <div className="min-h-0 flex-1 overflow-auto border-2 border-gray-300 rounded-lg">
             <table className="w-full border-collapse text-sm">
-              <thead className="sticky top-0 z-[1] border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-700">
+              <thead className="sticky top-0 z-[1] border-b-2 border-gray-400 bg-gradient-to-r from-blue-100 to-blue-50 text-xs font-bold text-slate-700">
                 <tr>
                   <th className="border border-slate-400 p-1 text-center w-8">X</th>
                   <th className="border border-slate-400 p-1 text-center">رقم المادة</th>
@@ -1421,10 +1418,10 @@ export function PosPage() {
                     type="button"
                     onClick={() => setPaymentCode('cash')}
                     className={
-                      'h-8 rounded-md px-3 text-xs font-semibold shadow-sm transition-all ' +
+                      'h-9 rounded-lg px-4 text-xs font-bold shadow-md transition-all ' +
                       (paymentCode === 'cash'
-                        ? 'bg-green-600 text-white hover:bg-green-700 ring-2 ring-green-300'
-                        : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300')
+                        ? 'bg-gradient-to-br from-green-500 to-green-600 text-white hover:shadow-lg ring-2 ring-green-300'
+                        : 'bg-white text-gray-700 hover:bg-gray-50 border-2 border-gray-300')
                     }
                   >
                     نقدي
@@ -1433,10 +1430,10 @@ export function PosPage() {
                     type="button"
                     onClick={() => setPaymentCode('card')}
                     className={
-                      'h-8 rounded-md px-3 text-xs font-semibold shadow-sm transition-all ' +
+                      'h-9 rounded-lg px-4 text-xs font-bold shadow-md transition-all ' +
                       (paymentCode === 'card'
-                        ? 'bg-blue-600 text-white hover:bg-blue-700 ring-2 ring-blue-300'
-                        : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300')
+                        ? 'bg-gradient-to-br from-blue-500 to-blue-600 text-white hover:shadow-lg ring-2 ring-blue-300'
+                        : 'bg-white text-gray-700 hover:bg-gray-50 border-2 border-gray-300')
                     }
                   >
                     فيزا
@@ -1445,10 +1442,10 @@ export function PosPage() {
                     type="button"
                     onClick={() => setPaymentCode('click')}
                     className={
-                      'h-8 rounded-md px-3 text-xs font-semibold shadow-sm transition-all ' +
+                      'h-9 rounded-lg px-4 text-xs font-bold shadow-md transition-all ' +
                       (paymentCode === 'click'
-                        ? 'bg-purple-600 text-white hover:bg-purple-700 ring-2 ring-purple-300'
-                        : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300')
+                        ? 'bg-gradient-to-br from-purple-500 to-purple-600 text-white hover:shadow-lg ring-2 ring-purple-300'
+                        : 'bg-white text-gray-700 hover:bg-gray-50 border-2 border-gray-300')
                     }
                   >
                     كليك
@@ -1458,10 +1455,10 @@ export function PosPage() {
                       type="button"
                       onClick={() => setPaymentCode('credit')}
                       className={
-                        'h-8 rounded-md px-3 text-xs font-semibold shadow-sm transition-all ' +
+                        'h-9 rounded-lg px-4 text-xs font-bold shadow-md transition-all ' +
                         (paymentCode === 'credit'
-                          ? 'bg-orange-600 text-white hover:bg-orange-700 ring-2 ring-orange-300'
-                          : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300')
+                          ? 'bg-gradient-to-br from-orange-500 to-orange-600 text-white hover:shadow-lg ring-2 ring-orange-300'
+                          : 'bg-white text-gray-700 hover:bg-gray-50 border-2 border-gray-300')
                       }
                     >
                       ذمم
@@ -1727,7 +1724,7 @@ export function PosPage() {
                               quantityAvailable: p.quantity
                             })
                           }
-                          className="flex h-[9.5rem] flex-col gap-2 rounded-xl border-4 border-white bg-gradient-to-br from-green-400 to-green-500 p-3 text-start shadow-lg ring-2 ring-gray-300 transition-all hover:from-green-500 hover:to-green-600 hover:shadow-xl active:scale-95 md:h-[10rem] md:p-3.5 xl:h-[11rem] xl:gap-2.5 xl:p-4 overflow-hidden"
+                          className="flex h-[9.5rem] flex-col gap-2 rounded-xl border-4 border-white bg-gradient-to-br from-green-400 to-green-500 p-3 text-start shadow-lg ring-2 ring-green-200 transition-all hover:from-green-500 hover:to-green-600 hover:shadow-2xl hover:ring-green-300 active:scale-95 md:h-[10rem] md:p-3.5 xl:h-[11rem] xl:gap-2.5 xl:p-4 overflow-hidden"
                         >
                           <span className="font-mono text-[11px] font-semibold leading-tight text-green-900 opacity-75 truncate">
                             {p.id.length > 8 ? p.id.slice(-6) : p.id}
