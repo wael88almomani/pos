@@ -284,7 +284,7 @@ export function ProductEditorModal({
             {/* رقم المادة / الباركود */}
             <label className="text-sm flex items-center justify-end gap-2">
               <input 
-                className="flex-1 border border-[#808080] px-2 py-1 text-sm font-mono bg-white" 
+                className="flex-1 rounded-lg border-2 border-gray-300 px-2 py-1.5 text-sm font-mono bg-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all" 
                 value={barcode} 
                 onChange={(e) => setBarcode(e.target.value)}
                 placeholder=""
@@ -302,7 +302,7 @@ export function ProductEditorModal({
 
             <label className="text-sm flex items-center justify-end gap-2">
               <input
-                className="flex-1 border border-[#808080] px-2 py-1 text-sm bg-white"
+                className="flex-1 rounded-lg border-2 border-gray-300 px-2 py-1.5 text-sm bg-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                 value={quantity}
                 onChange={(e) => setQuantity(e.target.value)}
                 dir="ltr"
@@ -313,7 +313,7 @@ export function ProductEditorModal({
             {/* اسم المادة */}
             <label className="text-sm flex items-center justify-end gap-2">
               <input 
-                className="flex-1 border border-[#808080] px-2 py-1 text-sm bg-white" 
+                className="flex-1 rounded-lg border-2 border-gray-300 px-2 py-1.5 text-sm bg-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all" 
                 value={name} 
                 onChange={(e) => setName(e.target.value)}
               />
@@ -322,7 +322,7 @@ export function ProductEditorModal({
 
             <label className="text-sm flex items-center justify-end gap-2">
               <input
-                className="flex-1 border border-[#808080] px-2 py-1 text-sm font-mono bg-white"
+                className="flex-1 rounded-lg border-2 border-gray-300 px-2 py-1.5 text-sm font-mono bg-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                 value={salePrice}
                 onChange={(e) => setSalePrice(e.target.value)}
                 dir="ltr"
@@ -333,7 +333,7 @@ export function ProductEditorModal({
             {/* الاسم المختصر */}
             <label className="text-sm flex items-center justify-end gap-2">
               <input
-                className="flex-1 border border-[#808080] px-2 py-1 text-sm bg-white"
+                className="flex-1 rounded-lg border-2 border-gray-300 px-2 py-1.5 text-sm bg-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                 value={shortName}
                 onChange={(e) => setShortName(e.target.value)}
               />
@@ -342,7 +342,7 @@ export function ProductEditorModal({
 
             <label className="text-sm flex items-center justify-end gap-2">
               <input
-                className="flex-1 border border-[#808080] px-2 py-1 text-sm font-mono bg-white"
+                className="flex-1 rounded-lg border-2 border-gray-300 px-2 py-1.5 text-sm font-mono bg-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                 value={purchasePrice}
                 onChange={(e) => setPurchasePrice(e.target.value)}
                 dir="ltr"
@@ -353,7 +353,7 @@ export function ProductEditorModal({
             {/* نسبة الخصم */}
             <label className="text-sm flex items-center justify-end gap-2">
               <input
-                className="flex-1 border border-[#808080] px-2 py-1 text-sm font-mono bg-white"
+                className="flex-1 rounded-lg border-2 border-gray-300 px-2 py-1.5 text-sm font-mono bg-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                 defaultValue="0"
                 dir="ltr"
               />
@@ -362,7 +362,7 @@ export function ProductEditorModal({
 
             <label className="text-sm flex items-center justify-end gap-2">
               <input
-                className="flex-1 border border-[#808080] px-2 py-1 text-sm font-mono bg-white"
+                className="flex-1 rounded-lg border-2 border-gray-300 px-2 py-1.5 text-sm font-mono bg-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                 value={averageCost}
                 onChange={(e) => setAverageCost(e.target.value)}
                 dir="ltr"
@@ -373,7 +373,7 @@ export function ProductEditorModal({
             {/* نسبة الضريبة */}
             <label className="text-sm flex items-center justify-end gap-2">
               <input
-                className="flex-1 border border-[#808080] px-2 py-1 text-sm font-mono bg-white"
+                className="flex-1 rounded-lg border-2 border-gray-300 px-2 py-1.5 text-sm font-mono bg-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                 defaultValue="0"
                 dir="ltr"
               />
@@ -382,7 +382,7 @@ export function ProductEditorModal({
 
             <label className="text-sm flex items-center justify-end gap-2">
               <input
-                className="flex-1 border border-[#808080] px-2 py-1 text-sm font-mono bg-white"
+                className="flex-1 rounded-lg border-2 border-gray-300 px-2 py-1.5 text-sm font-mono bg-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                 value={minStock}
                 onChange={(e) => setMinStock(e.target.value)}
                 dir="ltr"
@@ -393,7 +393,7 @@ export function ProductEditorModal({
             {/* التصنيف */}
             <label className="text-sm flex items-center justify-end gap-2">
               <select
-                className="flex-1 border border-[#808080] px-2 py-1 text-sm bg-white"
+                className="flex-1 rounded-lg border-2 border-gray-300 px-2 py-1.5 text-sm bg-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                 value={newCategoryOpen ? NEW_CATEGORY_VALUE : categoryId}
                 onChange={(e) => {
                   const v = e.target.value
@@ -423,7 +423,7 @@ export function ProductEditorModal({
             <label className="text-sm flex items-center justify-end gap-2">
               <input
                 type="date"
-                className="flex-1 border border-[#808080] px-2 py-1 text-sm font-mono bg-white"
+                className="flex-1 rounded-lg border-2 border-gray-300 px-2 py-1.5 text-sm font-mono bg-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                 value={expiryDate}
                 onChange={(e) => setExpiryDate(e.target.value)}
               />
@@ -433,7 +433,7 @@ export function ProductEditorModal({
             {/* المورد */}
             <label className="text-sm flex items-center justify-end gap-2">
               <select
-                className="flex-1 border border-[#808080] px-2 py-1 text-sm bg-white"
+                className="flex-1 rounded-lg border-2 border-gray-300 px-2 py-1.5 text-sm bg-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
               >
                 <option value="">الرئيسي</option>
               </select>
@@ -453,7 +453,7 @@ export function ProductEditorModal({
             {isWeighted && (
               <label className="text-sm flex items-center justify-end gap-2">
                 <input
-                  className="flex-1 border border-[#808080] px-2 py-1 text-sm font-mono bg-white"
+                  className="flex-1 rounded-lg border-2 border-gray-300 px-2 py-1.5 text-sm font-mono bg-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                   placeholder="21"
                   value={weightPrefix}
                   onChange={(e) => setWeightPrefix(e.target.value)}
@@ -477,7 +477,7 @@ export function ProductEditorModal({
                 <span className="font-bold mb-1 block">اسم التصنيف الجديد:</span>
                 <input
                   ref={newCategoryInputRef}
-                  className="w-full border border-[#808080] px-2 py-1 text-sm"
+                  className="w-full rounded-lg border-2 border-gray-300 px-2 py-1.5 text-sm shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                   placeholder="مثال: منظفات"
                   value={newCategoryName}
                   onChange={(e) => setNewCategoryName(e.target.value)}
@@ -496,7 +496,7 @@ export function ProductEditorModal({
                 <button
                   type="button"
                   disabled={creatingCategory}
-                  className="border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] px-3 py-1 text-xs font-bold text-black hover:from-[#b8ddf8] disabled:opacity-60"
+                  className="rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 px-3 py-1 text-xs font-bold text-white shadow-md hover:shadow-lg hover:from-blue-600 hover:to-blue-700 transition-all disabled:opacity-60"
                   onClick={() => void submitNewCategory()}
                 >
                   {creatingCategory ? 'جاري…' : 'إنشاء'}
@@ -522,11 +522,11 @@ export function ProductEditorModal({
           
           {/* قسم الباركودات البديلة (المواد البديلة) */}
           <div ref={barcodesRef} className="scroll-mt-4 space-y-2 rounded-xl border border-gray-200 bg-white p-3">
-            <div className="flex items-center justify-between border-b-2 border-[#808080] pb-2">
+            <div className="flex items-center justify-between border-b-2 border-gray-200 pb-2">
               <div className="font-bold text-[#1a1a1a]">المواد البديلة (أنواع المنتج)</div>
               <button
                 type="button"
-                className="border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] px-3 py-1 text-xs font-bold text-black hover:from-[#b8ddf8]"
+                className="rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 px-3 py-1 text-xs font-bold text-white shadow-md hover:shadow-lg hover:from-blue-600 hover:to-blue-700 transition-all"
                 onClick={() => setBars((b) => [...b, { barcode: '', variantName: '', isDefault: b.length === 0 }])}
               >
                 + إضافة نوع
@@ -538,11 +538,11 @@ export function ProductEditorModal({
               <p className="mt-1"><strong>مثال:</strong> دخان ونستون - أحمر، أزرق، سلفر، ون - كلهم نفس المنتج لكن باركودات مختلفة.</p>
             </div>
             {bars.map((b, idx) => (
-              <div key={idx} className="grid grid-cols-12 gap-2 items-center bg-[#f5f5f5] p-2 border border-[#c0c0c0]">
+              <div key={idx} className="grid grid-cols-12 gap-2 items-center rounded-lg bg-gray-50 p-2 border border-gray-200">
                 <div className="col-span-5">
                   <label className="text-xs block mb-1 font-bold">الباركود:</label>
                   <input
-                    className="w-full border border-[#808080] px-2 py-1 text-sm font-mono bg-white"
+                    className="w-full rounded-lg border-2 border-gray-300 px-2 py-1.5 text-sm font-mono bg-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                     value={b.barcode}
                     onChange={(e) =>
                       setBars((rows) => rows.map((r, i) => (i === idx ? { ...r, barcode: e.target.value } : r)))
@@ -553,7 +553,7 @@ export function ProductEditorModal({
                 <div className="col-span-5">
                   <label className="text-xs block mb-1 font-bold">اسم النوع (أحمر، أزرق...):</label>
                   <input
-                    className="w-full border border-[#808080] px-2 py-1 text-sm bg-white"
+                    className="w-full rounded-lg border-2 border-gray-300 px-2 py-1.5 text-sm bg-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                     value={b.variantName}
                     onChange={(e) =>
                       setBars((rows) => rows.map((r, i) => (i === idx ? { ...r, variantName: e.target.value } : r)))
@@ -575,7 +575,7 @@ export function ProductEditorModal({
                   <label className="text-xs block mb-1 font-bold">&nbsp;</label>
                   <button
                     type="button"
-                    className="border border-[#8b0000] bg-gradient-to-b from-[#ffb3b3] to-[#ff4444] px-2 py-1 text-xs font-bold text-black hover:from-[#ffc0c0]"
+                    className="rounded-lg bg-gradient-to-br from-red-500 to-red-600 px-2 py-1 text-xs font-semibold text-white shadow-sm hover:shadow-md transition-all active:scale-95"
                     onClick={() => setBars((rows) => rows.filter((_, i) => i !== idx))}
                   >
                     حذف
@@ -595,7 +595,7 @@ export function ProductEditorModal({
         <div className="flex flex-col gap-2 w-32">
           <button
             type="button"
-            className="border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] px-3 py-2 text-xs font-bold text-black hover:from-[#b8ddf8]"
+            className="rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 px-3 py-2 text-xs font-bold text-white shadow-md hover:shadow-lg hover:from-blue-600 hover:to-blue-700 transition-all"
             onClick={() => {
               setNewCategoryOpen(!newCategoryOpen)
             }}
@@ -604,7 +604,7 @@ export function ProductEditorModal({
           </button>
           <button
             type="button"
-            className="border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] px-3 py-2 text-xs font-bold text-black hover:from-[#b8ddf8]"
+            className="rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 px-3 py-2 text-xs font-bold text-white shadow-md hover:shadow-lg hover:from-blue-600 hover:to-blue-700 transition-all"
             onClick={() => {
               window.location.hash = '#/suppliers'
             }}
@@ -613,7 +613,7 @@ export function ProductEditorModal({
           </button>
           <button
             type="button"
-            className="border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] px-3 py-2 text-xs font-bold text-black hover:from-[#b8ddf8]"
+            className="rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 px-3 py-2 text-xs font-bold text-white shadow-md hover:shadow-lg hover:from-blue-600 hover:to-blue-700 transition-all"
             onClick={() => {
               window.location.hash = '#/inventory/products'
             }}
@@ -622,7 +622,7 @@ export function ProductEditorModal({
           </button>
           <button
             type="button"
-            className="border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] px-3 py-2 text-xs font-bold text-black hover:from-[#b8ddf8]"
+            className="rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 px-3 py-2 text-xs font-bold text-white shadow-md hover:shadow-lg hover:from-blue-600 hover:to-blue-700 transition-all"
             onClick={() => {
               barcodesRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
             }}
@@ -631,14 +631,14 @@ export function ProductEditorModal({
           </button>
           <button
             type="button"
-            className="border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] px-3 py-2 text-xs font-bold text-black hover:from-[#b8ddf8]"
+            className="rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 px-3 py-2 text-xs font-bold text-white shadow-md hover:shadow-lg hover:from-blue-600 hover:to-blue-700 transition-all"
             onClick={() => setPackagingOpen(true)}
           >
             الوحدات الكبرى
           </button>
           <button
             type="button"
-            className="border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] px-3 py-2 text-xs font-bold text-black hover:from-[#b8ddf8]"
+            className="rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 px-3 py-2 text-xs font-bold text-white shadow-md hover:shadow-lg hover:from-blue-600 hover:to-blue-700 transition-all"
             onClick={() => setOffersOpen(true)}
           >
             العروض
@@ -649,14 +649,14 @@ export function ProductEditorModal({
       {/* منطقة الحفظ */}
       <div className="mt-3 space-y-2">
         {err && (
-          <div className="border border-[#8b0000] bg-[#ffe0e0] px-3 py-2 text-sm text-[#8b0000] font-bold">
+          <div className="rounded-lg border-2 border-red-300 bg-red-50 px-3 py-2 text-sm text-red-700 font-bold">
             {err}
           </div>
         )}
         {beforeSaveActions}
         <button
           type="button"
-          className="w-32 border border-[#1a4480] bg-gradient-to-b from-[#a8d4fa] to-[#3d84c6] px-4 py-2 text-sm font-bold text-black hover:from-[#b8ddf8] shadow"
+          className="rounded-lg bg-gradient-to-br from-green-500 to-green-600 px-6 py-2 text-sm font-bold text-white shadow-md hover:shadow-lg hover:from-green-600 hover:to-green-700 transition-all active:scale-95"
           onClick={() => void save()}
         >
           حفظ
@@ -796,7 +796,7 @@ export function ProductEditorModal({
                 <div>
                   <label className="text-sm font-bold mb-1 block">نوع العرض:</label>
                   <select
-                    className="w-full border border-[#808080] px-2 py-1.5 text-sm bg-white"
+                    className="w-full rounded-lg border-2 border-gray-300 px-2 py-1.5 text-sm bg-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                     value={offerType}
                     onChange={(e) => setOfferType(e.target.value as any)}
                   >
@@ -816,7 +816,7 @@ export function ProductEditorModal({
                   <input
                     type="number"
                     step={offerType === 'discount' ? '1' : '0.01'}
-                    className="w-full border border-[#808080] px-2 py-1.5 text-sm font-mono bg-white"
+                    className="w-full rounded-lg border-2 border-gray-300 px-2 py-1.5 text-sm font-mono bg-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                     value={offerValue}
                     onChange={(e) => setOfferValue(e.target.value)}
                     placeholder={offerType === 'discount' ? '20' : offerType === 'bogo' ? '2' : '10.00'}
@@ -827,7 +827,7 @@ export function ProductEditorModal({
                   <label className="text-sm font-bold mb-1 block">تاريخ البداية:</label>
                   <input
                     type="date"
-                    className="w-full border border-[#808080] px-2 py-1.5 text-sm font-mono bg-white"
+                    className="w-full rounded-lg border-2 border-gray-300 px-2 py-1.5 text-sm font-mono bg-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                     value={offerStartDate}
                     onChange={(e) => setOfferStartDate(e.target.value)}
                   />
@@ -837,7 +837,7 @@ export function ProductEditorModal({
                   <label className="text-sm font-bold mb-1 block">تاريخ النهاية:</label>
                   <input
                     type="date"
-                    className="w-full border border-[#808080] px-2 py-1.5 text-sm font-mono bg-white"
+                    className="w-full rounded-lg border-2 border-gray-300 px-2 py-1.5 text-sm font-mono bg-white shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                     value={offerEndDate}
                     onChange={(e) => setOfferEndDate(e.target.value)}
                   />
