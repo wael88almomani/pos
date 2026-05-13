@@ -14,13 +14,13 @@ import {
 } from '../../shared/EnterpriseToolbar'
 
 const MOVE_LABELS: Record<string, string> = {
-  stock_in: 'Ø¥Ø¯Ø®Ø§Ù„ Ù…Ø®Ø²ÙˆÙ†',
-  stock_out: 'Ø¥Ø®Ø±Ø§Ø¬ Ù…Ø®Ø²ÙˆÙ†',
-  adjustment: 'ØªØ¹Ø¯ÙŠÙ„',
-  damage: 'ØªÙ„Ù',
-  waste: 'Ù‡Ø§Ù„Ùƒ',
-  sale: 'Ø¨ÙŠØ¹',
-  purchase: 'Ù…Ø´ØªØ±ÙŠØ§Øª'
+  stock_in: 'إدخال مخزون',
+  stock_out: 'إخراج مخزون',
+  adjustment: 'تعديل',
+  damage: 'تلف',
+  waste: 'هالك',
+  sale: 'بيع',
+  purchase: 'مشتريات'
 }
 
 type LowRow = { id: string; name: string; quantity: number; minStock: number }
@@ -143,7 +143,7 @@ export function InventoryPage() {
 
   async function apply() {
     if (!picked) {
-      toast('Ø§Ø®ØªØ± Ù…Ù†ØªØ¬Ø§Ù‹ Ù…Ù† Ø§Ù„Ù‚Ø§Ø¦Ù…Ø©', 'err')
+      toast('اختر منتجاً من القائمة', 'err')
       return
     }
     const r = await window.posApi.inventory.applyMove({
@@ -154,7 +154,7 @@ export function InventoryPage() {
       unitCost: unitCost ? Number(unitCost) : undefined
     })
     if (r.ok) {
-      toast('ØªÙ… ØªØ­Ø¯ÙŠØ« Ø§Ù„Ù…Ø®Ø²ÙˆÙ†')
+      toast('تم تحديث المخزون')
       setMoveOpen(false)
       setPicked(null)
       setQty('1')
@@ -164,8 +164,8 @@ export function InventoryPage() {
     } else {
       const code = (r as { code?: string }).code
       if (code === 'NEGATIVE_STOCK' || (r as { error?: string }).error === 'NEGATIVE_STOCK')
-        toast('Ø§Ù„ÙƒÙ…ÙŠØ© ØºÙŠØ± ÙƒØ§ÙÙŠØ© ÙÙŠ Ø§Ù„Ù…Ø®Ø²ÙˆÙ†', 'err')
-      else toast('ÙØ´Ù„ Ø§Ù„Ø­Ø±ÙƒØ©', 'err')
+        toast('الكمية غير كافية في المخزون', 'err')
+      else toast('فشل الحركة', 'err')
     }
   }
 
@@ -207,7 +207,7 @@ export function InventoryPage() {
   return (
     <div className={`${enterprisePageRootClass} page-microtype inventory-microtype`}>
       <EnterpriseToolbar
-        title="Ø§Ù„Ù…Ø³ØªÙˆØ¯Ø¹ ÙˆØ§Ù„Ø­Ø±ÙƒØ§Øª"
+        title="المستودع والحركات"
         actions={
           <Can perm="inventory.write">
             <button
@@ -218,7 +218,7 @@ export function InventoryPage() {
                 setPickerOpen(false)
               }}
             >
-              ØªØ³Ø¬ÙŠÙ„ Ø­Ø±ÙƒØ© Ù…Ø®Ø²ÙˆÙ†
+              تسجيل حركة مخزون
             </button>
           </Can>
         }
@@ -228,15 +228,15 @@ export function InventoryPage() {
         {/* Summary cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="rounded-xl border border-gray-200 bg-gradient-to-br from-red-50 to-red-100 p-4 shadow-lg">
-            <div className="text-xs font-bold text-slate-700 mb-1">Ù…Ù†ØªØ¬Ø§Øª ØªØ­Øª Ø§Ù„Ø­Ø¯ Ø§Ù„Ø£Ø¯Ù†Ù‰</div>
+            <div className="text-xs font-bold text-slate-700 mb-1">منتجات تحت الحد الأدنى</div>
             <div className="text-3xl font-bold font-mono text-red-600">{low.length}</div>
           </div>
           <div className="rounded-xl border border-gray-200 bg-gradient-to-br from-blue-50 to-blue-100 p-4 shadow-lg">
-            <div className="text-xs font-bold text-slate-700 mb-1">Ø­Ø±ÙƒØ§Øª Ø§Ù„ÙŠÙˆÙ…</div>
+            <div className="text-xs font-bold text-slate-700 mb-1">حركات اليوم</div>
             <div className="text-3xl font-bold font-mono text-blue-600">{moves.length}</div>
           </div>
           <div className="rounded-xl border border-gray-200 bg-gradient-to-br from-orange-50 to-orange-100 p-4 shadow-lg">
-            <div className="text-xs font-bold text-slate-700 mb-1">Ù…Ù†ØªØ¬Ø§Øª Ù‚Ø±ÙŠØ¨Ø©/Ù…Ù†ØªÙ‡ÙŠØ© Ø§Ù„ØµÙ„Ø§Ø­ÙŠØ©</div>
+            <div className="text-xs font-bold text-slate-700 mb-1">منتجات قريبة/منتهية الصلاحية</div>
             <div className="text-3xl font-bold font-mono text-orange-600">{nearExpiry}</div>
           </div>
         </div>
@@ -252,7 +252,7 @@ export function InventoryPage() {
                   : 'text-slate-700 hover:bg-white/50'
               }`}
             >
-              ØªÙ†Ø¨ÙŠÙ‡Ø§Øª Ø§Ù„Ø­Ø¯ Ø§Ù„Ø£Ø¯Ù†Ù‰ ({low.length})
+              تنبيهات الحد الأدنى ({low.length})
             </button>
             <button
               onClick={() => setActiveTab('moves')}
@@ -262,7 +262,7 @@ export function InventoryPage() {
                   : 'text-slate-700 hover:bg-white/50'
               }`}
             >
-              Ø¢Ø®Ø± Ø§Ù„Ø­Ø±ÙƒØ§Øª ({moves.length})
+              آخر الحركات ({moves.length})
             </button>
             <button
               onClick={() => setActiveTab('expiry')}
@@ -272,7 +272,7 @@ export function InventoryPage() {
                   : 'text-slate-700 hover:bg-white/50'
               }`}
             >
-              ØªÙ‚Ø±ÙŠØ± Ø§Ù„ØµÙ„Ø§Ø­ÙŠØ©
+              تقرير الصلاحية
             </button>
           </div>
 
@@ -282,10 +282,10 @@ export function InventoryPage() {
                 <table className="w-full text-sm border-collapse">
                   <thead>
                     <tr className="border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
-                      <th className="border-l border-gray-200 p-3 text-right font-bold text-slate-700">Ø§Ù„Ù…Ù†ØªØ¬</th>
-                      <th className="border-l border-gray-200 p-3 text-center font-bold text-slate-700">Ø§Ù„Ù…ØªÙˆÙØ±</th>
-                      <th className="border-l border-gray-200 p-3 text-center font-bold text-slate-700">Ø§Ù„Ø­Ø¯ Ø§Ù„Ø£Ø¯Ù†Ù‰</th>
-                      <th className="border-l border-gray-200 p-3 text-center font-bold text-slate-700">Ø¥Ø¬Ø±Ø§Ø¡Ø§Øª</th>
+                      <th className="border-l border-gray-200 p-3 text-right font-bold text-slate-700">المنتج</th>
+                      <th className="border-l border-gray-200 p-3 text-center font-bold text-slate-700">المتوفر</th>
+                      <th className="border-l border-gray-200 p-3 text-center font-bold text-slate-700">الحد الأدنى</th>
+                      <th className="border-l border-gray-200 p-3 text-center font-bold text-slate-700">إجراءات</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -301,7 +301,8 @@ export function InventoryPage() {
                             onClick={() => void openProductCard(p.id)}
                             className="rounded-lg border-2 border-gray-300 bg-white px-3 py-1 text-xs font-semibold text-slate-700 hover:bg-gray-50 hover:shadow-md transition-all"
                           >
-                            Ø¹Ø±Ø¶ Ø§Ù„ØªÙØ§ØµÙŠÙ„
+                            عرض التفاصيل
+                          </button>
                           </button>
                         </td>
                       </tr>
@@ -309,7 +310,7 @@ export function InventoryPage() {
                     {low.length === 0 && (
                       <tr>
                         <td colSpan={4} className="border-l border-gray-100 p-8 text-center text-slate-500">
-                          âœ“ Ø¬Ù…ÙŠØ¹ Ø§Ù„Ù…Ù†ØªØ¬Ø§Øª ÙÙˆÙ‚ Ø§Ù„Ø­Ø¯ Ø§Ù„Ø£Ø¯Ù†Ù‰
+                          ✓ جميع المنتجات فوق الحد الأدنى
                         </td>
                       </tr>
                     )}
@@ -323,11 +324,11 @@ export function InventoryPage() {
                 <table className="w-full text-sm border-collapse">
                   <thead>
                     <tr className="border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
-                      <th className="border-l border-gray-200 p-3 text-right font-bold text-slate-700">Ø§Ù„Ù†ÙˆØ¹</th>
-                      <th className="border-l border-gray-200 p-3 text-right font-bold text-slate-700">Ø§Ù„Ù…Ù†ØªØ¬</th>
-                      <th className="border-l border-gray-200 p-3 text-center font-bold text-slate-700">Ø§Ù„ÙƒÙ…ÙŠØ©</th>
-                      <th className="border-l border-gray-200 p-3 text-right font-bold text-slate-700">Ø§Ù„Ù…Ø±Ø¬Ø¹</th>
-                      <th className="border-l border-gray-200 p-3 text-center font-bold text-slate-700">Ø§Ù„ØªØ§Ø±ÙŠØ®</th>
+                      <th className="border-l border-gray-200 p-3 text-right font-bold text-slate-700">النوع</th>
+                      <th className="border-l border-gray-200 p-3 text-right font-bold text-slate-700">المنتج</th>
+                      <th className="border-l border-gray-200 p-3 text-center font-bold text-slate-700">الكمية</th>
+                      <th className="border-l border-gray-200 p-3 text-right font-bold text-slate-700">المرجع</th>
+                      <th className="border-l border-gray-200 p-3 text-center font-bold text-slate-700">التاريخ</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -361,7 +362,7 @@ export function InventoryPage() {
                     {moves.length === 0 && (
                       <tr>
                         <td colSpan={5} className="border-l border-gray-100 p-8 text-center text-slate-500">
-                          Ù„Ø§ ØªÙˆØ¬Ø¯ Ø­Ø±ÙƒØ§Øª Ù…Ø³Ø¬Ù„Ø©
+                          لا توجد حركات مسجلة
                         </td>
                       </tr>
                     )}
@@ -374,13 +375,13 @@ export function InventoryPage() {
               <>
                 <div className="mb-4 flex flex-wrap gap-3 items-end">
                   <label className="text-sm space-y-1">
-                    <span className="font-bold text-slate-700">Ø§Ù„ØªØµÙ†ÙŠÙ</span>
+                    <span className="font-bold text-slate-700">التصنيف</span>
                     <select
                       className="block h-9 rounded-lg border border-gray-300 px-3 py-2 bg-white min-w-[12rem] shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                       value={stockCategoryFilter}
                       onChange={(e) => setStockCategoryFilter(e.target.value)}
                     >
-                      <option value="">Ø§Ù„ÙƒÙ„</option>
+                      <option value="">الكل</option>
                       {categories.map((c) => (
                         <option key={c.id} value={c.id}>
                           {c.name}
@@ -389,17 +390,17 @@ export function InventoryPage() {
                     </select>
                   </label>
                   <label className="text-sm space-y-1">
-                    <span className="font-bold text-slate-700">Ø­Ø§Ù„Ø© Ø§Ù„ØµÙ„Ø§Ø­ÙŠØ©</span>
+                    <span className="font-bold text-slate-700">حالة الصلاحية</span>
                     <select
                       className="block h-9 rounded-lg border border-gray-300 px-3 py-2 bg-white min-w-[12rem] shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
                       value={expiryFilter}
                       onChange={(e) => setExpiryFilter(e.target.value as ExpiryStatus)}
                     >
-                      <option value="all">Ø§Ù„ÙƒÙ„</option>
-                      <option value="expired">Ù…Ù†ØªÙ‡ÙŠ</option>
-                      <option value="near">Ù‚Ø±ÙŠØ¨ Ø§Ù„Ø§Ù†ØªÙ‡Ø§Ø¡ (30 ÙŠÙˆÙ…)</option>
-                      <option value="ok">Ø³Ø§Ø±ÙŠ</option>
-                      <option value="none">Ø¨Ø¯ÙˆÙ† ØªØ§Ø±ÙŠØ® ØµÙ„Ø§Ø­ÙŠØ©</option>
+                      <option value="all">الكل</option>
+                      <option value="expired">منتهي</option>
+                      <option value="near">قريب الانتهاء (30 يوم)</option>
+                      <option value="ok">ساري</option>
+                      <option value="none">بدون تاريخ صلاحية</option>
                     </select>
                   </label>
                 </div>
@@ -407,12 +408,12 @@ export function InventoryPage() {
                   <table className="w-full text-sm border-collapse">
                     <thead>
                       <tr className="border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
-                        <th className="border-l border-gray-200 p-3 text-right font-bold text-slate-700">Ø§Ù„Ù…Ù†ØªØ¬</th>
-                        <th className="border-l border-gray-200 p-3 text-right font-bold text-slate-700">Ø§Ù„ØªØµÙ†ÙŠÙ</th>
-                        <th className="border-l border-gray-200 p-3 text-center font-bold text-slate-700">Ø§Ù„ÙƒÙ…ÙŠØ©</th>
-                        <th className="border-l border-gray-200 p-3 text-center font-bold text-slate-700">Ø§Ù„Ø­Ø¯ Ø§Ù„Ø£Ø¯Ù†Ù‰</th>
-                        <th className="border-l border-gray-200 p-3 text-center font-bold text-slate-700">ØªØ§Ø±ÙŠØ® Ø§Ù„ØµÙ„Ø§Ø­ÙŠØ©</th>
-                        <th className="border-l border-gray-200 p-3 text-center font-bold text-slate-700">Ø§Ù„Ø­Ø§Ù„Ø©</th>
+                        <th className="border-l border-gray-200 p-3 text-right font-bold text-slate-700">المنتج</th>
+                        <th className="border-l border-gray-200 p-3 text-right font-bold text-slate-700">التصنيف</th>
+                        <th className="border-l border-gray-200 p-3 text-center font-bold text-slate-700">الكمية</th>
+                        <th className="border-l border-gray-200 p-3 text-center font-bold text-slate-700">الحد الأدنى</th>
+                        <th className="border-l border-gray-200 p-3 text-center font-bold text-slate-700">تاريخ الصلاحية</th>
+                        <th className="border-l border-gray-200 p-3 text-center font-bold text-slate-700">الحالة</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -426,12 +427,12 @@ export function InventoryPage() {
                               : ''
                         const statusLabel =
                           st === 'expired'
-                            ? 'Ù…Ù†ØªÙ‡ÙŠ âŒ'
+                            ? 'منتهي ❌'
                             : st === 'near'
-                              ? 'Ù‚Ø±ÙŠØ¨ Ø§Ù„Ø§Ù†ØªÙ‡Ø§Ø¡ âš ï¸'
+                              ? 'قريب الانتهاء ⚠️'
                               : st === 'ok'
-                                ? 'Ø³Ø§Ø±ÙŠ âœ“'
-                                : 'Ø¨Ø¯ÙˆÙ† ØªØ§Ø±ÙŠØ®'
+                                ? 'ساري ✓'
+                                : 'بدون تاريخ'
                         return (
                           <tr
                             key={m.id}
@@ -456,7 +457,7 @@ export function InventoryPage() {
                       {filteredStockRows.length === 0 && (
                         <tr>
                           <td colSpan={6} className="border-l border-gray-100 p-8 text-center text-slate-500">
-                            Ù„Ø§ ØªÙˆØ¬Ø¯ Ù…Ù†ØªØ¬Ø§Øª Ù…Ø·Ø§Ø¨Ù‚Ø© Ù„Ù„ØªØµÙÙŠØ©
+                            لا توجد منتجات مطابقة للتصنيف
                           </td>
                         </tr>
                       )}
@@ -466,8 +467,8 @@ export function InventoryPage() {
                   {loading && (
                     <div className="absolute inset-0 flex items-center justify-center bg-white/80">
                       <div className="text-center">
-                        <div className="mb-2 text-2xl">â³</div>
-                        <div className="font-bold text-slate-700">Ø¬Ø§Ø±ÙŠ Ø§Ù„ØªØ­Ù…ÙŠÙ„...</div>
+                        <div className="mb-2 text-2xl">⏳</div>
+                        <div className="font-bold text-slate-700">جاري التحميل...</div>
                       </div>
                     </div>
                   )}
@@ -482,10 +483,10 @@ export function InventoryPage() {
                     className="flex items-center gap-1 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 px-3 py-1.5 text-xs font-semibold text-white shadow-md hover:shadow-lg hover:from-blue-600 hover:to-blue-700 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                   >
                     <ChevronRight className="h-3 w-3" />
-                    Ø§Ù„Ø³Ø§Ø¨Ù‚
+                    السابق
                   </button>
                   <span className="font-mono text-sm font-bold text-slate-700">
-                    ØµÙØ­Ø© {page} Ù…Ù† {totalPages} ({totalCount} Ù…Ù†ØªØ¬)
+                    صفحة {page} من {totalPages} ({totalCount} منتج)
                   </span>
                   <button
                     type="button"
@@ -493,7 +494,7 @@ export function InventoryPage() {
                     disabled={page >= totalPages || loading}
                     className="flex items-center gap-1 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 px-3 py-1.5 text-xs font-semibold text-white shadow-md hover:shadow-lg hover:from-blue-600 hover:to-blue-700 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                   >
-                    Ø§Ù„ØªØ§Ù„ÙŠ
+                    التالي
                     <ChevronLeft className="h-3 w-3" />
                   </button>
                 </div>
